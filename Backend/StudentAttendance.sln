@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAttendance.Api", "StudentAttendance.Api\StudentAttendance.Api.csproj", "{2B18C2F0-33A5-4EDA-B0AC-89F4E719E395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAttendance.Core", "StudentAttendance.Core\StudentAttendance.Core.csproj", "{7DAA7A73-9D09-45E0-909F-7FCAAC3D8082}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentAttendance.Data", "StudentAttendance.Data\StudentAttendance.Data.csproj", "{4E56088E-FFAD-430C-AB1E-6B4F4FD3F0E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B18C2F0-33A5-4EDA-B0AC-89F4E719E395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B18C2F0-33A5-4EDA-B0AC-89F4E719E395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B18C2F0-33A5-4EDA-B0AC-89F4E719E395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B18C2F0-33A5-4EDA-B0AC-89F4E719E395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DAA7A73-9D09-45E0-909F-7FCAAC3D8082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DAA7A73-9D09-45E0-909F-7FCAAC3D8082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DAA7A73-9D09-45E0-909F-7FCAAC3D8082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DAA7A73-9D09-45E0-909F-7FCAAC3D8082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E56088E-FFAD-430C-AB1E-6B4F4FD3F0E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E56088E-FFAD-430C-AB1E-6B4F4FD3F0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E56088E-FFAD-430C-AB1E-6B4F4FD3F0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E56088E-FFAD-430C-AB1E-6B4F4FD3F0E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
