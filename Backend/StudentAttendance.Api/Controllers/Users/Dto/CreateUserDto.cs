@@ -2,7 +2,7 @@
 
 namespace StudentAttendance.Api.Controllers.Users.Dto;
 
-public class UserDto
+public class CreateUserDto
 {
     [Required]
     [EmailAddress]

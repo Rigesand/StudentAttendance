@@ -3,6 +3,7 @@ using StudentAttendance.Data.Entities.Attendances;
 using StudentAttendance.Data.Entities.Groups;
 using StudentAttendance.Data.Entities.Lessons;
 using StudentAttendance.Data.Entities.RefreshTokens;
+using StudentAttendance.Data.Entities.Roles;
 using StudentAttendance.Data.Entities.Students;
 using StudentAttendance.Data.Entities.Users;
 using StudentAttendance.Data.Entities.VisitedStudents;
@@ -28,4 +29,5 @@ public class StudentAttendanceDbContext : DbContext
     public DbSet<StudentDbModel> Students { get; set; } = null!;
     public DbSet<RefreshTokenDbModel> RefreshTokens { get; set; } = null!;
     public DbSet<UserDbModel> Users { get; set; } = null!;
+    public DbSet<RoleDbModel> Roles { get; set; } = null!;
 }

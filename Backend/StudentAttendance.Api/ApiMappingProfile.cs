@@ -21,10 +21,21 @@ public class ApiMappingProfile : Profile
             .ReverseMap();
 
         CreateMap<VisitedStudentDto, VisitedStudent>().ReverseMap();
-        CreateMap<UserDto, User>().ReverseMap();
+
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.Role,
+                opt => opt.MapFrom(it => it.RoleName));
+
+        CreateMap<CreateUserDto, User>()
+            .ForMember(dest => dest.UserName,
+                opt => opt
+                    .MapFrom(it => it.Email))
+            .ForMember(dest => dest.Role,
+                opt => opt.Ignore());
+
         CreateMap<TokenRequestDto, JwtTokens>().ReverseMap();
 
-        CreateMap<AuthResponse, JwtTokens>()
+        CreateMap<Response, JwtTokens>()
             .ForMember(dest => dest.Errors,
                 opt => opt
                     .MapFrom(it => it.Errors))

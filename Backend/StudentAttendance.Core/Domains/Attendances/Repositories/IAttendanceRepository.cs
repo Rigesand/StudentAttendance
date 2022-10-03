@@ -2,5 +2,5 @@
 
 public interface IAttendanceRepository
 {
-    Task<int> AddAttendance(Attendance attendance);
+    Task<Guid> AddAttendance(Attendance attendance);
 }

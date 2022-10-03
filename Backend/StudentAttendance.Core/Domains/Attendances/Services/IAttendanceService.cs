@@ -2,5 +2,5 @@
 
 public interface IAttendanceService
 {
-    Task<int> AddAttendance(Attendance attendance);
+    Task<Guid> AddAttendance(Attendance attendance);
 }

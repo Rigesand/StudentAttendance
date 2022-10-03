@@ -20,7 +20,6 @@ public class RefreshTokenRepository : IRefreshTokenRepository
     {
         var refreshTokenDb = _mapper.Map<RefreshToken, RefreshTokenDbModel>(refreshToken);
         await _context.RefreshTokens.AddAsync(refreshTokenDb);
-        await _context.SaveChangesAsync();
     }
 
     public async Task<RefreshToken> IsExists(string refreshToken)
@@ -35,20 +34,21 @@ public class RefreshTokenRepository : IRefreshTokenRepository
         return refreshTokenCore;
     }
 
-    public async Task<int> GenerateToken(RefreshToken refreshToken)
+    public async Task GenerateToken(RefreshToken refreshToken)
     {
-        var result = await _context.RefreshTokens.FirstOrDefaultAsync(it => it.UserId == refreshToken.UserId);
-        if (result == null)
+        var refreshTokenDb = await _context.RefreshTokens
+            .FirstOrDefaultAsync(it => it.UserId == refreshToken.UserId);
+
+        if (refreshTokenDb == null)
         {
             await AddRefreshToken(refreshToken);
-            return 0;
+            return;
         }
 
-        result.Token = refreshToken.Token;
-        result.AddedDate = refreshToken.AddedDate;
-        result.ExpiryDate = refreshToken.ExpiryDate;
+        refreshTokenDb.Token = refreshToken.Token;
+        refreshTokenDb.AddedDate = refreshToken.AddedDate;
+        refreshTokenDb.ExpiryDate = refreshToken.ExpiryDate;
 
-        await _context.SaveChangesAsync();
-        return 0;
+        _context.RefreshTokens.Update(refreshTokenDb);
     }
 }

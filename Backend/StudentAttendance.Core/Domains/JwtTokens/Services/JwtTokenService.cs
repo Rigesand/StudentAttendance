@@ -1,9 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StudentAttendance.Core.Domains.RefreshTokens;
 using StudentAttendance.Core.Domains.RefreshTokens.Services;
+using StudentAttendance.Core.Domains.Roles.Services;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.Users.Services;
 
@@ -13,17 +15,28 @@ public class JwtTokenService : IJwtTokenService
 {
     private readonly IRefreshTokenService _refreshTokenService;
     private readonly IUserService _userService;
+    private readonly IRoleService _roleService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly string _secret;
 
-    public JwtTokenService(IRefreshTokenService refreshTokenService, IUserService userService)
+    public JwtTokenService(
+        IRefreshTokenService refreshTokenService,
+        IUserService userService,
+        IConfiguration configuration,
+        IRoleService roleService, IUnitOfWork unitOfWork)
     {
         _refreshTokenService = refreshTokenService;
         _userService = userService;
+        _roleService = roleService;
+        _unitOfWork = unitOfWork;
+        _secret = configuration["SecretSettings:Secret"];
     }
 
-    public async Task<JwtTokens> GenerateJwtToken(User? user, string secret)
+    public async Task<JwtTokens> GenerateJwtToken(User? user)
     {
         var jwtTokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(secret);
+        var key = Encoding.ASCII.GetBytes(_secret);
+        var role = await _roleService.GetRole(user);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -32,7 +45,8 @@ public class JwtTokenService : IJwtTokenService
                 new Claim("Id", user!.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, role.Name)
             }),
             Expires = DateTime.UtcNow.AddMinutes(7),
             SigningCredentials =
@@ -53,8 +67,8 @@ public class JwtTokenService : IJwtTokenService
             Token = RandomString(35) + Guid.NewGuid()
         };
 
-        await _refreshTokenService.Update(newRefreshToken);
-
+        await _refreshTokenService.SaveToken(newRefreshToken);
+        await _unitOfWork.SaveChanges();
         return new JwtTokens
         {
             Token = jwtToken,
@@ -66,14 +80,14 @@ public class JwtTokenService : IJwtTokenService
 
     public async Task<JwtTokens> VerifyAndGenerateToken(
         JwtTokens jwtTokens,
-        TokenValidationParameters tokenValidationParams,
-        string secret)
+        TokenValidationParameters tokenValidationParams)
     {
         var jwtTokenHandler = new JwtSecurityTokenHandler();
         try
         {
             var tokenInVerification =
                 jwtTokenHandler.ValidateToken(jwtTokens.Token, tokenValidationParams, out var validatedToken);
+
             if (validatedToken is JwtSecurityToken jwtSecurityToken)
             {
                 var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
@@ -154,11 +168,14 @@ public class JwtTokenService : IJwtTokenService
             }
 
             storedToken.IsUsed = true;
-            await _refreshTokenService.Update(storedToken);
+            await _refreshTokenService.SaveToken(storedToken);
 
             var dbUser = await _userService.FindByIdAsync(storedToken.UserId!);
 
-            var tokens = await GenerateJwtToken(dbUser, secret);
+            var tokens = await GenerateJwtToken(dbUser);
+
+            await _unitOfWork.SaveChanges();
+
             return new JwtTokens
             {
                 Success = true,
@@ -166,7 +183,7 @@ public class JwtTokenService : IJwtTokenService
                 RefreshToken = tokens.RefreshToken
             };
         }
-        catch (Exception)
+        catch (System.Exception ex)
         {
             return null;
         }

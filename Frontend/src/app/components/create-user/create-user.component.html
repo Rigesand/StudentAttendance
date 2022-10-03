@@ -1,10 +1,10 @@
-<div class="mt-8">
+<div class="mt-8 mr-5">
 
   <div class="mt-4">
     <div class="p-6 bg-gray-200 rounded-md shadow-md">
       <h2 class="text-xl font-bold leading-tight text-gray-700">Создать пользователя</h2>
 
-      <form [formGroup]="form" (ngSubmit)="registration()">
+      <form [formGroup]="form" (ngSubmit)="CreateUserAndSendEmail()">
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 w-full overflow-hidden bg-white border rounded-md shadow-md">
           <div class="m-4">
             <label class="text-gray-700">Почта</label>
@@ -14,16 +14,27 @@
               formControlName="email"
             />
           </div>
-
           <div class="m-4">
-            <label class="text-gray-700"
-            >Пароль</label
+            <label class="text-gray-700">Роль</label>
+            <select
+              class="mt-2 relative block w-full appearance-none rounded-l  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-500 focus:outline-none focus:ring-lime-500 sm:text-sm"
+              [(ngModel)]="selectedRole"
+              formControlName="role">
+              <option *ngFor="let role of roles" [ngValue]="role">{{role}}</option>
+            </select>
+            <div
+              class="absolute top-40 right-14 flex items-center px-2 text-gray-700 pointer-events-none"
             >
-            <input
-              class="mt-2 relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-500 focus:outline-none focus:ring-lime-500 sm:text-sm" placeholder="Пароль"
-              type="text"
-              formControlName="password"
-            />
+              <svg
+                class="w-4 h-4 fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -113,21 +124,36 @@
             <th
               class="px-5 py-3 text-xs font-bold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
             >
-              Пользователь
+              Почта
             </th>
             <th
               class="px-5 py-3 text-xs font-bold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
             >
               Роль
             </th>
-            <th
-              class="px-5 py-3 text-xs font-bold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
-            >
-              Дата создания
-            </th>
           </tr>
           </thead>
 
+          <tbody>
+          <tr *ngFor="let user of userService.users; let i=index">
+            <td
+              class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+            >
+              <div class="flex items-center">
+                <div class="ml-3">
+                  <p class="text-gray-900 whitespace-nowrap">
+                    {{ user.email }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td
+              class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+            >
+              <p class="text-gray-900 whitespace-nowrap">{{ user.role}}</p>
+            </td>
+          </tr>
+          </tbody>
         </table>
         <div
           class="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between"

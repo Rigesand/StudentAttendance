@@ -15,12 +15,11 @@ public class AttendanceRepository : IAttendanceRepository
         _context = context;
     }
 
-    public async Task<int> AddAttendance(Attendance attendance)
+    public async Task<Guid> AddAttendance(Attendance attendance)
     {
         var attendanceDb = _mapper.Map<Attendance, AttendanceDbModel>(attendance);
         attendanceDb.Id = Guid.NewGuid();
         await _context.Attendances.AddAsync(attendanceDb);
-        await _context.SaveChangesAsync();
-        return 0;
+        return attendanceDb.Id;
     }
 }

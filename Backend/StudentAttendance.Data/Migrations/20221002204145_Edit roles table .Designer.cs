@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendance.Data;
 
@@ -11,9 +12,10 @@ using StudentAttendance.Data;
 namespace StudentAttendance.Data.Migrations
 {
     [DbContext(typeof(StudentAttendanceDbContext))]
-    partial class StudentAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221002204145_Edit roles table ")]
+    partial class Editrolestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,10 +191,6 @@ namespace StudentAttendance.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -203,8 +201,6 @@ namespace StudentAttendance.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -277,7 +273,7 @@ namespace StudentAttendance.Data.Migrations
                 {
                     b.HasOne("StudentAttendance.Data.Entities.Roles.RoleDbModel", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

@@ -12,7 +12,10 @@ public class UserRepository : IUserRepository
     private readonly StudentAttendanceDbContext _context;
     private readonly IMapper _mapper;
 
-    public UserRepository(UserManager<IdentityUser> userManager, StudentAttendanceDbContext context, IMapper mapper)
+    public UserRepository(
+        UserManager<IdentityUser> userManager,
+        StudentAttendanceDbContext context,
+        IMapper mapper)
     {
         _userManager = userManager;
         _context = context;
@@ -38,13 +41,17 @@ public class UserRepository : IUserRepository
         return result;
     }
 
-    public async Task<bool> CreateAsync(User newUser, string password)
+    public async Task<User> CreateAsync(User newUser, string password, string role)
     {
         var dbUser = _mapper.Map<User, UserDbModel>(newUser);
-        dbUser.PasswordHash = _userManager.PasswordHasher.HashPassword(newUser, password);
+        dbUser.PasswordHash = _userManager.PasswordHasher.HashPassword(dbUser, password);
+
+        var dbRole = await _context.Roles.FirstOrDefaultAsync(it => it.Name == role);
+        dbUser.Role = dbRole;
         await _context.Users.AddAsync(dbUser);
-        await _context.SaveChangesAsync();
-        return true;
+
+        var returnUser = _mapper.Map<UserDbModel, User>(dbUser);
+        return returnUser;
     }
 
     public async Task<User> FindByIdAsync(string id)
@@ -57,5 +64,31 @@ public class UserRepository : IUserRepository
 
         var coreUser = _mapper.Map<UserDbModel, User>(dbUser);
         return coreUser;
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsers()
+    {
+        var users = await _context.Users.Join(
+                _context.Roles,
+                u => u.RoleId,
+                r => r.Id,
+                (user, role) => new
+                {
+                    user.Email,
+                    role.Name
+                })
+            .AsNoTracking()
+            .ToListAsync();
+        var coreUsers = new List<User>();
+        foreach (var user in users)
+        {
+            coreUsers.Add(new User()
+            {
+                Email = user.Email,
+                RoleName = user.Name
+            });
+        }
+
+        return coreUsers;
     }
 }

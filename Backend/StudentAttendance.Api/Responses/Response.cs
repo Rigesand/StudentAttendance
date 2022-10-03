@@ -1,6 +1,6 @@
 ﻿namespace StudentAttendance.Api.Responses;
 
-public class AuthResponse
+public class Response
 {
     public string? Token { get; set; }
     public string? RefreshToken { get; set; }

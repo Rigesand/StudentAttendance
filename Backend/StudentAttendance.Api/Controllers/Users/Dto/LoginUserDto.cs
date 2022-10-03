@@ -2,11 +2,10 @@
 
 namespace StudentAttendance.Api.Controllers.Users.Dto;
 
-public class UserDto
+public class LoginUserDto
 {
     [Required]
     [EmailAddress]
     public string? Email { get; set; }
-    [Required]
-    public string? Role { get; set; }
+    public string? Password { get; set; }
 }

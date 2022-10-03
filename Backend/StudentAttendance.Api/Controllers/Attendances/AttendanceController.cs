@@ -23,7 +23,9 @@ public class AttendanceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<int> AddAttendance([FromBody] AddAttendanceDto attendanceDto)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Guid))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<Guid> AddAttendance([FromBody] AddAttendanceDto attendanceDto)
     {
         var attendance = _mapper.Map<AddAttendanceDto, Attendance>(attendanceDto);
         var id = await _service.AddAttendance(attendance);

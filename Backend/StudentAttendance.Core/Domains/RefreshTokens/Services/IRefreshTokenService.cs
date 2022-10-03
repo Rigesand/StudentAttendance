@@ -3,5 +3,5 @@
 public interface IRefreshTokenService
 {
     public Task<RefreshToken> IsExists(string refreshToken);
-    public Task<int> Update(RefreshToken refreshToken);
+    public Task SaveToken(RefreshToken refreshToken);
 }

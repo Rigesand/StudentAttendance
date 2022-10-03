@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ChiefService} from "../../services/chief.service";
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -10,11 +9,15 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class CreateUserComponent implements OnInit {
 
-  constructor(public chiefService: ChiefService,
-              public userService:UserService) { }
+  constructor(public userService:UserService) { }
+
+  roles = ["Админ","Студент"]
+  selectedRole=""
 
   ngOnInit(): void {
-    this.chiefService.getAll()
+    this.userService.getAll().subscribe(()=>
+    {
+    });
   }
 
   form = new FormGroup(
@@ -23,23 +26,20 @@ export class CreateUserComponent implements OnInit {
         Validators.required,
         Validators.minLength(6)
       ]),
-      password: new FormControl<string>('', [
-        Validators.required,
-        Validators.minLength(6)
-      ])
+      role: new FormControl<string>("")
     }
   )
 
-  registration()
+  CreateUserAndSendEmail()
   {
-    this.userService.registration(
+    this.userService.CreateUserAndSendEmail(
       {
         email: this.form.value.email as string,
-        password: this.form.value.password as string
+        role: this.form.value.role as string,
       }
-    ).subscribe((res)=>
+    ).subscribe(()=>
     {
-
+      this.form.controls.email.setValue('')
     })
   }
 

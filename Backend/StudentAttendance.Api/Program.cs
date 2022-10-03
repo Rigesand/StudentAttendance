@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StudentAttendance.Api;
 using StudentAttendance.Api.Configuration;
+using StudentAttendance.Api.Middlewares;
 using StudentAttendance.Core;
 using StudentAttendance.Data;
 
@@ -56,7 +57,8 @@ builder.Services.AddAuthentication(options =>
     });
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options
+        .SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<StudentAttendanceDbContext>();
 
 var app = builder.Build();
@@ -76,6 +78,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors(b => b.WithOrigins("http://localhost:4200"));
+
+app.UseValidationException();
 
 app.MapControllers();
 

@@ -3,5 +3,5 @@
 public interface IRefreshTokenRepository
 {
     public Task<RefreshToken> IsExists(string refreshToken);
-    public Task<int> GenerateToken(RefreshToken refreshToken);
+    public Task GenerateToken(RefreshToken refreshToken);
 }
