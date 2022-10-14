@@ -6,17 +6,27 @@ import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import {ReactiveFormsModule,FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { CreateUserComponent } from './components/create-user/create-user.component';
-import { SidebarPanelComponent } from './components/sidebar-panel/sidebar-panel.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CreateuserComponent } from './components/createuser/createuser.component';
+import { CreateuserPageComponent } from './pages/admin/createuser-page/createuser-page.component';
+import { UpdateuserPageComponent } from './pages/admin/updateuser-page/updateuser-page.component';
+import { DeleteuserPageComponent } from './pages/admin/deleteuser-page/deleteuser-page.component';
+import { UpdateuserComponent } from './components/updateuser/updateuser.component';
+import { DeleteuserComponent } from './components/deleteuser/deleteuser.component';
+import { FilterUsersPipe } from './pipes/filter-users.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthPageComponent,
-    AdminPageComponent,
-    CreateUserComponent,
-    SidebarPanelComponent
+    SidebarComponent,
+    CreateuserComponent,
+    CreateuserPageComponent,
+    UpdateuserPageComponent,
+    DeleteuserPageComponent,
+    UpdateuserComponent,
+    DeleteuserComponent,
+    FilterUsersPipe
   ],
     imports: [
       BrowserModule,

@@ -3,16 +3,13 @@ import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  selector: 'app-createuser',
+  templateUrl: './createuser.component.html',
+  styleUrls: ['./createuser.component.scss']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateuserComponent implements OnInit {
 
   constructor(public userService:UserService) { }
-
-  roles = ["Админ","Студент"]
-  selectedRole=""
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(()=>
@@ -42,5 +39,4 @@ export class CreateUserComponent implements OnInit {
       this.form.controls.email.setValue('')
     })
   }
-
 }
