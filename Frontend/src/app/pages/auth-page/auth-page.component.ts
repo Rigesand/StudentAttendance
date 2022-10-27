@@ -25,7 +25,7 @@ export class AuthPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login()
+  /*login()
   {
     this.userService.login(
       {
@@ -40,6 +40,9 @@ export class AuthPageComponent implements OnInit {
         this.cookieService.set("RefreshToken",res.refreshToken)
         this.router.navigate(['admin/users']).then(() => {});
       }
-    })
+    })*/
+  login()
+  {
+    this.router.navigate(['admin/users']).then(() => {});
   }
 }

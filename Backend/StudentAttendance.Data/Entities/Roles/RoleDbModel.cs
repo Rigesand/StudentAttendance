@@ -1,17 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using StudentAttendance.Data.Entities.Users;
+﻿using StudentAttendance.Data.Entities.Users;
 
 namespace StudentAttendance.Data.Entities.Roles;
 
-public class RoleDbModel : IdentityRole
+public class RoleDbModel
 {
-    public RoleDbModel(string role) : base(role)
-    {
-    }
-
-    public RoleDbModel()
-    {
-    }
-
+    public Guid Id { get; set; }
+    public string Name { get; set; }
     public ICollection<UserDbModel>? Users { get; set; }
 }

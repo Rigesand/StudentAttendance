@@ -76,54 +76,14 @@ namespace StudentAttendance.Data.Migrations
                     b.ToTable("Lessons");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.RefreshTokens.RefreshTokenDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Roles.RoleDbModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("AddedDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset>("ExpiryDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsRevorked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Roles.RoleDbModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -153,53 +113,23 @@ namespace StudentAttendance.Data.Migrations
 
             modelBuilder.Entity("StudentAttendance.Data.Entities.Users.UserDbModel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NormalizedUserName")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
+                    b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -252,16 +182,6 @@ namespace StudentAttendance.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.RefreshTokens.RefreshTokenDbModel", b =>
-                {
-                    b.HasOne("StudentAttendance.Data.Entities.Users.UserDbModel", "User")
-                        .WithOne("RefreshToken")
-                        .HasForeignKey("StudentAttendance.Data.Entities.RefreshTokens.RefreshTokenDbModel", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>
                 {
                     b.HasOne("StudentAttendance.Data.Entities.Groups.GroupDbModel", "GroupDbModel")
@@ -278,8 +198,7 @@ namespace StudentAttendance.Data.Migrations
                     b.HasOne("StudentAttendance.Data.Entities.Roles.RoleDbModel", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Role");
                 });
@@ -328,11 +247,6 @@ namespace StudentAttendance.Data.Migrations
             modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>
                 {
                     b.Navigation("VisitedStudents");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Users.UserDbModel", b =>
-                {
-                    b.Navigation("RefreshToken");
                 });
 #pragma warning restore 612, 618
         }

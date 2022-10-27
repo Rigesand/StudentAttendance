@@ -29,11 +29,6 @@ public class UserService : IUserService
         return await _userRepository.FindByEmailAsync(email);
     }
 
-    public async Task<bool> CheckPasswordAsync(User newUser, string password)
-    {
-        return await _userRepository.CheckPasswordAsync(newUser, password);
-    }
-
     public async Task<User> CreateAndSendMailAsync(User newUser, string role)
     {
         var password = RandomString(35);
@@ -50,11 +45,6 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<User> FindByIdAsync(string id)
-    {
-        return await _userRepository.FindByIdAsync(id);
-    }
-
     public async Task<IEnumerable<User>> GetAllUsers()
     {
         return await _userRepository.GetAllUsers();
@@ -62,11 +52,12 @@ public class UserService : IUserService
 
     public async Task<bool> Delete(User user)
     {
-        var isTrue=await _userRepository.Delete(user);
+        var isTrue = await _userRepository.Delete(user);
         if (!isTrue)
         {
             return false;
         }
+
         await _unitOfWork.SaveChanges();
         return true;
     }

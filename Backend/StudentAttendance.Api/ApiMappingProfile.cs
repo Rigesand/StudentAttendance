@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using StudentAttendance.Api.Controllers.Attendances.Dto;
-using StudentAttendance.Api.Controllers.Tokens.Dto;
 using StudentAttendance.Api.Controllers.Users.Dto;
-using StudentAttendance.Api.Responses;
 using StudentAttendance.Core.Domains.Attendances;
-using StudentAttendance.Core.Domains.JwtTokens;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.VisitedStudents;
 
@@ -27,18 +24,7 @@ public class ApiMappingProfile : Profile
                 opt => opt.MapFrom(it => it.RoleName));
 
         CreateMap<CreateUserDto, User>()
-            .ForMember(dest => dest.UserName,
-                opt => opt
-                    .MapFrom(it => it.Email))
             .ForMember(dest => dest.Role,
                 opt => opt.Ignore());
-
-        CreateMap<TokenRequestDto, JwtTokens>().ReverseMap();
-
-        CreateMap<Response, JwtTokens>()
-            .ForMember(dest => dest.Errors,
-                opt => opt
-                    .MapFrom(it => it.Errors))
-            .ReverseMap();
     }
 }

@@ -15,10 +15,10 @@ export class UserService {
   users: IUserDto[]=[]
 
 
-  login(loginUser:IUserDto):Observable<AuthResult>
+  /*login(loginUser:IUserDto):Observable<AuthResult>
   {
     return this.http.post<AuthResult>("/api/User/Login",loginUser).pipe()
-  }
+  }*/
 
   CreateUserAndSendEmail(createUser:IUserDto):Observable<IUserDto>
   {

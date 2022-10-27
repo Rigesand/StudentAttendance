@@ -2,7 +2,6 @@
 using StudentAttendance.Data.Entities.Attendances;
 using StudentAttendance.Data.Entities.Groups;
 using StudentAttendance.Data.Entities.Lessons;
-using StudentAttendance.Data.Entities.RefreshTokens;
 using StudentAttendance.Data.Entities.Roles;
 using StudentAttendance.Data.Entities.Students;
 using StudentAttendance.Data.Entities.Users;
@@ -22,12 +21,11 @@ public class StudentAttendanceDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public DbSet<AttendanceDbModel> Attendances { get; set; } = null!;
-    public DbSet<VisitedStudentDbModel> VisitedStudents { get; set; } = null!;
-    public DbSet<LessonDbModel> Lessons { get; set; } = null!;
-    public DbSet<GroupDbModel> Groups { get; set; } = null!;
-    public DbSet<StudentDbModel> Students { get; set; } = null!;
-    public DbSet<RefreshTokenDbModel> RefreshTokens { get; set; } = null!;
-    public DbSet<UserDbModel> Users { get; set; } = null!;
-    public DbSet<RoleDbModel> Roles { get; set; } = null!;
+    public DbSet<AttendanceDbModel> Attendances => Set<AttendanceDbModel>();
+    public DbSet<VisitedStudentDbModel> VisitedStudents => Set<VisitedStudentDbModel>();
+    public DbSet<LessonDbModel> Lessons => Set<LessonDbModel>();
+    public DbSet<GroupDbModel> Groups => Set<GroupDbModel>();
+    public DbSet<StudentDbModel> Students => Set<StudentDbModel>();
+    public DbSet<UserDbModel> Users => Set<UserDbModel>();
+    public DbSet<RoleDbModel> Roles => Set<RoleDbModel>();
 }

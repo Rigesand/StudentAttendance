@@ -35,7 +35,7 @@ public class RoleRepository : IRoleRepository
         return coreRole;
     }
 
-    public async Task<Role> FindById(string id)
+    public async Task<Role> FindById(Guid id)
     {
         var roleDbModel = await _context.Roles.FirstOrDefaultAsync(it => it.Id == id);
         if (roleDbModel == null)

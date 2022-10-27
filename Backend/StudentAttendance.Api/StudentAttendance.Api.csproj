@@ -7,10 +7,8 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="11.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,6 +31,11 @@
       <_ContentIncludedByDefault Remove="wwwroot\styles.715c56d3f4cc5646.css" />
       <_ContentIncludedByDefault Remove="wwwroot\main.a72a5723a214b798.js" />
       <_ContentIncludedByDefault Remove="wwwroot\styles.0525b86ed35cf15f.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configuration" />
+      <Folder Include="Controllers\Tokens\Dto" />
     </ItemGroup>
 
 </Project>

@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using StudentAttendance.Core.Domains.Attendances;
-using StudentAttendance.Core.Domains.RefreshTokens;
 using StudentAttendance.Core.Domains.Roles;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.VisitedStudents;
 using StudentAttendance.Data.Entities.Attendances;
-using StudentAttendance.Data.Entities.RefreshTokens;
 using StudentAttendance.Data.Entities.Roles;
 using StudentAttendance.Data.Entities.Users;
 using StudentAttendance.Data.Entities.VisitedStudents;
@@ -27,8 +25,6 @@ public class DataMappingProfile : Profile
                 opt => opt
                     .MapFrom(it => it.StudentId))
             .ReverseMap();
-
-        CreateMap<RefreshToken, RefreshTokenDbModel>().ReverseMap();
 
         CreateMap<User, UserDbModel>()
             .ForMember(dest => dest.Role,
