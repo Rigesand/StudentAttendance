@@ -60,6 +60,17 @@ public class UserService : IUserService
         return await _userRepository.GetAllUsers();
     }
 
+    public async Task<bool> Delete(User user)
+    {
+        var isTrue=await _userRepository.Delete(user);
+        if (!isTrue)
+        {
+            return false;
+        }
+        await _unitOfWork.SaveChanges();
+        return true;
+    }
+
     private string RandomString(int length)
     {
         var random = new Random();

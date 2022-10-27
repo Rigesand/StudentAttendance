@@ -1,58 +1,42 @@
-<div class="mt-20 ml-60 w-full mx-auto bg-white rounded-xl shadow-2xl overflow-hidden md:max-w-2xl ">
-    <div class="flex flex-col">
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 p-8">
-        <input
-          type="text"
-          class="border text-left p-2 py-2 m-2 w-3/4"
-          placeholder="Поиск"
-          [(ngModel)]="term"
-        >
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="overflow-hidden">
-            <table class="min-w-full">
-              <thead class="bg-white border-b">
-              <tr>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                  Почта
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                  Пароль
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let user of userService.users|filterUsers:term; let i=index">
-                <td
-                  class="px-5 py-5 text-sm bg-white border-b border-gray-200"
-                >
-                  <div class="flex items-center">
-                    <div class="ml-3">
-                      <p class="text-gray-900 whitespace-nowrap">
-                        {{ user.email }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td
-                  class="px-5 py-5 text-sm bg-white border-b border-gray-200"
-                >
-                  <p class="text-gray-900 whitespace-nowrap">{{ user.role}}</p>
-                </td>
-                <td class="form-check">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat float-right bg-contain mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="flex spec-x-2 justify-center mt-10">
-            <button
-              class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-              type="button">
-              Изменить данные пользователя
-            </button>
+<div class="mt-20 ml-60 max-w-md mx-auto bg-white rounded-xl shadow-2xl overflow-hidden md:max-w-2xl">
+  <div class="md:flex">
+    <div class="p-8">
+      <form (ngSubmit)="CreateUserAndSendEmail()" [formGroup]="form">
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semi-bold">Изменить пользователя</div>
+        <div class="flex justify-center">
+          <div class="mb-3 xl:w-96">
+            <input
+              class="mt-5 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white
+              bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700
+              focus:bg-white focus:border-blue-600 focus:outline-none"
+              formControlName="email"
+              id="exampleFormControlInput1"
+              placeholder="Почта"
+              type="text"
+            />
           </div>
         </div>
-      </div>
+        <div class="flex">
+          <div class="mb-3 xl:w-96">
+            <select aria-label="Default select example" class="form-select appearance-none block w-full px-3 py-1.5
+            text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid
+            border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600
+            focus:outline-none" formControlName="role">
+              <option selected>Администратор</option>
+              <option>Студент</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex spec-x-2 justify-center mt-10">
+          <button
+            class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
+            shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            type="CreateUserAndSendEmail">
+            Создать пользователя
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

@@ -91,4 +91,15 @@ public class UserRepository : IUserRepository
 
         return coreUsers;
     }
+
+    public async Task<bool> Delete(User user)
+    {
+        var dbUser=await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
+        if (dbUser==null)
+        {
+            return false;
+        }
+        _context.Users.Remove(dbUser);
+        return true;
+    }
 }

@@ -7,4 +7,5 @@ public interface IUserService
     public Task<User> CreateAndSendMailAsync(User newUser, string role);
     public Task<User> FindByIdAsync(string id);
     Task<IEnumerable<User>> GetAllUsers();
+    public Task<bool> Delete(User user);
 }

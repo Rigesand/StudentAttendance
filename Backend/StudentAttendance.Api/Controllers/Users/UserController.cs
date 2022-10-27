@@ -115,4 +115,14 @@ public class UserController : ControllerBase
         var response = _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         return Ok(response);
     }
+    
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<bool> DeleteUser([FromBody] UserDto userDto)
+    {
+        var coreUser = _mapper.Map<User>(userDto);
+        var result = await _userService.Delete(coreUser);
+        return result;
+    }
 }

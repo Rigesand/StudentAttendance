@@ -7,4 +7,5 @@ public interface IUserRepository
     public Task<User> CreateAsync(User newUser, string password, string role);
     public Task<User> FindByIdAsync(string id);
     Task<IEnumerable<User>> GetAllUsers();
+    public Task<bool> Delete(User user);
 }

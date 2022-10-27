@@ -10,10 +10,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CreateuserComponent } from './components/createuser/createuser.component';
 import { CreateuserPageComponent } from './pages/admin/createuser-page/createuser-page.component';
 import { UpdateuserPageComponent } from './pages/admin/updateuser-page/updateuser-page.component';
-import { DeleteuserPageComponent } from './pages/admin/deleteuser-page/deleteuser-page.component';
 import { UpdateuserComponent } from './components/updateuser/updateuser.component';
-import { DeleteuserComponent } from './components/deleteuser/deleteuser.component';
 import { FilterUsersPipe } from './pipes/filter-users.pipe';
+import { UsersComponent } from './components/users/users.component';
+import { UsersPageComponent } from './pages/admin/users-page/users-page.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +23,10 @@ import { FilterUsersPipe } from './pipes/filter-users.pipe';
     CreateuserComponent,
     CreateuserPageComponent,
     UpdateuserPageComponent,
-    DeleteuserPageComponent,
     UpdateuserComponent,
-    DeleteuserComponent,
-    FilterUsersPipe
+    FilterUsersPipe,
+    UsersComponent,
+    UsersPageComponent
   ],
     imports: [
       BrowserModule,

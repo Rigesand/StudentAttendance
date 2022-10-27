@@ -41,4 +41,11 @@ export class UserService {
       tap(users=>this.users=users)
     )
   }
+  Delete(deleteUser:IUserDto) :Observable<boolean>
+  {
+    return this.http.post<boolean>("/api/User/Delete",deleteUser)
+      .pipe(
+        tap(this.getAll())
+      )
+  }
 }

@@ -38,7 +38,7 @@ export class AuthPageComponent implements OnInit {
       {
         this.cookieService.set("JwtToken",res.token)
         this.cookieService.set("RefreshToken",res.refreshToken)
-        this.router.navigate(['admin/createUser']).then(() => {});
+        this.router.navigate(['admin/users']).then(() => {});
       }
     })
   }
