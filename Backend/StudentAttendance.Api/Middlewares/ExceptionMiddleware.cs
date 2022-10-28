@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StudentAttendance.Core.Exceptions;
 
 namespace StudentAttendance.Api.Middlewares;
 
@@ -12,10 +12,10 @@ public static class ExceptionMiddleware
             {
                 await next(context);
             }
-            catch (ValidationException ex)
+            catch (UserException exception)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                await context.Response.WriteAsJsonAsync(new {ex.Message});
+                await context.Response.WriteAsJsonAsync(new {exception.Message});
             }
         });
     }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using StudentAttendance.Api.Controllers.Attendances.Dto;
+using StudentAttendance.Api.Controllers.Authorizations.Dto;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core.Domains.Attendances;
+using StudentAttendance.Core.Domains.Tokens;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.VisitedStudents;
 
@@ -26,5 +28,6 @@ public class ApiMappingProfile : Profile
         CreateMap<CreateUserDto, User>()
             .ForMember(dest => dest.Role,
                 opt => opt.Ignore());
+        CreateMap<TokenModel, TokenModelDto>();
     }
 }

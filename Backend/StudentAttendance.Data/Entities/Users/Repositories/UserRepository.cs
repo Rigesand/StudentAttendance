@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.Users.Repositories;
-using StudentAttendance.Data.Entities.Roles;
 
 namespace StudentAttendance.Data.Entities.Users.Repositories;
 
@@ -20,7 +19,8 @@ public class UserRepository : IUserRepository
 
     public async Task<User> FindByEmailAsync(string email)
     {
-        var result = await _context.Users.FirstOrDefaultAsync(it => it.Email == email);
+        var result = await _context.Users
+            .FirstOrDefaultAsync(it => it.Email!.ToLower() == email.ToLower());
         if (result == null)
         {
             return null!;
@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
         return coreUser;
     }
 
-    public async Task<User> CreateAsync(User newUser, string password, string role)
+    public async Task<User> CreateAsync(User newUser, string role)
     {
         var dbUser = _mapper.Map<User, UserDbModel>(newUser);
 
@@ -79,5 +79,11 @@ public class UserRepository : IUserRepository
 
         _context.Users.Remove(dbUser);
         return true;
+    }
+
+    public async Task<User> GetUserById(Guid id)
+    {
+        var dbUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        return _mapper.Map<User>(dbUser);
     }
 }

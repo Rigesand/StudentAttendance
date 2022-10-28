@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.Users.Services;
-using StudentAttendance.Core.Exception;
+using StudentAttendance.Core.Exceptions;
 
 namespace StudentAttendance.Api.Controllers.Users;
 
@@ -26,17 +26,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateUserAndSendEmail([FromBody] CreateUserDto newUser)
     {
-        if (newUser.Email == null)
-        {
-            throw new ValidationException("Invalid payload");
-        }
-
-        var existedUser = await _userService.FindByEmailAsync(newUser.Email);
-
-        if (existedUser != null)
-        {
-            throw new ValidationException("Email already in use");
-        }
+        var existedUser = await _userService.FindByEmailAsync(newUser.Email!);
 
         var newUserCore = _mapper.Map<CreateUserDto, User>(newUser);
         await _userService.CreateAndSendMailAsync(newUserCore, newUser.Role!);
@@ -62,5 +52,20 @@ public class UserController : ControllerBase
         var coreUser = _mapper.Map<User>(userDto);
         var result = await _userService.Delete(coreUser);
         return result;
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<UserDto> GetCurrentUser()
+    {
+        var userIdString = User.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+        if (Guid.TryParse(userIdString, out var userId))
+        {
+            var response = await _userService.GetUser(userId);
+            return _mapper.Map<UserDto>(response);
+        }
+
+        throw new UserException("You are not authorized");
     }
 }
