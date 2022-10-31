@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-users',
@@ -9,10 +10,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class UsersComponent implements OnInit {
 
-  constructor(public userService:UserService) { }
+  constructor(public userService:UserService,
+  private cookieService: CookieService) { }
   term: string=""
   ngOnInit(): void {
-    this.userService.getAll().subscribe(() => {
+    this.userService.getAll(this.cookieService.get("JwtToken")).subscribe(() => {
     });
   }
     form = new FormGroup(
@@ -24,7 +26,7 @@ export class UsersComponent implements OnInit {
         role: new FormControl<string>("")
       }
     )
-    DeleteUser()
+    /*DeleteUser()
     {
       this.userService.Delete(
         {
@@ -35,5 +37,5 @@ export class UsersComponent implements OnInit {
       {
         this.form.controls.email.setValue('')
       })
-    }
+    }*/
 }

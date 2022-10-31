@@ -1,10 +1,13 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StudentAttendance.Api;
 using StudentAttendance.Api.Configuration;
+using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Api.Middlewares;
+using StudentAttendance.Api.Validators;
 using StudentAttendance.Core;
 using StudentAttendance.Data;
 
@@ -47,6 +50,9 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<ApiMappingProfile>();
     cfg.AddProfile<DataMappingProfile>();
 });
+
+//Регистрация валидаторов
+builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
 
 var authSection = builder.Configuration.GetSection(AuthConfig.Position);
 var authConfig = authSection.Get<AuthConfig>();

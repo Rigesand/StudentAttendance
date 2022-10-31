@@ -23,14 +23,14 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<TokenModelDto> Login([FromBody] TokenRequest model)
     {
-        var response = await _tokenService.Login(model.Login!, model.Password!);
+        var response = await _tokenService.Login(model.Email!, model.Password!);
         return _mapper.Map<TokenModelDto>(response);
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TokenModelDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<TokenModelDto> RefreshToken([FromBody] RefreshTokenRequest model)
+    public async Task<TokenModelDto> GetRefreshToken([FromBody] RefreshTokenRequest model)
     {
         var response = await _tokenService.GetTokenByRefreshToken(model.RefreshToken!);
         return _mapper.Map<TokenModelDto>(response);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-updateuser',
@@ -11,11 +12,7 @@ export class UpdateuserComponent implements OnInit {
 
   constructor(public userService:UserService) { }
 
-  ngOnInit(): void {
-    this.userService.getAll().subscribe(()=>
-    {
-    });
-  }
+  ngOnInit(): void {}
 
   form = new FormGroup(
     {

@@ -14,6 +14,7 @@ import { UpdateuserComponent } from './components/updateuser/updateuser.componen
 import { FilterUsersPipe } from './pipes/filter-users.pipe';
 import { UsersComponent } from './components/users/users.component';
 import { UsersPageComponent } from './pages/admin/users-page/users-page.component';
+import { TestPageComponent } from './pages/test-page/test-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UsersPageComponent } from './pages/admin/users-page/users-page.componen
     UpdateuserComponent,
     FilterUsersPipe,
     UsersComponent,
-    UsersPageComponent
+    UsersPageComponent,
+    TestPageComponent
   ],
     imports: [
       BrowserModule,

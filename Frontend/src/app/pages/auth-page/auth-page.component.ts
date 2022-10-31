@@ -25,24 +25,23 @@ export class AuthPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /*login()
-  {
+  login() {
     this.userService.login(
       {
         email: this.form.value.email as string,
         password: this.form.value.password as string
       }
-    ).subscribe((res)=>
-    {
-      if(res.success)
+    ).subscribe((res) => {
+      if (this.userService.ValidateToken(res.accessToken))
       {
-        this.cookieService.set("JwtToken",res.token)
-        this.cookieService.set("RefreshToken",res.refreshToken)
+        this.cookieService.set("JwtToken", res.accessToken)
+        this.cookieService.set("RefreshToken", res.refreshToken)
         this.router.navigate(['admin/users']).then(() => {});
       }
-    })*/
-  login()
-  {
-    this.router.navigate(['admin/users']).then(() => {});
+      else
+      {
+        this.router.navigate(['admin/test']).then(() => {});
+      }
+    })
   }
 }

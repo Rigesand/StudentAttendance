@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {IUserDto} from "../models/UserDto";
 import {Observable, retry, tap} from "rxjs";
-import {AuthResult} from "../models/authResult";
+import {TokenModel} from "../models/TokenModel";
+import jwt_decode from 'jwt-decode';
 
 
 @Injectable({
@@ -13,12 +14,13 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   users: IUserDto[]=[]
+  private Issuer="StudentAttendance"
+  private role="Админ"
 
-
-  /*login(loginUser:IUserDto):Observable<AuthResult>
+  login(loginUser:IUserDto):Observable<TokenModel>
   {
-    return this.http.post<AuthResult>("/api/User/Login",loginUser).pipe()
-  }*/
+    return this.http.post<TokenModel>("/api/Auth/Login",loginUser).pipe()
+  }
 
   CreateUserAndSendEmail(createUser:IUserDto):Observable<IUserDto>
   {
@@ -28,10 +30,15 @@ export class UserService {
       )
   }
 
-  getAll():Observable<IUserDto[]>
+  getAll(jwt:string):Observable<IUserDto[]>
   {
+    let key="Bearer "+jwt
     return this.http.get<IUserDto[]>("/api/User/GetAllUsers",
       {
+        headers:
+          {
+            "Authorization":key
+          },
         params: new HttpParams(
           {
             fromObject:{limit:10}
@@ -41,11 +48,29 @@ export class UserService {
       tap(users=>this.users=users)
     )
   }
-  Delete(deleteUser:IUserDto) :Observable<boolean>
+  ValidateToken(token:string)
+  {
+    let jwtdecoded=this.getDecodedAccessToken(token)
+
+    if (jwtdecoded.role==this.role&&jwtdecoded.iss==this.Issuer)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  private getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
+  /*Delete(deleteUser:IUserDto) :Observable<boolean>
   {
     return this.http.post<boolean>("/api/User/Delete",deleteUser)
       .pipe(
         tap(this.getAll())
       )
-  }
+  }*/
 }

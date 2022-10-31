@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core.Domains.Users;
@@ -9,16 +11,20 @@ namespace StudentAttendance.Api.Controllers.Users;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize(Roles = "Админ")]
 public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
+    private readonly IValidator<CreateUserDto> _createValidator;
 
     public UserController(IUserService userService,
-        IMapper mapper)
+        IMapper mapper,
+        IValidator<CreateUserDto> createValidator)
     {
         _userService = userService;
         _mapper = mapper;
+        _createValidator = createValidator;
     }
 
     [HttpPost]
@@ -26,8 +32,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateUserAndSendEmail([FromBody] CreateUserDto newUser)
     {
-        var existedUser = await _userService.FindByEmailAsync(newUser.Email!);
-
+        await _createValidator.ValidateAndThrowAsync(newUser);
         var newUserCore = _mapper.Map<CreateUserDto, User>(newUser);
         await _userService.CreateAndSendMailAsync(newUserCore, newUser.Role!);
 

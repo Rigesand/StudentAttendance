@@ -11,11 +11,7 @@ export class CreateuserComponent implements OnInit {
 
   constructor(public userService:UserService) { }
 
-  ngOnInit(): void {
-    this.userService.getAll().subscribe(()=>
-    {
-    });
-  }
+  ngOnInit(): void {  }
 
   form = new FormGroup(
     {
