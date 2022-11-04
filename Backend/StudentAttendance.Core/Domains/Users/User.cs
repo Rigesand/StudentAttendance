@@ -10,5 +10,5 @@ public class User
     public string? PasswordHash { get; set; }
     public Role? Role { get; set; }
     public Guid RoleId { get; set; }
-    public string RoleName { get; set; }
+    public string? RoleName { get; set; }
 }

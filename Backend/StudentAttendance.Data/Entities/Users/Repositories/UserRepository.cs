@@ -36,7 +36,7 @@ public class UserRepository : IUserRepository
 
         var dbRole = await _context.Roles.FirstOrDefaultAsync(it => it.Name == role);
         dbUser.Role = dbRole;
-        dbUser.RoleName = dbRole.Name;
+        dbUser.RoleName = dbRole!.Name;
         await _context.Users.AddAsync(dbUser);
 
         var returnUser = _mapper.Map<UserDbModel, User>(dbUser);

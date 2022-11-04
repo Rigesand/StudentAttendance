@@ -14,7 +14,7 @@ public class RoleService : IRoleService
 
     public async Task<Role> GetRole(User? user)
     {
-        var role = await _roleRepository.FindById(user.RoleId);
+        var role = await _roleRepository.FindById(user!.RoleId);
         return role;
     }
 }

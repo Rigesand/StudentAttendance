@@ -14,7 +14,7 @@ public class CreateUserValidator : AbstractValidator<CreateUserDto>
         RuleFor(it => it.Role)
             .NotEmpty();
         RuleFor(x => x)
-            .Must(user =>userService.FindByEmailAsync(user.Email!).Result==null)
+            .Must(user =>userService.FindByEmailAsync(user.Email!).Result==null!)
             .WithMessage("Email: Пользователь с таким email уже существует");
     }
 }

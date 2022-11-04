@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendance.Data;
 
@@ -11,9 +12,10 @@ using StudentAttendance.Data;
 namespace StudentAttendance.Data.Migrations
 {
     [DbContext(typeof(StudentAttendanceDbContext))]
-    partial class StudentAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221104202644_RefactorRole")]
+    partial class RefactorRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

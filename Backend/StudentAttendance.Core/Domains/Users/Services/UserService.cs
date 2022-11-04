@@ -72,7 +72,7 @@ public class UserService : IUserService, ITokenService
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email!),
                 new Claim("id", user.Id.ToString()),
-                new Claim("role", user.RoleName)
+                new Claim("role", user.RoleName!)
             },
             expires: DateTime.Now.AddMinutes(_config.LifeTime),
             signingCredentials: new SigningCredentials(_config.SymmetricSecurityKey(),
