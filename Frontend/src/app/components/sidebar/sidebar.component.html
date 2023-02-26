@@ -1,31 +1,19 @@
-  <div class="fixed flex-col w-64 h-full border-r">
-    <div class="flex items-center justify-center h-14 border-b">
-      <div>Панель администратора</div>
-    </div>
-      <ul class="flex flex-col py-4 space-y-1">
-          <div class="flex items-center h-8 px-5">
-            <div class="text-sm tracking-wide text-gray-500 font-bold">Пользователи</div>
-          </div>
-        <li>
-          <a routerLink="/admin/users" class="flex flex-row items-center h-11 hover:bg-gray-50 text-gray-600
-          hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500">
-            <span class="ml-4">
-              <img src="https://img.icons8.com/glyph-neue/24/000000/remove-administrator.png"/>
-            </span>
-            <span class="ml-2 text-sm tracking-wide">Пользователи</span>
-          </a>
-        </li>
-          <div class="flex flex-row items-center h-8 px-5">
-            <div class="text-sm font-bold tracking-wide text-gray-500">Настройки</div>
-          </div>
-        <li>
-          <a routerLink="/" class="flex flex-row items-center h-11 hover:bg-gray-50 text-gray-600 hover:text-gray-800
-          border-l-4 border-transparent hover:border-indigo-500">
-            <span class="ml-4">
-              <img src="https://img.icons8.com/material/24/000000/exit.png"/>
-            </span>
-            <span class="ml-2 text-sm tracking-wide">Выйти</span>
-          </a>
-        </li>
-      </ul>
-  </div>
+<div class="flex-container">
+  <h3 class="admin-panel">Панель администратора</h3>
+  <ul>
+    <li>
+      <a routerLink="/admin/users" class="admin-panel-item">
+        <img
+          src="https://img.icons8.com/glyph-neue/24/000000/remove-administrator.png"
+        />
+        <span class="admin-panel-text">Пользователи</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" class="admin-panel-item">
+        <img src="https://img.icons8.com/material/24/000000/exit.png" />
+        <span class="admin-panel-text">Выйти</span>
+      </a>
+    </li>
+  </ul>
+</div>

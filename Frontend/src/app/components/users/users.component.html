@@ -1,49 +1,47 @@
-<div class="mt-20 ml-60 w-full rounded-xl shadow-2xl md:max-w-2xl p-8 flex">
-  <div class="w-full">
-    <label class="uppercase tracking-wide text-sm text-indigo-500 font-semi-bold">
-      <a routerLink="/admin/createUser">Создать пользователя</a>
-    </label>
-    <input type="text" class="border text-left mt-4 p-2 py-2 min-w-full lg:px-4" placeholder="Поиск" [(ngModel)]="term">
-    <table class="divide-y divide-black-400 mt-4 shadow w-full">
-      <thead class="bg-gray-100 border">
-      <tr class="text-left text-gray-500 text-xs">
-        <th class="px-3 py-4">Почта</th>
-        <th class="px-3 py-4">Роль</th>
-        <th class="px-3 py-4">Редактировать</th>
-        <th class="px-3 py-4">Удалить</th>
-      </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-300">
-      <tr *ngFor="let user of userService.users|filterUsers:term; let i=index" class="text-gray-900 text-sm">
-        <td>
-          <div class="ml-3">
-            <p>{{ user.email }}</p>
-          </div>
-        </td>
-        <td>
-          <p>{{ user.role}}</p>
-        </td>
-        <td class="px-8 py-4">
-          <a routerLink="/admin/updateUser">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828
-                    15H9v-2.828l8.586-8.586z"/>
-            </svg>
-          </a>
-        </td>
-        <td class="px-6 py-4">
-          <a routerLink="/admin/updateUser">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138
-               21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-          </a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="centered">
+  <form>
+    <a routerLink="/admin/createUser" class="create-user-text"
+      >Создать пользователя</a
+    >
+    <div class="form-row">
+      <input
+        type="search"
+        class="field"
+        placeholder="Поиск"
+        [(ngModel)]="term"
+      />
+    </div>
+    <div class="form-row">
+      <table>
+        <thead>
+          <tr>
+            <th>Почта</th>
+            <th>Роль</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let user of userService.users | filterUsers : term;
+              let i = index
+            "
+          >
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <span class="actions">
+                <a routerLink="/admin/updateUser" class="actions-item">
+                  <img src="assets/images/edit.png" />
+                </a>
+                <a routerLink="/admin/updateUser" class="actions-item">
+                  <img src="assets/images/delete.png" />
+                </a>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
 </div>

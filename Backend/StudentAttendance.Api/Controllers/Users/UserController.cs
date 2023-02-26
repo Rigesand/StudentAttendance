@@ -11,7 +11,7 @@ namespace StudentAttendance.Api.Controllers.Users;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-[Authorize(Roles = "Админ")]
+[Authorize(Roles = "Администратор")]
 public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;

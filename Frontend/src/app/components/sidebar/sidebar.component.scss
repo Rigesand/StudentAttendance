@@ -1,0 +1,32 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.flex-container{
+  position: fixed;
+  height: 100%;
+  width: 300px;
+  background-color: #84CC16;
+}
+
+.admin-panel{
+  padding: 20px;
+  font-size: 22px;
+}
+
+.admin-panel-item{
+  padding: 20px;
+  display: flex;
+  text-decoration: none;
+  color: black;
+}
+
+.admin-panel-text{
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+.admin-panel-item:focus,.admin-panel-item:hover{
+  background-color: #A3E635;
+}
