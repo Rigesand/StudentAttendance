@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service'
 import {FormControl, FormGroup} from '@angular/forms'
 import {CookieService} from 'ngx-cookie-service'
 import {Router} from '@angular/router'
+import {TokenService} from '../../services/token.service'
 
 @Component({
   selector: 'app-auth-page',
@@ -13,7 +14,8 @@ export class AuthPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
   form = new FormGroup({
@@ -29,9 +31,8 @@ export class AuthPageComponent implements OnInit {
         password: this.form.value.password as string,
       })
       .subscribe((res) => {
-        if (this.userService.ValidateToken(res.accessToken)) {
-          this.cookieService.set('JwtToken', res.accessToken)
-          this.cookieService.set('RefreshToken', res.refreshToken)
+        if (this.tokenService.ValidateToken(res.accessToken)) {
+          this.tokenService.SetJwtInCookie(res)
           this.router.navigate(['admin/users']).then(() => {})
         } else {
           this.router.navigate(['attendance/students']).then(() => {})

@@ -20,11 +20,12 @@ import {StudentsPageComponent} from './pages/attendance/students-page/students-p
 import {UpdateStudentPageComponent} from './pages/attendance/update-student-page/update-student-page.component'
 import {UpdateStudentComponent} from './components/update-student/update-student.component'
 import {CreateStudentPageComponent} from './pages/attendance/create-student-page/create-student-page.component'
-import {CreateStudentComponent} from './components/create-student/create-student.component';
-import { ProfilePageComponent } from './pages/attendance/profile-page/profile-page.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { AttendancesPageComponent } from './pages/attendance/attendances-page/attendances-page.component';
-import { AttendancesComponent } from './components/attendances/attendances.component'
+import {CreateStudentComponent} from './components/create-student/create-student.component'
+import {ProfilePageComponent} from './pages/attendance/profile-page/profile-page.component'
+import {ProfileComponent} from './components/profile/profile.component'
+import {AttendancesPageComponent} from './pages/attendance/attendances-page/attendances-page.component'
+import {AttendancesComponent} from './components/attendances/attendances.component'
+import {TokenService} from './services/token.service'
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { AttendancesComponent } from './components/attendances/attendances.compo
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, TokenService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
