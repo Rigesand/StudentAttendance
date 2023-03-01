@@ -4,5 +4,5 @@ namespace StudentAttendance.Core.Domains.Mail.Services;
 
 public interface IMailService
 {
-    public Task<bool> Send(User user, string password);
+    Task<bool> Send(User user, string password);
 }

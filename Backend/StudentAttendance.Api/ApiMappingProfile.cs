@@ -21,13 +21,9 @@ public class ApiMappingProfile : Profile
 
         CreateMap<VisitedStudentDto, VisitedStudent>().ReverseMap();
 
-        CreateMap<User, UserDto>()
-            .ForMember(dest => dest.Role,
-                opt => opt.MapFrom(it => it.RoleName));
+        CreateMap<User, UserDto>().ReverseMap();
 
-        CreateMap<CreateUserDto, User>()
-            .ForMember(dest => dest.Role,
-                opt => opt.Ignore());
+        CreateMap<CreateUserDto, User>();
         CreateMap<TokenModel, TokenModelDto>();
     }
 }

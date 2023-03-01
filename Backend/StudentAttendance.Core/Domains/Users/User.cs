@@ -1,6 +1,4 @@
-﻿using StudentAttendance.Core.Domains.Roles;
-
-namespace StudentAttendance.Core.Domains.Users;
+﻿namespace StudentAttendance.Core.Domains.Users;
 
 public class User
 {
@@ -8,7 +6,5 @@ public class User
     public string? Name { get; set; }
     public string? Email { get; set; }
     public string? PasswordHash { get; set; }
-    public Role? Role { get; set; }
-    public Guid RoleId { get; set; }
-    public string? RoleName { get; set; }
+    public string? Role { get; set; }
 }

@@ -26,10 +26,7 @@ public class DataMappingProfile : Profile
                     .MapFrom(it => it.StudentId))
             .ReverseMap();
 
-        CreateMap<User, UserDbModel>()
-            .ForMember(dest => dest.Role,
-                opt => opt.MapFrom(it => it.Role))
-            .ReverseMap();
+        CreateMap<User, UserDbModel>().ReverseMap();
 
         CreateMap<RoleDbModel, Role>().ReverseMap();
     }

@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using StudentAttendance.Core.Configuration;
 using StudentAttendance.Core.Domains.Mail.Services;
-using StudentAttendance.Core.Domains.Roles;
 using StudentAttendance.Core.Domains.Roles.Repositories;
 using StudentAttendance.Core.Domains.Tokens;
 using StudentAttendance.Core.Domains.Tokens.Services;
@@ -72,7 +71,7 @@ public class UserService : IUserService, ITokenService
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email!),
                 new Claim("id", user.Id.ToString()),
-                new Claim("role", user.RoleName!)
+                new Claim("role", user.Role!)
             },
             expires: DateTime.Now.AddMinutes(_config.LifeTime),
             signingCredentials: new SigningCredentials(_config.SymmetricSecurityKey(),
@@ -102,18 +101,17 @@ public class UserService : IUserService, ITokenService
         return await _userRepository.FindByEmailAsync(email);
     }
 
-    public async Task<User> CreateAndSendMailAsync(User newUser, string role)
+    public async Task<User> CreateAndSendMailAsync(User newUser)
     {
         var password = RandomString(35);
         newUser.PasswordHash = HashService.GetHash(password);
-        var existedRole = await _roleRepository.FindByNameAsync(role);
+        var existedRole = await _roleRepository.FindByNameAsync(newUser.Role!);
         if (existedRole == null)
         {
-            await _roleRepository.CreateAsync(new Role(role));
-            await _unitOfWork.SaveChanges();
+            throw new Exception("Вы не можете создать пользователя с такой ролью");
         }
 
-        var user = await _userRepository.CreateAsync(newUser, role);
+        var user = await _userRepository.CreateAsync(newUser);
         await _unitOfWork.SaveChanges();
         await _mailService.Send(user, password);
         return user;
@@ -122,6 +120,11 @@ public class UserService : IUserService, ITokenService
     public async Task<IEnumerable<User>> GetAllUsers()
     {
         return await _userRepository.GetAllUsers();
+    }
+
+    public async Task UpdateUser(User updateUser)
+    {
+        await _userRepository.UpdateUser(updateUser);
     }
 
     public async Task<bool> Delete(User user)

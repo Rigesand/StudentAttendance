@@ -2,9 +2,10 @@
 
 public interface IUserRepository
 {
-    public Task<User> FindByEmailAsync(string email);
-    public Task<User> CreateAsync(User newUser, string role);
+    Task<User> FindByEmailAsync(string email);
+    Task<User> CreateAsync(User newUser);
     public Task<IEnumerable<User>> GetAllUsers();
-    public Task<bool> Delete(User user);
-    public Task<User> GetUserById(Guid id);
+    Task<bool> Delete(User user);
+    Task<User> GetUserById(Guid id);
+    Task UpdateUser(User updateUser);
 }

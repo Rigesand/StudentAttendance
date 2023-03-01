@@ -30,13 +30,11 @@ public class UserController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateUserDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateUserAndSendEmail([FromBody] CreateUserDto newUser)
+    public async Task CreateUserAndSendEmail([FromBody] CreateUserDto newUser)
     {
         await _createValidator.ValidateAndThrowAsync(newUser);
         var newUserCore = _mapper.Map<CreateUserDto, User>(newUser);
-        await _userService.CreateAndSendMailAsync(newUserCore, newUser.Role!);
-
-        return Ok(newUser);
+        await _userService.CreateAndSendMailAsync(newUserCore);
     }
 
     [HttpGet]
@@ -72,5 +70,14 @@ public class UserController : ControllerBase
         }
 
         throw new UserException("You are not authorized");
+    }
+
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task UpdateUser(UserDto user)
+    {
+        var updateUser = _mapper.Map<User>(user);
+        await _userService.UpdateUser(updateUser);
     }
 }

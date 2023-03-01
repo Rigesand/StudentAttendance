@@ -1,6 +1,4 @@
-﻿using StudentAttendance.Data.Entities.Roles;
-
-namespace StudentAttendance.Data.Entities.Users;
+﻿namespace StudentAttendance.Data.Entities.Users;
 
 public class UserDbModel
 {
@@ -8,7 +6,5 @@ public class UserDbModel
     public string? Name { get; set; }
     public string? Email { get; set; }
     public string? PasswordHash { get; set; }
-    public RoleDbModel? Role { get; set; }
-    public Guid? RoleId { get; set; }
-    public string? RoleName { get; set; }
+    public string? Role { get; set; }
 }

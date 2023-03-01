@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendance.Data;
 
@@ -11,9 +12,10 @@ using StudentAttendance.Data;
 namespace StudentAttendance.Data.Migrations
 {
     [DbContext(typeof(StudentAttendanceDbContext))]
-    partial class StudentAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301124414_RemoveConnectionRoleUser")]
+    partial class RemoveConnectionRoleUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +127,7 @@ namespace StudentAttendance.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -2,7 +2,7 @@
 
 public interface IRoleRepository
 {
-    public Task<Role> CreateAsync(Role roleDbModel);
-    public Task<Role> FindByNameAsync(string roleName);
-    public Task<Role> FindById(Guid id);
+    Task<Role> CreateAsync(Role roleDbModel);
+    Task<Role> FindByNameAsync(string roleName);
+    Task<Role> FindById(Guid id);
 }

@@ -26,11 +26,11 @@ public static class ExceptionMiddleware
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsJsonAsync(new {exception.Message});
             }
-            catch (Exception)
+            /*catch (Exception)
             {
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await context.Response.WriteAsJsonAsync(new {Message = "Внутренняя ошибка сервера"});
-            }
+            }*/
         });
     }
 }

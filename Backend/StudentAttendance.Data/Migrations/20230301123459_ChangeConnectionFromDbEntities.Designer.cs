@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendance.Data;
 
@@ -11,9 +12,10 @@ using StudentAttendance.Data;
 namespace StudentAttendance.Data.Migrations
 {
     [DbContext(typeof(StudentAttendanceDbContext))]
-    partial class StudentAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230301123459_ChangeConnectionFromDbEntities")]
+    partial class ChangeConnectionFromDbEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,10 +127,15 @@ namespace StudentAttendance.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
+                    b.Property<Guid?>("RoleDbModelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleDbModelId");
 
                     b.ToTable("Users");
                 });
@@ -187,6 +194,13 @@ namespace StudentAttendance.Data.Migrations
                     b.Navigation("GroupDbModel");
                 });
 
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Users.UserDbModel", b =>
+                {
+                    b.HasOne("StudentAttendance.Data.Entities.Roles.RoleDbModel", null)
+                        .WithMany("Users")
+                        .HasForeignKey("RoleDbModelId");
+                });
+
             modelBuilder.Entity("StudentAttendance.Data.Entities.VisitedStudents.VisitedStudentDbModel", b =>
                 {
                     b.HasOne("StudentAttendance.Data.Entities.Attendances.AttendanceDbModel", "Attendance")
@@ -221,6 +235,11 @@ namespace StudentAttendance.Data.Migrations
             modelBuilder.Entity("StudentAttendance.Data.Entities.Lessons.LessonDbModel", b =>
                 {
                     b.Navigation("Attendances");
+                });
+
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Roles.RoleDbModel", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>

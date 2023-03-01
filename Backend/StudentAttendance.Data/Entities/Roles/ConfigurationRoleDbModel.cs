@@ -8,9 +8,5 @@ public class ConfigurationRoleDbModel : IEntityTypeConfiguration<RoleDbModel>
     public void Configure(EntityTypeBuilder<RoleDbModel> builder)
     {
         builder.HasKey(it => it.Id);
-        builder.HasMany(it => it.Users)
-            .WithOne(it => it.Role)
-            .HasForeignKey(it => it.RoleId)
-            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -30,43 +30,17 @@ public class UserRepository : IUserRepository
         return coreUser;
     }
 
-    public async Task<User> CreateAsync(User newUser, string role)
+    public async Task<User> CreateAsync(User newUser)
     {
         var dbUser = _mapper.Map<User, UserDbModel>(newUser);
-
-        var dbRole = await _context.Roles.FirstOrDefaultAsync(it => it.Name == role);
-        dbUser.Role = dbRole;
-        dbUser.RoleName = dbRole!.Name;
         await _context.Users.AddAsync(dbUser);
-
         var returnUser = _mapper.Map<UserDbModel, User>(dbUser);
         return returnUser;
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
     {
-        var users = await _context.Users.Join(
-                _context.Roles,
-                u => u.RoleId,
-                r => r.Id,
-                (user, role) => new
-                {
-                    user.Email,
-                    role.Name
-                })
-            .AsNoTracking()
-            .ToListAsync();
-        var coreUsers = new List<User>();
-        foreach (var user in users)
-        {
-            coreUsers.Add(new User
-            {
-                Email = user.Email,
-                RoleName = user.Name
-            });
-        }
-
-        return coreUsers;
+        return await _mapper.ProjectTo<User>(_context.Users).ToListAsync();
     }
 
     public async Task<bool> Delete(User user)
@@ -85,5 +59,12 @@ public class UserRepository : IUserRepository
     {
         var dbUser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         return _mapper.Map<User>(dbUser);
+    }
+
+    public async Task UpdateUser(User updateUser)
+    {
+        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == updateUser.Email);
+        dbUser = _mapper.Map<UserDbModel>(updateUser);
+        await _context.SaveChangesAsync();
     }
 }
