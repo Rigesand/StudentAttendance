@@ -1,17 +1,16 @@
 <div class="centered">
-  <form>
+  <form (ngSubmit)="UpdateUser()" [formGroup]="form">
     <h3 class="create-user-text">Изменить данные пользователя</h3>
     <div class="form-row">
-      <input type="email" class="field" placeholder="Email" required />
+      <input type="email" class="field" formControlName="email" readonly />
     </div>
     <div class="form-row">
-      <select class="combobox">
-        <option selected>Студент</option>
-        <option>Администратор</option>
+      <select class="combobox" formControlName="role">
+        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
       </select>
     </div>
     <div class="form-row">
-      <button class="login-button" type="submit">Изменить</button>
+      <button class="login-button" type="UpdateUser">Изменить</button>
     </div>
   </form>
 </div>

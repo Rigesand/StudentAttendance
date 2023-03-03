@@ -31,10 +31,18 @@
             <td>{{ user.role }}</td>
             <td>
               <span class="actions">
-                <a routerLink="/admin/updateUser" class="actions-item">
+                <a
+                  routerLink="/admin/updateUser"
+                  class="actions-item"
+                  (click)="ChangeUser(user)"
+                >
                   <img src="assets/images/edit.png" />
                 </a>
-                <a routerLink="/admin/updateUser" class="actions-item">
+                <a
+                  routerLink="/admin/deleteUser"
+                  class="actions-item"
+                  (click)="DeleteUser(user)"
+                >
                   <img src="assets/images/delete.png" />
                 </a>
               </span>

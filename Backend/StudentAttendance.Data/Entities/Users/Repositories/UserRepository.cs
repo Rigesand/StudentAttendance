@@ -64,7 +64,7 @@ public class UserRepository : IUserRepository
     public async Task UpdateUser(User updateUser)
     {
         var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == updateUser.Email);
-        dbUser = _mapper.Map<UserDbModel>(updateUser);
+        dbUser.Role = updateUser.Role;
         await _context.SaveChangesAsync();
     }
 }

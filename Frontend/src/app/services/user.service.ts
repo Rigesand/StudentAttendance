@@ -17,19 +17,39 @@ export class UserService {
   ) {}
 
   users: IUserDto[] = []
+  editUser: IUserDto
+  deleteUser: IUserDto
 
   login(loginUser: IUserDto): Observable<TokenModel> {
     return this.http.post<TokenModel>('/api/Auth/Login', loginUser).pipe()
   }
 
   CreateUserAndSendEmail(createUser: IUserDto): Observable<IUserDto> {
-    return this.http
-      .post<IUserDto>('/api/User/CreateUserAndSendEmail', createUser, {
+    return this.http.post<IUserDto>(
+      '/api/User/CreateUserAndSendEmail',
+      createUser,
+      {
         headers: {
           Authorization: this.tokenService.GetJwtFromCookie(),
         },
-      })
-      .pipe(tap((newUser) => this.users.push(newUser)))
+      }
+    )
+  }
+
+  UpdateUser(updateUser: IUserDto): Observable<IUserDto> {
+    return this.http.put<IUserDto>('/api/User/UpdateUser', updateUser, {
+      headers: {
+        Authorization: this.tokenService.GetJwtFromCookie(),
+      },
+    })
+  }
+
+  DeleteUser(deleteUser: IUserDto): Observable<IUserDto> {
+    return this.http.post<IUserDto>('/api/User/DeleteUser', deleteUser, {
+      headers: {
+        Authorization: this.tokenService.GetJwtFromCookie(),
+      },
+    })
   }
 
   getAll(): Observable<IUserDto[]> {

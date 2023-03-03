@@ -26,6 +26,8 @@ import {ProfileComponent} from './components/profile/profile.component'
 import {AttendancesPageComponent} from './pages/attendance/attendances-page/attendances-page.component'
 import {AttendancesComponent} from './components/attendances/attendances.component'
 import {TokenService} from './services/token.service'
+import {DeleteUserComponent} from './components/delete-user/delete-user.component';
+import { DeleteUserPageComponent } from './pages/admin/delete-user-page/delete-user-page.component'
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import {TokenService} from './services/token.service'
     ProfileComponent,
     AttendancesPageComponent,
     AttendancesComponent,
+    DeleteUserComponent,
+    DeleteUserPageComponent,
   ],
   imports: [
     BrowserModule,

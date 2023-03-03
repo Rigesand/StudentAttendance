@@ -9,11 +9,13 @@ import {CreateStudentPageComponent} from './pages/attendance/create-student-page
 import {UpdateStudentPageComponent} from './pages/attendance/update-student-page/update-student-page.component'
 import {ProfilePageComponent} from './pages/attendance/profile-page/profile-page.component'
 import {AttendancesPageComponent} from './pages/attendance/attendances-page/attendances-page.component'
+import {DeleteUserPageComponent} from './pages/admin/delete-user-page/delete-user-page.component'
 
 const routes: Routes = [
   {path: '', component: AuthPageComponent},
   {path: 'admin/createUser', component: CreateuserPageComponent},
   {path: 'admin/updateUser', component: UpdateuserPageComponent},
+  {path: 'admin/deleteUser', component: DeleteUserPageComponent},
   {path: 'admin/users', component: UsersPageComponent},
   {path: 'attendance/students', component: StudentsPageComponent},
   {path: 'attendance/createStudent', component: CreateStudentPageComponent},

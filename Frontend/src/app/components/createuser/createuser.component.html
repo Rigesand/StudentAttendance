@@ -12,8 +12,7 @@
     </div>
     <div class="form-row">
       <select class="combobox" formControlName="role">
-        <option selected>Студент</option>
-        <option>Администратор</option>
+        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
       </select>
     </div>
     <div class="form-row">
