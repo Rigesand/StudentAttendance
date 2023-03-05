@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
 import {AuthPageComponent} from './pages/auth-page/auth-page.component'
 import {ReactiveFormsModule, FormsModule} from '@angular/forms'
-import {HttpClientModule} from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import {CookieService} from 'ngx-cookie-service'
 import {SidebarComponent} from './components/sidebar/sidebar.component'
 import {CreateuserComponent} from './components/createuser/createuser.component'
@@ -26,8 +26,9 @@ import {ProfileComponent} from './components/profile/profile.component'
 import {AttendancesPageComponent} from './pages/attendance/attendances-page/attendances-page.component'
 import {AttendancesComponent} from './components/attendances/attendances.component'
 import {TokenService} from './services/token.service'
-import {DeleteUserComponent} from './components/delete-user/delete-user.component';
-import { DeleteUserPageComponent } from './pages/admin/delete-user-page/delete-user-page.component'
+import {DeleteUserComponent} from './components/delete-user/delete-user.component'
+import {DeleteUserPageComponent} from './pages/admin/delete-user-page/delete-user-page.component'
+import {AuthInterseptor} from './shared/authInterseptor.service'
 
 @NgModule({
   declarations: [
@@ -62,7 +63,15 @@ import { DeleteUserPageComponent } from './pages/admin/delete-user-page/delete-u
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [CookieService, TokenService],
+  providers: [
+    CookieService,
+    TokenService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterseptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

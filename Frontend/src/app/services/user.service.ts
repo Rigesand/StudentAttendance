@@ -27,37 +27,21 @@ export class UserService {
   CreateUserAndSendEmail(createUser: IUserDto): Observable<IUserDto> {
     return this.http.post<IUserDto>(
       '/api/User/CreateUserAndSendEmail',
-      createUser,
-      {
-        headers: {
-          Authorization: this.tokenService.GetJwtFromCookie(),
-        },
-      }
+      createUser
     )
   }
 
   UpdateUser(updateUser: IUserDto): Observable<IUserDto> {
-    return this.http.put<IUserDto>('/api/User/UpdateUser', updateUser, {
-      headers: {
-        Authorization: this.tokenService.GetJwtFromCookie(),
-      },
-    })
+    return this.http.put<IUserDto>('/api/User/UpdateUser', updateUser)
   }
 
   DeleteUser(deleteUser: IUserDto): Observable<IUserDto> {
-    return this.http.post<IUserDto>('/api/User/DeleteUser', deleteUser, {
-      headers: {
-        Authorization: this.tokenService.GetJwtFromCookie(),
-      },
-    })
+    return this.http.post<IUserDto>('/api/User/DeleteUser', deleteUser)
   }
 
   getAll(): Observable<IUserDto[]> {
     return this.http
       .get<IUserDto[]>('/api/User/GetAllUsers', {
-        headers: {
-          Authorization: this.tokenService.GetJwtFromCookie(),
-        },
         params: new HttpParams({
           fromObject: {limit: 10},
         }),
