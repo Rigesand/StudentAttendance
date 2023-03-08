@@ -22,31 +22,7 @@ namespace StudentAttendance.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Attendances.AttendanceDbModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Date")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("LessonId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("LessonId");
-
-                    b.ToTable("Attendances");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Groups.GroupDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Groups.GroupDb", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,28 +37,14 @@ namespace StudentAttendance.Data.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Lessons.LessonDbModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lessons");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Roles.RoleDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Roles.RoleDb", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -90,7 +52,7 @@ namespace StudentAttendance.Data.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDb", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,6 +62,7 @@ namespace StudentAttendance.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -110,22 +73,28 @@ namespace StudentAttendance.Data.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Users.UserDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Users.UserDb", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GroupNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -133,99 +102,20 @@ namespace StudentAttendance.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.VisitedStudents.VisitedStudentDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDb", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AttendanceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsVisited")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttendanceId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("VisitedStudents");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Attendances.AttendanceDbModel", b =>
-                {
-                    b.HasOne("StudentAttendance.Data.Entities.Groups.GroupDbModel", "GroupDbModel")
-                        .WithMany("Attendances")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("StudentAttendance.Data.Entities.Lessons.LessonDbModel", "Lesson")
-                        .WithMany("Attendances")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("GroupDbModel");
-
-                    b.Navigation("Lesson");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>
-                {
-                    b.HasOne("StudentAttendance.Data.Entities.Groups.GroupDbModel", "GroupDbModel")
+                    b.HasOne("StudentAttendance.Data.Entities.Groups.GroupDb", "GroupDb")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("GroupDbModel");
+                    b.Navigation("GroupDb");
                 });
 
-            modelBuilder.Entity("StudentAttendance.Data.Entities.VisitedStudents.VisitedStudentDbModel", b =>
+            modelBuilder.Entity("StudentAttendance.Data.Entities.Groups.GroupDb", b =>
                 {
-                    b.HasOne("StudentAttendance.Data.Entities.Attendances.AttendanceDbModel", "Attendance")
-                        .WithMany("VisitedStudents")
-                        .HasForeignKey("AttendanceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("StudentAttendance.Data.Entities.Students.StudentDbModel", "Student")
-                        .WithMany("VisitedStudents")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Attendance");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Attendances.AttendanceDbModel", b =>
-                {
-                    b.Navigation("VisitedStudents");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Groups.GroupDbModel", b =>
-                {
-                    b.Navigation("Attendances");
-
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Lessons.LessonDbModel", b =>
-                {
-                    b.Navigation("Attendances");
-                });
-
-            modelBuilder.Entity("StudentAttendance.Data.Entities.Students.StudentDbModel", b =>
-                {
-                    b.Navigation("VisitedStudents");
                 });
 #pragma warning restore 612, 618
         }

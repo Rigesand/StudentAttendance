@@ -8,7 +8,7 @@
 .form-row:nth-child(n+2){
   margin-top: 20px;
 }
-.login-button{
+.delete-button{
   cursor: pointer;
   width: 400px;
   height: 40px;
@@ -25,14 +25,14 @@
   width: 400px;
   padding: 10px 20px;
 }
-.login-button:focus{
+.delete-button:focus{
   outline: 2px solid #84CC16;
 }
-.login-button:hover {
+.delete-button:hover {
   background-color: #4D7C0F;
 }
 
-.create-user-text{
+.delete-user-text{
   font-size: 20px;
   color: #A3E635;
 }

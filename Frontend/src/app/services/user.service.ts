@@ -1,47 +1,44 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpParams} from '@angular/common/http'
-import {IUserDto} from '../models/UserDto'
+import {IUserResponse} from '../models/Users/UserResponse'
 import {Observable, retry, tap} from 'rxjs'
-import {TokenModel} from '../models/TokenModel'
-import {CookieService} from 'ngx-cookie-service'
-import {TokenService} from './token.service'
+import {ITokenResponse} from '../models/Auth/TokenResponse'
+import {IUserRequest} from '../models/Users/UserRequest'
+import {ILoginRequest} from '../models/Auth/LoginRequest'
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private tokenService: TokenService
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  users: IUserDto[] = []
-  editUser: IUserDto
-  deleteUser: IUserDto
+  users: IUserResponse[] = []
+  editUser: IUserResponse
+  deleteUser: IUserResponse
+  currentUser: IUserResponse
 
-  login(loginUser: IUserDto): Observable<TokenModel> {
-    return this.http.post<TokenModel>('/api/Auth/Login', loginUser).pipe()
+  login(loginUser: ILoginRequest): Observable<ITokenResponse> {
+    return this.http.post<ITokenResponse>('/api/Auth/Login', loginUser).pipe()
   }
 
-  CreateUserAndSendEmail(createUser: IUserDto): Observable<IUserDto> {
-    return this.http.post<IUserDto>(
+  CreateUserAndSendEmail(createUser: IUserRequest) {
+    return this.http.post<IUserResponse>(
       '/api/User/CreateUserAndSendEmail',
       createUser
     )
   }
 
-  UpdateUser(updateUser: IUserDto): Observable<IUserDto> {
-    return this.http.put<IUserDto>('/api/User/UpdateUser', updateUser)
+  UpdateUser(updateUser: IUserRequest) {
+    return this.http.put('/api/User/UpdateUser', updateUser)
   }
 
-  DeleteUser(deleteUser: IUserDto): Observable<IUserDto> {
-    return this.http.post<IUserDto>('/api/User/DeleteUser', deleteUser)
+  DeleteUser(deleteUser: IUserRequest) {
+    return this.http.post('/api/User/DeleteUser', deleteUser)
   }
 
-  getAll(): Observable<IUserDto[]> {
+  getAll(): Observable<IUserResponse[]> {
     return this.http
-      .get<IUserDto[]>('/api/User/GetAllUsers', {
+      .get<IUserResponse[]>('/api/User/GetAllUsers', {
         params: new HttpParams({
           fromObject: {limit: 10},
         }),
@@ -50,5 +47,13 @@ export class UserService {
         retry(2),
         tap((users) => (this.users = users))
       )
+  }
+
+  getCurrentUser() {
+    this.http
+      .get<IUserResponse>('/api/Auth/GetCurrentUser')
+      .subscribe((res) => {
+        this.currentUser = res
+      })
   }
 }

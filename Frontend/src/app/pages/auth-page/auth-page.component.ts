@@ -31,8 +31,8 @@ export class AuthPageComponent implements OnInit {
         password: this.form.value.password as string,
       })
       .subscribe((res) => {
+        this.tokenService.SetJwtInCookie(res)
         if (this.tokenService.ValidateToken(res.accessToken)) {
-          this.tokenService.SetJwtInCookie(res)
           this.router.navigate(['admin/users']).then(() => {})
         } else {
           this.router.navigate(['attendance/students']).then(() => {})

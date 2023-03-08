@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StudentAttendance.Data.Entities.Students;
 
-public class StudentConfiguration : IEntityTypeConfiguration<StudentDbModel>
+public class StudentConfiguration : IEntityTypeConfiguration<StudentDb>
 {
-    public void Configure(EntityTypeBuilder<StudentDbModel> builder)
+    public void Configure(EntityTypeBuilder<StudentDb> builder)
     {
         builder.HasKey(it => it.Id);
 

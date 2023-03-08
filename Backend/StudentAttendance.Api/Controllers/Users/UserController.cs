@@ -2,10 +2,10 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.Users.Services;
-using StudentAttendance.Core.Exceptions;
 
 namespace StudentAttendance.Api.Controllers.Users;
 
@@ -16,11 +16,11 @@ public class UserController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
-    private readonly IValidator<CreateUserDto> _createValidator;
+    private readonly IValidator<UserRequest> _createValidator;
 
     public UserController(IUserService userService,
         IMapper mapper,
-        IValidator<CreateUserDto> createValidator)
+        IValidator<UserRequest> createValidator)
     {
         _userService = userService;
         _mapper = mapper;
@@ -28,56 +28,31 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateUserDto))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task CreateUserAndSendEmail([FromBody] CreateUserDto newUser)
+    public async Task CreateUserAndSendEmail(UserRequest user)
     {
-        await _createValidator.ValidateAndThrowAsync(newUser);
-        var newUserCore = _mapper.Map<CreateUserDto, User>(newUser);
-        await _userService.CreateAndSendMailAsync(newUserCore);
+        await _createValidator.ValidateAndThrowAsync(user);
+        var userCore = _mapper.Map<User>(user);
+        await _userService.CreateAndSendMailAsync(userCore);
     }
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<UserDto>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetAllUsers()
+    public async Task<IEnumerable<UserResponse>> GetAllUsers()
     {
         var users = await _userService.GetAllUsers();
-        var response = _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
-        return Ok(response);
-    }
-
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<bool> DeleteUser([FromBody] UserDto userDto)
-    {
-        var coreUser = _mapper.Map<User>(userDto);
-        var result = await _userService.Delete(coreUser);
-        return result;
-    }
-
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<UserDto> GetCurrentUser()
-    {
-        var userIdString = User.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
-        if (Guid.TryParse(userIdString, out var userId))
-        {
-            var response = await _userService.GetUser(userId);
-            return _mapper.Map<UserDto>(response);
-        }
-
-        throw new UserException("You are not authorized");
+        return _mapper.Map<IEnumerable<UserResponse>>(users);
     }
 
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task UpdateUser(UserDto user)
+    public async Task UpdateUser(UserRequest user)
     {
         var updateUser = _mapper.Map<User>(user);
         await _userService.UpdateUser(updateUser);
+    }
+
+    [HttpPost]
+    public async Task DeleteUser(UserRequest userDto)
+    {
+        var coreUser = _mapper.Map<User>(userDto);
+        await _userService.Delete(coreUser);
     }
 }

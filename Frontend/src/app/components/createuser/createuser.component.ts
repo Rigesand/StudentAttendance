@@ -20,6 +20,7 @@ export class CreateuserComponent implements OnInit {
       Validators.minLength(6),
     ]),
     role: new FormControl<string>(this.roles[0]),
+    groupNumber: new FormControl<number>(0),
   })
 
   CreateUserAndSendEmail() {
@@ -27,10 +28,12 @@ export class CreateuserComponent implements OnInit {
       .CreateUserAndSendEmail({
         email: this.form.value.email as string,
         role: this.form.value.role as string,
+        groupNumber: this.form.value.groupNumber,
       })
       .subscribe(() => {
         this.userService.getAll()
         this.form.controls.email.setValue('')
+        this.form.controls.groupNumber.setValue(0)
       })
   }
 }

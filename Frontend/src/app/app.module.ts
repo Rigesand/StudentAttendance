@@ -29,6 +29,8 @@ import {TokenService} from './services/token.service'
 import {DeleteUserComponent} from './components/delete-user/delete-user.component'
 import {DeleteUserPageComponent} from './pages/admin/delete-user-page/delete-user-page.component'
 import {AuthInterseptor} from './shared/authInterseptor.service'
+import {UserService} from './services/user.service'
+import {StudentService} from './services/student.service'
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import {AuthInterseptor} from './shared/authInterseptor.service'
   providers: [
     CookieService,
     TokenService,
+    UserService,
+    StudentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterseptor,

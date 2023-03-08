@@ -52,7 +52,7 @@ builder.Services.AddAutoMapper(cfg =>
 });
 
 //Регистрация валидаторов
-builder.Services.AddScoped<IValidator<CreateUserDto>, CreateUserValidator>();
+builder.Services.AddScoped<IValidator<UserRequest>, CreateUserValidator>();
 
 var authSection = builder.Configuration.GetSection(AuthConfig.Position);
 var authConfig = authSection.Get<AuthConfig>();

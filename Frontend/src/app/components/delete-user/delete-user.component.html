@@ -1,6 +1,6 @@
 <div class="centered">
   <form (ngSubmit)="DeleteUser()" [formGroup]="form">
-    <h3 class="create-user-text">Удалить пользователя</h3>
+    <h3 class="delete-user-text">Удалить пользователя</h3>
     <div class="form-row">
       <input type="email" class="field" formControlName="email" readonly />
     </div>
@@ -8,7 +8,7 @@
       <input type="text" class="field" formControlName="role" readonly />
     </div>
     <div class="form-row">
-      <button class="login-button" type="DeleteUser">Удалить</button>
+      <button class="delete-button" type="DeleteUser">Удалить</button>
     </div>
   </form>
 </div>

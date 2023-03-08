@@ -2,10 +2,11 @@
 
 public interface IUserService
 {
-    Task<User> FindByEmailAsync(string email);
-    Task<User> CreateAndSendMailAsync(User newUser);
+    Task<User> GetUserById(Guid id);
+    Task<User> GetUserByCredential(string login, string password);
+    Task<User> GetUserByEmail(string email);
+    Task<User> CreateAndSendMailAsync(User user);
     Task<IEnumerable<User>> GetAllUsers();
-    Task UpdateUser(User updateUser);
-    Task<bool> Delete(User user);
-    Task<User> GetUser(Guid id);
+    Task UpdateUser(User user);
+    Task Delete(User user);
 }

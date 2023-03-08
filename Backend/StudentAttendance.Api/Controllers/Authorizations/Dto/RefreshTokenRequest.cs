@@ -5,5 +5,5 @@ namespace StudentAttendance.Api.Controllers.Authorizations.Dto;
 public class RefreshTokenRequest
 {
     [Required] 
-    public string? RefreshToken { get; set; }
+    public string RefreshToken { get; set; } = null!;
 }

@@ -1,18 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using StudentAttendance.Core.Domains.Users;
+﻿using StudentAttendance.Core.Domains.Users;
 
 namespace StudentAttendance.Core.Domains.Roles;
 
-public class Role : IdentityRole
+public class Role
 {
-    public Role(string role) : base(role)
-    {
-    }
-
-    public Role()
-    {
-    }
-
-    public string? UserId { get; set; }
+    public Guid Id { get; set; }
+    public string Name { get; set; } = null!;
     public ICollection<User>? Users { get; set; }
 }

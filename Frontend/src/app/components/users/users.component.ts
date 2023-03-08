@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../services/user.service'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
-import {IUserDto} from '../../models/UserDto'
+import {IUserResponse} from '../../models/Users/UserResponse'
 
 @Component({
   selector: 'app-users',
@@ -22,11 +22,11 @@ export class UsersComponent implements OnInit {
     role: new FormControl<string>(''),
   })
 
-  ChangeUser(user: IUserDto) {
+  ChangeUser(user: IUserResponse) {
     this.userService.editUser = user
   }
 
-  DeleteUser(user: IUserDto) {
+  DeleteUser(user: IUserResponse) {
     this.userService.deleteUser = user
   }
 }

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using StudentAttendance.Core.Domains.Attendances;
+using StudentAttendance.Core.Domains.Groups;
 using StudentAttendance.Core.Domains.Roles;
+using StudentAttendance.Core.Domains.Students;
 using StudentAttendance.Core.Domains.Users;
-using StudentAttendance.Core.Domains.VisitedStudents;
-using StudentAttendance.Data.Entities.Attendances;
+using StudentAttendance.Data.Entities.Groups;
 using StudentAttendance.Data.Entities.Roles;
+using StudentAttendance.Data.Entities.Students;
 using StudentAttendance.Data.Entities.Users;
-using StudentAttendance.Data.Entities.VisitedStudents;
 
 namespace StudentAttendance.Data;
 
@@ -14,20 +14,10 @@ public class DataMappingProfile : Profile
 {
     public DataMappingProfile()
     {
-        CreateMap<Attendance, AttendanceDbModel>()
-            .ForMember(dest => dest.VisitedStudents,
-                opt => opt
-                    .MapFrom(it => it.VisitedStudents))
-            .ReverseMap();
-
-        CreateMap<VisitedStudentDbModel, VisitedStudent>()
-            .ForMember(dest => dest.Id,
-                opt => opt
-                    .MapFrom(it => it.StudentId))
-            .ReverseMap();
-
-        CreateMap<User, UserDbModel>().ReverseMap();
-
-        CreateMap<RoleDbModel, Role>().ReverseMap();
+        CreateMap<User, UserDb>().ReverseMap();
+        CreateMap<Role,RoleDb>().ReverseMap();
+        
+        CreateMap<Student, StudentDb>().ReverseMap();
+        CreateMap<Group, GroupDb>().ReverseMap();
     }
 }

@@ -18,7 +18,7 @@ public class RoleRepository : IRoleRepository
 
     public async Task<Role> CreateAsync(Role roleDbModel)
     {
-        var roleDb = _mapper.Map<Role, RoleDbModel>(roleDbModel);
+        var roleDb = _mapper.Map<Role, RoleDb>(roleDbModel);
         await _context.Roles.AddAsync(roleDb);
         return roleDbModel;
     }
@@ -28,22 +28,10 @@ public class RoleRepository : IRoleRepository
         var roleDbModel = await _context.Roles.FirstOrDefaultAsync(it => it.Name == roleName);
         if (roleDbModel == null)
         {
-            return null;
+            return null!;
         }
 
-        var coreRole = _mapper.Map<RoleDbModel, Role>(roleDbModel);
-        return coreRole;
-    }
-
-    public async Task<Role> FindById(Guid id)
-    {
-        var roleDbModel = await _context.Roles.FirstOrDefaultAsync(it => it.Id == id);
-        if (roleDbModel == null)
-        {
-            return null;
-        }
-
-        var coreRole = _mapper.Map<RoleDbModel, Role>(roleDbModel);
+        var coreRole = _mapper.Map<RoleDb, Role>(roleDbModel);
         return coreRole;
     }
 }

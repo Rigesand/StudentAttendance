@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {CookieService} from 'ngx-cookie-service'
 import jwt_decode from 'jwt-decode'
-import {TokenModel} from '../models/TokenModel'
+import {ITokenResponse} from '../models/Auth/TokenResponse'
 import {HttpClient} from '@angular/common/http'
 
 @Injectable({
@@ -25,7 +25,7 @@ export class TokenService {
     return 'Bearer ' + this.cookieService.get('JwtToken')
   }
 
-  SetJwtInCookie(jwt: TokenModel) {
+  SetJwtInCookie(jwt: ITokenResponse) {
     this.cookieService.set('JwtToken', jwt.accessToken)
     this.cookieService.set('RefreshToken', jwt.refreshToken)
   }
@@ -36,7 +36,7 @@ export class TokenService {
 
   SendRefreshToken() {
     this.http
-      .post<TokenModel>('/api/Auth/GetRefreshToken', {
+      .post<ITokenResponse>('/api/Auth/GetRefreshToken', {
         refreshToken: this.GetRefreshFromCookie(),
       })
       .subscribe((res) => {

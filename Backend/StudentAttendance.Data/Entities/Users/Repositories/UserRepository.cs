@@ -20,22 +20,21 @@ public class UserRepository : IUserRepository
     public async Task<User> FindByEmailAsync(string email)
     {
         var result = await _context.Users
-            .FirstOrDefaultAsync(it => it.Email!.ToLower() == email.ToLower());
+            .FirstOrDefaultAsync(it => it.Email.ToLower() == email.ToLower());
         if (result == null)
         {
             return null!;
         }
 
-        var coreUser = _mapper.Map<UserDbModel, User>(result);
+        var coreUser = _mapper.Map<User>(result);
         return coreUser;
     }
 
-    public async Task<User> CreateAsync(User newUser)
+    public async Task<User> CreateAsync(User user)
     {
-        var dbUser = _mapper.Map<User, UserDbModel>(newUser);
+        var dbUser = _mapper.Map<UserDb>(user);
         await _context.Users.AddAsync(dbUser);
-        var returnUser = _mapper.Map<UserDbModel, User>(dbUser);
-        return returnUser;
+        return user;
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
@@ -43,16 +42,15 @@ public class UserRepository : IUserRepository
         return await _mapper.ProjectTo<User>(_context.Users).ToListAsync();
     }
 
-    public async Task<bool> Delete(User user)
+    public async Task Delete(User user)
     {
         var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
         if (dbUser == null)
         {
-            return false;
+            throw new Exception("Такого пользователя не существует");
         }
 
         _context.Users.Remove(dbUser);
-        return true;
     }
 
     public async Task<User> GetUserById(Guid id)
@@ -61,10 +59,9 @@ public class UserRepository : IUserRepository
         return _mapper.Map<User>(dbUser);
     }
 
-    public async Task UpdateUser(User updateUser)
+    public async Task UpdateUser(User user)
     {
-        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == updateUser.Email);
-        dbUser.Role = updateUser.Role;
-        await _context.SaveChangesAsync();
+        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
+        dbUser!.Role = user.Role;
     }
 }

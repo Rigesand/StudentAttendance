@@ -1,20 +1,44 @@
 <div class="centered">
-  <form>
+  <form (ngSubmit)="CreateStudent()" [formGroup]="form">
     <h3 class="create-user-text">Добавить студента</h3>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Фамилия" required />
+      <input
+        type="text"
+        class="field"
+        placeholder="Фамилия"
+        formControlName="lastName"
+        required
+      />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Имя" required />
+      <input
+        type="text"
+        class="field"
+        placeholder="Имя"
+        formControlName="firstName"
+        required
+      />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Отчество" required />
+      <input
+        type="text"
+        class="field"
+        placeholder="Отчество"
+        formControlName="secondName"
+        required
+      />
     </div>
     <div class="form-row">
-      <input type="email" class="field" placeholder="Email" required />
+      <input
+        type="email"
+        class="field"
+        placeholder="Email"
+        formControlName="email"
+        required
+      />
     </div>
     <div class="form-row">
-      <button class="login-button" type="submit">Добавить</button>
+      <button class="login-button" type="CreateStudent">Добавить</button>
     </div>
   </form>
 </div>

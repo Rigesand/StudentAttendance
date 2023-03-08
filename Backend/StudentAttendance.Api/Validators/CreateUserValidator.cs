@@ -4,7 +4,7 @@ using StudentAttendance.Core.Domains.Users.Services;
 
 namespace StudentAttendance.Api.Validators;
 
-public class CreateUserValidator : AbstractValidator<CreateUserDto>
+public class CreateUserValidator : AbstractValidator<UserRequest>
 {
     public CreateUserValidator(IUserService userService)
     {
@@ -14,7 +14,7 @@ public class CreateUserValidator : AbstractValidator<CreateUserDto>
         RuleFor(it => it.Role)
             .NotEmpty();
         RuleFor(x => x)
-            .Must(user =>userService.FindByEmailAsync(user.Email!).Result==null!)
+            .Must(user =>userService.GetUserByEmail(user.Email).Result==null!)
             .WithMessage("Email: Пользователь с таким email уже существует");
     }
 }

@@ -1,13 +1,14 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import {IUserDto} from "../models/UserDto";
+import {Pipe, PipeTransform} from '@angular/core'
+import {IUserResponse} from '../models/Users/UserResponse'
 
 @Pipe({
-  name: 'filterUsers'
+  name: 'filterUsers',
 })
 export class FilterUsersPipe implements PipeTransform {
-
-  transform(products: IUserDto[], search:string): IUserDto[] {
-    if (search.length===0) return products
-    return products.filter(p=>p.email.toLowerCase().includes(search.toLowerCase()));
+  transform(products: IUserResponse[], search: string): IUserResponse[] {
+    if (search.length === 0) return products
+    return products.filter((p) =>
+      p.email.toLowerCase().includes(search.toLowerCase())
+    )
   }
 }

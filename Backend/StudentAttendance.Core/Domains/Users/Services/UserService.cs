@@ -1,38 +1,18 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using StudentAttendance.Core.Configuration;
+﻿using StudentAttendance.Core.Domains.Groups.Repositories;
 using StudentAttendance.Core.Domains.Mail.Services;
 using StudentAttendance.Core.Domains.Roles.Repositories;
-using StudentAttendance.Core.Domains.Tokens;
-using StudentAttendance.Core.Domains.Tokens.Services;
 using StudentAttendance.Core.Domains.Users.Repositories;
 using StudentAttendance.Core.Exceptions;
 
 namespace StudentAttendance.Core.Domains.Users.Services;
 
-public class UserService : IUserService, ITokenService
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    private readonly IMailService _mailService;
     private readonly IRoleRepository _roleRepository;
+    private readonly IGroupRepository _groupRepository;
+    private readonly IMailService _mailService;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly AuthConfig _config;
-
-    public UserService(
-        IUserRepository userRepository,
-        IMailService mailService,
-        IRoleRepository roleRepository,
-        IUnitOfWork unitOfWork,
-        IOptions<AuthConfig> config)
-    {
-        _userRepository = userRepository;
-        _mailService = mailService;
-        _roleRepository = roleRepository;
-        _unitOfWork = unitOfWork;
-        _config = config.Value;
-    }
 
     private string RandomString(int length)
     {
@@ -42,7 +22,20 @@ public class UserService : IUserService, ITokenService
             .Select(x => x[random.Next(x.Length)]).ToArray());
     }
 
-    private async Task<User> GetUserById(Guid id)
+    public UserService(
+        IUserRepository userRepository,
+        IRoleRepository roleRepository,
+        IMailService mailService,
+        IUnitOfWork unitOfWork, IGroupRepository groupRepository)
+    {
+        _userRepository = userRepository;
+        _mailService = mailService;
+        _roleRepository = roleRepository;
+        _unitOfWork = unitOfWork;
+        _groupRepository = groupRepository;
+    }
+
+    public async Task<User> GetUserById(Guid id)
     {
         var user = await _userRepository.GetUserById(id);
         if (user == null)
@@ -50,71 +43,40 @@ public class UserService : IUserService, ITokenService
         return user;
     }
 
-    private async Task<User> GetUserByCredential(string login, string password)
+    public async Task<User> GetUserByCredential(string login, string password)
     {
         var user = await _userRepository.FindByEmailAsync(login);
         if (user == null)
             throw new UserException("User not found");
-        if (!HashService.Verify(password, user.PasswordHash!))
+        if (!HashService.Verify(password, user.PasswordHash))
             throw new Exception("Password is incorrect");
         return user;
     }
 
-    private TokenModel GenerateTokens(User user)
-    {
-        var dtNow = DateTime.Now;
-        var jwt = new JwtSecurityToken(
-            issuer: _config.Issuer,
-            audience: _config.Audience,
-            notBefore: dtNow,
-            claims: new[]
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email!),
-                new Claim("id", user.Id.ToString()),
-                new Claim("role", user.Role!)
-            },
-            expires: DateTime.Now.AddMinutes(_config.LifeTime),
-            signingCredentials: new SigningCredentials(_config.SymmetricSecurityKey(),
-                SecurityAlgorithms.HmacSha256));
-        var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-        var refresh = new JwtSecurityToken(
-            notBefore: dtNow,
-            claims: new[]
-            {
-                new Claim("id", user.Id.ToString())
-            },
-            expires: DateTime.Now.AddHours(_config.LifeTime),
-            signingCredentials: new SigningCredentials(_config.SymmetricSecurityKey(),
-                SecurityAlgorithms.HmacSha256));
-        var encodedRefresh = new JwtSecurityTokenHandler().WriteToken(refresh);
 
-        var tokens = new TokenModel
-        {
-            AccessToken = encodedJwt,
-            RefreshToken = encodedRefresh
-        };
-        return tokens;
-    }
-
-    public async Task<User> FindByEmailAsync(string email)
+    public async Task<User> GetUserByEmail(string email)
     {
         return await _userRepository.FindByEmailAsync(email);
     }
 
-    public async Task<User> CreateAndSendMailAsync(User newUser)
+    public async Task<User> CreateAndSendMailAsync(User user)
     {
         var password = RandomString(35);
-        newUser.PasswordHash = HashService.GetHash(password);
-        var existedRole = await _roleRepository.FindByNameAsync(newUser.Role!);
+        user.PasswordHash = HashService.GetHash(password);
+        var existedRole = await _roleRepository.FindByNameAsync(user.Role);
         if (existedRole == null)
         {
             throw new Exception("Вы не можете создать пользователя с такой ролью");
+        } 
+        
+        if (user.GroupNumber!=null)
+        {
+            await _groupRepository.CreateGroup(user.GroupNumber);
         }
-
-        var user = await _userRepository.CreateAsync(newUser);
+        var coreUser = await _userRepository.CreateAsync(user);
         await _unitOfWork.SaveChanges();
-        await _mailService.Send(user, password);
-        return user;
+        await _mailService.Send(coreUser, password);
+        return coreUser;
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
@@ -122,62 +84,15 @@ public class UserService : IUserService, ITokenService
         return await _userRepository.GetAllUsers();
     }
 
-    public async Task UpdateUser(User updateUser)
+    public async Task UpdateUser(User user)
     {
-        await _userRepository.UpdateUser(updateUser);
-    }
-
-    public async Task<bool> Delete(User user)
-    {
-        var isTrue = await _userRepository.Delete(user);
-        if (!isTrue)
-        {
-            return false;
-        }
-
+        await _userRepository.UpdateUser(user);
         await _unitOfWork.SaveChanges();
-        return true;
     }
 
-    public async Task<User> GetUser(Guid id)
+    public async Task Delete(User user)
     {
-        var user = await GetUserById(id);
-        return user;
-    }
-
-    public async Task<TokenModel> Login(string login, string password)
-    {
-        var user = await GetUserByCredential(login, password);
-        return GenerateTokens(user);
-    }
-
-    public async Task<TokenModel> GetTokenByRefreshToken(string refreshToken)
-    {
-        var validParams = new TokenValidationParameters
-        {
-            ValidateAudience = false,
-            ValidateIssuer = false,
-            ValidateIssuerSigningKey = true,
-            ValidateLifetime = true,
-            IssuerSigningKey = _config.SymmetricSecurityKey()
-        };
-        
-        var principal = new JwtSecurityTokenHandler().ValidateToken(refreshToken, validParams, out var securityToken);
-
-        if (securityToken is not JwtSecurityToken jwtToken
-            || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
-                StringComparison.InvariantCultureIgnoreCase))
-        {
-            throw new SecurityTokenException("invalid token");
-        }
-
-        if (principal.Claims.FirstOrDefault(x => x.Type == "id")?.Value is String userIdString
-            && Guid.TryParse(userIdString, out var userId))
-        {
-            var user = await GetUserById(userId);
-            return GenerateTokens(user);
-        }
-
-        throw new SecurityTokenException("invalid token");
+        await _userRepository.Delete(user);
+        await _unitOfWork.SaveChanges();
     }
 }
