@@ -34,6 +34,12 @@ public class StudentController : ControllerBase
         var students = await _service.GetStudentsByGroup(groupNumber);
         return _mapper.Map<IEnumerable<StudentResponse>>(students);
     }
+    [HttpPut]
+    public async Task UpdateStudent(StudentRequest student)
+    {
+        var updateStudent = _mapper.Map<Student>(student);
+        await _service.UpdateUser(updateStudent);
+    }
     
     [HttpPost]
     public async Task DeleteStudent(StudentRequest student)

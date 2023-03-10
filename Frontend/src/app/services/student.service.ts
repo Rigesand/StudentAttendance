@@ -19,6 +19,8 @@ export class StudentService {
     return this.http.post<boolean>('/api/Student/CreateStudent', createStudent)
   }
   UpdateStudent(updateStudent: IStudentRequest) {
+    updateStudent.groupNumber = this.userService.currentUser
+      .groupNumber as number
     return this.http.put('/api/Student/UpdateStudent', updateStudent)
   }
 

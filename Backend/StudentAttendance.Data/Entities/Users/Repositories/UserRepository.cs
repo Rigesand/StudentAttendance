@@ -37,9 +37,10 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
+    public async Task UpdateUser(User user)
     {
-        return await _mapper.ProjectTo<User>(_context.Users).ToListAsync();
+        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
+        dbUser!.Role = user.Role;
     }
 
     public async Task Delete(User user)
@@ -59,9 +60,8 @@ public class UserRepository : IUserRepository
         return _mapper.Map<User>(dbUser);
     }
 
-    public async Task UpdateUser(User user)
+    public async Task<IEnumerable<User>> GetAllUsers()
     {
-        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
-        dbUser!.Role = user.Role;
+        return await _mapper.ProjectTo<User>(_context.Users).ToListAsync();
     }
 }

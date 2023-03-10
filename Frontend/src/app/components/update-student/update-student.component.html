@@ -1,20 +1,16 @@
 <div class="centered">
-  <form>
+  <form (ngSubmit)="UpdateStudent()" [formGroup]="form">
     <h3 class="create-user-text">Обновить данные студента</h3>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Фамилия" required />
+      <input type="text" class="field" formControlName="name" required />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Имя" required />
+      <input type="text" class="field" formControlName="email" required />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Отчество" required />
-    </div>
-    <div class="form-row">
-      <input type="email" class="field" placeholder="Email" required />
-    </div>
-    <div class="form-row">
-      <button class="login-button" type="submit">Сохранить изменения</button>
+      <button class="login-button" type="UpdateUser">
+        Сохранить изменения
+      </button>
     </div>
   </form>
 </div>

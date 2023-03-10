@@ -23,15 +23,22 @@ public class StudentService : IStudentService
         await _unitOfWork.SaveChanges();
     }
 
-    public async Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber)
+    public async Task UpdateUser(Student updateStudent)
     {
-        var group = await _groupRepository.GetByGroupNumber(groupNumber);
-        return group.Students.OrderBy(it => it.Name).ToList();
+        updateStudent.GroupId = await _groupRepository.GetIdByGroupNumber(updateStudent.GroupNumber);
+        await _repository.UpdateUser(updateStudent);
+        await _unitOfWork.SaveChanges();
     }
 
     public async Task Delete(Student student)
     {
         await _repository.Delete(student);
         await _unitOfWork.SaveChanges();
+    }
+
+    public async Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber)
+    {
+        var group = await _groupRepository.GetByGroupNumber(groupNumber);
+        return group.Students.OrderBy(it => it.Name).ToList();
     }
 }

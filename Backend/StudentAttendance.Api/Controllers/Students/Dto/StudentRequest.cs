@@ -4,6 +4,7 @@ namespace StudentAttendance.Api.Controllers.Students.Dto;
 
 public class StudentRequest
 {
+    public Guid Id { get; set; }
     [Required] 
     public string Name { get; set; } = null!;
     [Required] 
