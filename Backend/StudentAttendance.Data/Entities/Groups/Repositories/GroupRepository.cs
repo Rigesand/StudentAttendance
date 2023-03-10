@@ -5,7 +5,7 @@ using StudentAttendance.Core.Domains.Groups.Repositories;
 
 namespace StudentAttendance.Data.Entities.Groups.Repositories;
 
-public class GroupRepository: IGroupRepository
+public class GroupRepository : IGroupRepository
 {
     private readonly StudentAttendanceDbContext _context;
     private readonly IMapper _mapper;
@@ -16,9 +16,16 @@ public class GroupRepository: IGroupRepository
         _mapper = mapper;
     }
 
+    public async Task<Guid> GetIdByGroupNumber(int groupNumber)
+    {
+        var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
+        return dbGroup.Id;
+    }
+
     public async Task<Group> GetByGroupNumber(int groupNumber)
     {
-        var dbGroup=await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
+        var dbGroup = await _context.Groups.Include(it => it.Students)
+            .FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
         return _mapper.Map<Group>(dbGroup);
     }
 

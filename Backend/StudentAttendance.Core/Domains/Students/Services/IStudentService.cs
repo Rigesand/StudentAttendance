@@ -3,4 +3,6 @@
 public interface IStudentService
 {
     Task CreateStudent(Student student);
+    Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber);
+    Task Delete(Student student);
 }

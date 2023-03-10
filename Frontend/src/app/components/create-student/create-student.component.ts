@@ -39,6 +39,7 @@ export class CreateStudentComponent implements OnInit {
         groupNumber: this.userService.currentUser.groupNumber!,
       })
       .subscribe(() => {
+        this.studentService.getAll()
         this.form.controls.email.setValue('')
         this.form.controls.firstName.setValue('')
         this.form.controls.secondName.setValue('')

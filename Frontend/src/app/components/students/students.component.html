@@ -16,15 +16,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Ригин Олег Алексеевич</td>
-            <td>origins11march@gmail.com</td>
+          <tr *ngFor="let student of studentService.students; let i = index">
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
             <td>
               <span class="actions">
-                <a routerLink="/attendance/updateStudent" class="actions-item">
+                <a
+                  routerLink="/attendance/updateStudent"
+                  class="actions-item"
+                  (click)="ChangeStudent(student)"
+                >
                   <img src="assets/images/edit.png" />
                 </a>
-                <a routerLink="/attendance/updateStudent" class="actions-item">
+                <a
+                  routerLink="/attendance/deleteStudent"
+                  class="actions-item"
+                  (click)="DeleteStudent(student)"
+                >
                   <img src="assets/images/delete.png" />
                 </a>
               </span>

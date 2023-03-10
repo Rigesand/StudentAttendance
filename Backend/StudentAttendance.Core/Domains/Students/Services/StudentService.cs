@@ -18,8 +18,20 @@ public class StudentService : IStudentService
 
     public async Task CreateStudent(Student student)
     {
-        student.GroupDbModel = await _groupRepository.GetByGroupNumber(student.GroupNumber);
+        student.GroupId = await _groupRepository.GetIdByGroupNumber(student.GroupNumber);
         await _repository.CreateStudent(student);
+        await _unitOfWork.SaveChanges();
+    }
+
+    public async Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber)
+    {
+        var group = await _groupRepository.GetByGroupNumber(groupNumber);
+        return group.Students.OrderBy(it => it.Name).ToList();
+    }
+
+    public async Task Delete(Student student)
+    {
+        await _repository.Delete(student);
         await _unitOfWork.SaveChanges();
     }
 }

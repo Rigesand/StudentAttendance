@@ -19,6 +19,8 @@ export class AuthInterseptor implements HttpInterceptor {
     const token = this.tokenService.GetJwtFromCookie()
     req = req.clone({
       setHeaders: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
         Authorization: token,
       },
     })

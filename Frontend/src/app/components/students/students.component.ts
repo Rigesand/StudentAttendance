@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core'
+import {StudentService} from '../../services/student.service'
+import {IStudentResponse} from '../../models/Students/StudentResponse'
+import {UserService} from '../../services/user.service'
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
-
-  constructor() { }
+  constructor(public studentService: StudentService) {}
 
   ngOnInit(): void {
+    this.studentService.getAll().subscribe(() => {})
   }
 
+  ChangeStudent(student: IStudentResponse) {
+    this.studentService.editStudent = student
+  }
+
+  DeleteStudent(student: IStudentResponse) {
+    this.studentService.deleteStudent = student
+  }
 }

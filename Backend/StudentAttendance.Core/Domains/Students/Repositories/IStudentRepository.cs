@@ -3,4 +3,5 @@
 public interface IStudentRepository
 {
     Task CreateStudent(Student student);
+    Task Delete(Student student);
 }

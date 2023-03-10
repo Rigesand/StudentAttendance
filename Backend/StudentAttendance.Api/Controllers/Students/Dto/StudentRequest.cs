@@ -2,7 +2,7 @@
 
 namespace StudentAttendance.Api.Controllers.Students.Dto;
 
-public class CreateStudent
+public class StudentRequest
 {
     [Required] 
     public string Name { get; set; } = null!;

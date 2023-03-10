@@ -17,6 +17,7 @@ public class ApiMappingProfile : Profile
         CreateMap<UserRequest, User>().ReverseMap();
         CreateMap<UserResponse, User>().ReverseMap();
 
-        CreateMap<CreateStudent, Student>().ReverseMap();
+        CreateMap<StudentResponse, Student>().ReverseMap();
+        CreateMap<StudentRequest, Student>().ReverseMap();
     }
 }

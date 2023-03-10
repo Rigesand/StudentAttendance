@@ -52,4 +52,8 @@ export class TokenService {
     }
     return false
   }
+
+  IsAdmin() {
+    return this.ValidateToken(this.GetJwtFromCookie())
+  }
 }

@@ -4,7 +4,11 @@ import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
 import {AuthPageComponent} from './pages/auth-page/auth-page.component'
 import {ReactiveFormsModule, FormsModule} from '@angular/forms'
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http'
 import {CookieService} from 'ngx-cookie-service'
 import {SidebarComponent} from './components/sidebar/sidebar.component'
 import {CreateuserComponent} from './components/createuser/createuser.component'
@@ -31,6 +35,9 @@ import {DeleteUserPageComponent} from './pages/admin/delete-user-page/delete-use
 import {AuthInterseptor} from './shared/authInterseptor.service'
 import {UserService} from './services/user.service'
 import {StudentService} from './services/student.service'
+import {AuthGuardService} from './shared/authGuard.service'
+import {DeleteStudentComponent} from './components/delete-student/delete-student.component'
+import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page/delete-student-page.component'
 
 @NgModule({
   declarations: [
@@ -57,6 +64,8 @@ import {StudentService} from './services/student.service'
     AttendancesComponent,
     DeleteUserComponent,
     DeleteUserPageComponent,
+    DeleteStudentComponent,
+    DeleteStudentPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,15 +75,17 @@ import {StudentService} from './services/student.service'
     ReactiveFormsModule,
   ],
   providers: [
-    CookieService,
-    TokenService,
-    UserService,
-    StudentService,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterseptor,
       multi: true,
     },
+    HttpClient,
+    CookieService,
+    TokenService,
+    UserService,
+    StudentService,
   ],
   bootstrap: [AppComponent],
 })

@@ -2,7 +2,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core.Domains.Users;
 using StudentAttendance.Core.Domains.Users.Services;

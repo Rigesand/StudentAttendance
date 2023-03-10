@@ -99,15 +99,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseCors(b => b.WithOrigins("http://localhost:4200"));
 
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseValidationException();
 
 app.MapControllers();

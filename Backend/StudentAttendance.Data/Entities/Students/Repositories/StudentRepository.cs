@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Core.Domains.Students;
 using StudentAttendance.Core.Domains.Students.Repositories;
 
@@ -19,5 +20,16 @@ public class StudentRepository: IStudentRepository
     {
         var dbStudent = _mapper.Map<StudentDb>(student);
         await _context.Students.AddAsync(dbStudent);
+    }
+
+    public async Task Delete(Student student)
+    {
+        var dbStudent = await _context.Students.FirstOrDefaultAsync(it => it.Name == student.Name);
+        if (dbStudent == null)
+        {
+            throw new Exception("Такого пользователя не существует");
+        }
+
+        _context.Students.Remove(dbStudent);
     }
 }
