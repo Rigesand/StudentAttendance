@@ -39,8 +39,22 @@ public class UserRepository : IUserRepository
 
     public async Task UpdateUser(User user)
     {
-        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Email == user.Email);
-        dbUser!.Role = user.Role;
+        var dbUser = await _context.Users.FirstOrDefaultAsync(it => it.Id == user.Id);
+        if (user.Role != null)
+        {
+            dbUser!.Role = user.Role;
+        }
+
+        dbUser!.Email = user.Email;
+        if (user.Name != null)
+        {
+            dbUser.Name = user.Name;
+        }
+
+        if (user.PasswordHash != null)
+        {
+            dbUser.PasswordHash = user.PasswordHash;
+        }
     }
 
     public async Task Delete(User user)

@@ -23,6 +23,7 @@ export class UpdateuserComponent implements OnInit {
   UpdateUser() {
     this.userService
       .UpdateUser({
+        id: this.userService.editUser.id,
         email: this.form.value.email as string,
         role: this.form.value.role as string,
       })

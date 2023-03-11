@@ -39,6 +39,6 @@ public class StudentService : IStudentService
     public async Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber)
     {
         var group = await _groupRepository.GetByGroupNumber(groupNumber);
-        return group.Students.OrderBy(it => it.Name).ToList();
+        return group.Students!.OrderBy(it => it.Name).ToList();
     }
 }

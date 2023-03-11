@@ -19,7 +19,7 @@ public class GroupRepository : IGroupRepository
     public async Task<Guid> GetIdByGroupNumber(int groupNumber)
     {
         var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
-        return dbGroup.Id;
+        return dbGroup!.Id;
     }
 
     public async Task<Group> GetByGroupNumber(int groupNumber)
@@ -39,7 +39,7 @@ public class GroupRepository : IGroupRepository
 
         await _context.Groups.AddAsync(new GroupDb()
         {
-            GroupNumber = groupNumber.Value
+            GroupNumber = groupNumber!.Value
         });
     }
 }

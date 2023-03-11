@@ -25,8 +25,8 @@ public class StudentRepository: IStudentRepository
     public async Task UpdateUser(Student updateStudent)
     {
         var dbStudent =await _context.Students.FirstOrDefaultAsync(it => it.Id == updateStudent.Id);
-        dbStudent.Email = updateStudent.Email;
-        dbStudent.Name = updateStudent.Name;
+        dbStudent!.Email = updateStudent.Email;
+        dbStudent.Name = updateStudent.Name!;
     }
 
     public async Task Delete(Student student)
