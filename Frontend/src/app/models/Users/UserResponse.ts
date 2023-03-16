@@ -2,8 +2,8 @@ import {UUID} from 'angular2-uuid'
 
 export interface IUserResponse {
   id: UUID
-  name?: string
+  name: string | null
   email: string
   role: string
-  groupNumber?: number
+  groupNumber: number | null
 }

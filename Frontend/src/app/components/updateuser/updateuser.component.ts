@@ -26,6 +26,7 @@ export class UpdateuserComponent implements OnInit {
         id: this.userService.editUser.id,
         email: this.form.value.email as string,
         role: this.form.value.role as string,
+        groupNumber: this.userService.currentUser.groupNumber,
       })
       .subscribe(() => {
         this.userService.getAll()

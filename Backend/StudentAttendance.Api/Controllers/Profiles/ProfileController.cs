@@ -9,7 +9,7 @@ namespace StudentAttendance.Api.Controllers.Profiles;
 
 [ApiController]
 [Authorize]
-[Route("[controller]/[action]")]
+[Route("api/[controller]/[action]")]
 public class ProfileController: ControllerBase
 {
     private readonly IUserService _userService;

@@ -24,6 +24,7 @@ export class DeleteUserComponent implements OnInit {
         id: this.userService.deleteUser.id,
         email: this.form.value.email as string,
         role: this.form.value.role as string,
+        groupNumber: null,
       })
       .subscribe(() => {
         this.userService.getAll()

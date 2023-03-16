@@ -26,9 +26,10 @@ export class CreateuserComponent implements OnInit {
   CreateUserAndSendEmail() {
     this.userService
       .CreateUserAndSendEmail({
+        id: null,
         email: this.form.value.email as string,
         role: this.form.value.role as string,
-        groupNumber: this.form.value.groupNumber,
+        groupNumber: this.form.value.groupNumber as number,
       })
       .subscribe(() => {
         this.userService.getAll()

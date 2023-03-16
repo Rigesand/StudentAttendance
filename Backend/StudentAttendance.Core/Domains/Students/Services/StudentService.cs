@@ -23,10 +23,10 @@ public class StudentService : IStudentService
         await _unitOfWork.SaveChanges();
     }
 
-    public async Task UpdateUser(Student updateStudent)
+    public async Task UpdateStudent(Student updateStudent)
     {
         updateStudent.GroupId = await _groupRepository.GetIdByGroupNumber(updateStudent.GroupNumber);
-        await _repository.UpdateUser(updateStudent);
+        await _repository.UpdateStudent(updateStudent);
         await _unitOfWork.SaveChanges();
     }
 

@@ -34,9 +34,10 @@ export class CreateStudentComponent implements OnInit {
       this.form.value.secondName) as string
     this.studentService
       .CreateStudent({
+        id: null,
         email: this.form.value.email as string,
         name: name,
-        groupNumber: this.userService.currentUser.groupNumber!,
+        groupNumber: this.userService.currentUser.groupNumber,
       })
       .subscribe(() => {
         this.studentService.getAll()

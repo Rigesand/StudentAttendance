@@ -3,6 +3,6 @@
 public interface IStudentRepository
 {
     Task CreateStudent(Student student);
-    Task UpdateUser(Student updateStudent);
+    Task UpdateStudent(Student updateStudent);
     Task Delete(Student student);
 }

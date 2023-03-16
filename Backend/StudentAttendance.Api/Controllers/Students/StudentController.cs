@@ -38,7 +38,7 @@ public class StudentController : ControllerBase
     public async Task UpdateStudent(StudentRequest student)
     {
         var updateStudent = _mapper.Map<Student>(student);
-        await _service.UpdateUser(updateStudent);
+        await _service.UpdateStudent(updateStudent);
     }
     
     [HttpPost]

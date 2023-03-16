@@ -5,6 +5,7 @@ import {Observable, retry, tap} from 'rxjs'
 import {ITokenResponse} from '../models/Auth/TokenResponse'
 import {IUserRequest} from '../models/Users/UserRequest'
 import {ILoginRequest} from '../models/Auth/LoginRequest'
+import {IProfileRequest} from '../models/Profiles/ProfileRequest'
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,10 @@ export class UserService {
 
   UpdateUser(updateUser: IUserRequest) {
     return this.http.put('/api/User/UpdateUser', updateUser)
+  }
+
+  UpdateProfile(profileRequest: IProfileRequest) {
+    return this.http.post('/api/Profile/ChangeUserData', profileRequest)
   }
 
   DeleteUser(deleteUser: IUserRequest) {

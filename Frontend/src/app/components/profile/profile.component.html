@@ -1,22 +1,30 @@
 <div class="centered">
-  <form>
+  <form (ngSubmit)="UpdateProfile()" [formGroup]="form">
     <div class="form-row">
-      <input type="text" class="field" placeholder="Фамилия" required />
+      <input type="text" class="field" formControlName="name" required />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Имя" required />
+      <input
+        type="email"
+        class="field"
+        placeholder="email"
+        formControlName="email"
+        required
+      />
     </div>
     <div class="form-row">
-      <input type="text" class="field" placeholder="Отчество" required />
+      <input
+        type="password"
+        class="field"
+        placeholder="Password"
+        formControlName="password"
+        required
+      />
     </div>
     <div class="form-row">
-      <input type="email" class="field" placeholder="Email" required />
-    </div>
-    <div class="form-row">
-      <input type="password" class="field" placeholder="Password" required />
-    </div>
-    <div class="form-row">
-      <button class="login-button" type="submit">Сохранить изменения</button>
+      <button class="login-button" type="UpdateProfile">
+        Сохранить изменения
+      </button>
     </div>
   </form>
 </div>
