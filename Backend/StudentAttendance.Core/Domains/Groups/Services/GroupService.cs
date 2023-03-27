@@ -2,7 +2,7 @@
 
 namespace StudentAttendance.Core.Domains.Groups.Services;
 
-public class GroupService: IGroupService
+public class GroupService : IGroupService
 {
     private readonly IGroupRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
@@ -16,6 +16,12 @@ public class GroupService: IGroupService
     public async Task CreateGroup(int groupNumber)
     {
         await _repository.CreateGroup(groupNumber);
+        await _unitOfWork.SaveChanges();
+    }
+
+    public async Task DeleteGroup(int groupNumber)
+    {
+        await _repository.DeleteGroup(groupNumber);
         await _unitOfWork.SaveChanges();
     }
 }

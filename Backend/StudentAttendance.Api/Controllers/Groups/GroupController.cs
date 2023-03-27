@@ -19,4 +19,10 @@ public class GroupController : ControllerBase
     {
         await _groupService.CreateGroup(groupNumber);
     }
+
+    [HttpDelete]
+    public async Task DeleteGroup(int groupNumber)
+    {
+        await _groupService.DeleteGroup(groupNumber);
+    }
 }

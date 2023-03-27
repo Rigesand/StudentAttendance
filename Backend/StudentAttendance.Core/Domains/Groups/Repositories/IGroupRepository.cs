@@ -3,6 +3,7 @@
 public interface IGroupRepository
 {
     Task CreateGroup(int? groupNumber);
+    Task DeleteGroup(int groupNumber);
     Task<Guid> GetIdByGroupNumber(int groupNumber);
     Task<Group> GetByGroupNumber(int groupNumber);
 }

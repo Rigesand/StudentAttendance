@@ -16,6 +16,12 @@ public class GroupRepository : IGroupRepository
         _mapper = mapper;
     }
 
+    public async Task DeleteGroup(int groupNumber)
+    {
+        var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
+        _context.Groups.Remove(dbGroup);
+    }
+
     public async Task<Guid> GetIdByGroupNumber(int groupNumber)
     {
         var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
