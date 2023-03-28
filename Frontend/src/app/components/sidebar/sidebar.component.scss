@@ -7,7 +7,12 @@
   position: fixed;
   height: 100%;
   width: 300px;
-  background-color: #84CC16;
+  background-color: #04CC69;
+}
+
+.logo{
+  display: flex;
+  justify-content: center;
 }
 
 .admin-panel{
@@ -15,11 +20,19 @@
   font-size: 22px;
 }
 
+
 .admin-panel-item{
-  padding: 20px;
+  padding: 10px;
   display: flex;
   text-decoration: none;
-  color: black;
+  color: #FFFFFF;
+  border-radius: 10px;
+}
+
+.liss{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 .admin-panel-text{
@@ -27,6 +40,20 @@
   padding-left: 10px;
 }
 
-.admin-panel-item:focus,.admin-panel-item:hover{
-  background-color: #A3E635;
+.admin-panel-item:hover{
+  background-color: #FFFFFF;
+  color: #04CC69;
+}
+
+.admin-panel-item:hover .icon path{
+  fill: #04CC69;
+}
+
+.icon{
+  width: 30px;
+  height: 24px;
+}
+
+.icon path{
+  fill:#FFFFFF;
 }
