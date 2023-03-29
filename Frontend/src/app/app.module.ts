@@ -38,6 +38,7 @@ import {StudentService} from './services/student.service'
 import {AuthGuardService} from './shared/authGuard.service'
 import {DeleteStudentComponent} from './components/delete-student/delete-student.component'
 import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page/delete-student-page.component'
+import {AngularSvgIconModule} from 'angular-svg-icon'
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularSvgIconModule.forRoot(),
   ],
   providers: [
     AuthGuardService,
