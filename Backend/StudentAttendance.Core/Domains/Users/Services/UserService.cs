@@ -1,5 +1,4 @@
-﻿using StudentAttendance.Core.Domains.Groups.Repositories;
-using StudentAttendance.Core.Domains.Mail.Services;
+﻿using StudentAttendance.Core.Domains.Mail.Services;
 using StudentAttendance.Core.Domains.Roles.Repositories;
 using StudentAttendance.Core.Domains.Users.Repositories;
 using StudentAttendance.Core.Exceptions;
@@ -10,7 +9,6 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IRoleRepository _roleRepository;
-    private readonly IGroupRepository _groupRepository;
     private readonly IMailService _mailService;
     private readonly IUnitOfWork _unitOfWork;
 
@@ -26,13 +24,12 @@ public class UserService : IUserService
         IUserRepository userRepository,
         IRoleRepository roleRepository,
         IMailService mailService,
-        IUnitOfWork unitOfWork, IGroupRepository groupRepository)
+        IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _mailService = mailService;
         _roleRepository = roleRepository;
         _unitOfWork = unitOfWork;
-        _groupRepository = groupRepository;
     }
 
     public async Task<User> GetUserById(Guid id)
@@ -67,12 +64,8 @@ public class UserService : IUserService
         if (existedRole == null)
         {
             throw new Exception("Вы не можете создать пользователя с такой ролью");
-        } 
-        
-        if (user.GroupNumber!=null)
-        {
-            await _groupRepository.CreateGroup(user.GroupNumber);
         }
+
         var coreUser = await _userRepository.CreateAsync(user);
         await _unitOfWork.SaveChanges();
         await _mailService.Send(coreUser, password);
