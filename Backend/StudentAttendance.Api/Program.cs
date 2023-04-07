@@ -45,6 +45,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddCore(builder.Configuration).AddData();
+builder.Services.AddCors();
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<ApiMappingProfile>();
@@ -58,7 +59,6 @@ var authSection = builder.Configuration.GetSection(AuthConfig.Position);
 var authConfig = authSection.Get<AuthConfig>();
 
 builder.Services.Configure<AuthConfig>(authSection);
-builder.Services.AddCors();
 builder.Services.AddDbContext<StudentAttendanceDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["SecretSettings:StudentAttendanceDbContext"]);
