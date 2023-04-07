@@ -7,5 +7,5 @@ public class UserDb
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;
     public string Role { get; set; } = null!;
-    public int? GroupNumber { get; set; }
+    public int GroupNumber { get; set; }
 }

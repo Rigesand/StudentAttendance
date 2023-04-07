@@ -5,9 +5,7 @@
       <input type="email" class="field" formControlName="email" readonly />
     </div>
     <div class="form-row">
-      <select class="combobox" formControlName="role">
-        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
-      </select>
+      <input type="text" class="field" formControlName="groupNumber" />
     </div>
     <div class="form-row">
       <button class="update-button" type="UpdateUser">Изменить</button>

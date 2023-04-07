@@ -11,8 +11,6 @@ public class CreateUserValidator : AbstractValidator<UserRequest>
         RuleFor(it => it.Email)
             .NotEmpty()
             .EmailAddress();
-        RuleFor(it => it.Role)
-            .NotEmpty();
         RuleFor(x => x)
             .Must(user =>userService.GetUserByEmail(user.Email).Result==null!)
             .WithMessage("Email: Пользователь с таким email уже существует");

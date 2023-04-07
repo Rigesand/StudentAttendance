@@ -12,14 +12,11 @@ export class CreateuserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  roles = ['Студент', 'Администратор']
-
   form = new FormGroup({
     email: new FormControl<string>('', [
       Validators.required,
       Validators.minLength(6),
     ]),
-    role: new FormControl<string>(this.roles[0]),
     groupNumber: new FormControl<number>(0),
   })
 
@@ -28,7 +25,6 @@ export class CreateuserComponent implements OnInit {
       .CreateUserAndSendEmail({
         id: null,
         email: this.form.value.email as string,
-        role: this.form.value.role as string,
         groupNumber: this.form.value.groupNumber as number,
       })
       .subscribe(() => {

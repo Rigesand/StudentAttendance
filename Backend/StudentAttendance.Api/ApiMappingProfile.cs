@@ -16,7 +16,9 @@ public class ApiMappingProfile : Profile
     {
         CreateMap<TokenModel, TokenResponse>();
 
-        CreateMap<UserRequest, User>().ReverseMap();
+        CreateMap<UserRequest, User>()
+            .ForMember(d => d.Role, m => m.MapFrom(s => "Студент"))
+            .ReverseMap();
         CreateMap<UserResponse, User>().ReverseMap();
         CreateMap<ProfileRequest, User>()
             .ForMember(d => d.PasswordHash, m => m.MapFrom(s => HashService.GetHash(s.Password)))

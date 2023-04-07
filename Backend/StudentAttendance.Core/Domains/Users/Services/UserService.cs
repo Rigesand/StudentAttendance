@@ -1,5 +1,4 @@
 ﻿using StudentAttendance.Core.Domains.Mail.Services;
-using StudentAttendance.Core.Domains.Roles.Repositories;
 using StudentAttendance.Core.Domains.Users.Repositories;
 using StudentAttendance.Core.Exceptions;
 
@@ -8,7 +7,6 @@ namespace StudentAttendance.Core.Domains.Users.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    private readonly IRoleRepository _roleRepository;
     private readonly IMailService _mailService;
     private readonly IUnitOfWork _unitOfWork;
 
@@ -22,13 +20,11 @@ public class UserService : IUserService
 
     public UserService(
         IUserRepository userRepository,
-        IRoleRepository roleRepository,
         IMailService mailService,
         IUnitOfWork unitOfWork)
     {
         _userRepository = userRepository;
         _mailService = mailService;
-        _roleRepository = roleRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -60,14 +56,10 @@ public class UserService : IUserService
     {
         var password = RandomString(35);
         user.PasswordHash = HashService.GetHash(password);
-        var existedRole = await _roleRepository.FindByNameAsync(user.Role);
-        if (existedRole == null)
-        {
-            throw new Exception("Вы не можете создать пользователя с такой ролью");
-        }
 
         var coreUser = await _userRepository.CreateAsync(user);
         await _unitOfWork.SaveChanges();
+        
         await _mailService.Send(coreUser, password);
         return coreUser;
     }

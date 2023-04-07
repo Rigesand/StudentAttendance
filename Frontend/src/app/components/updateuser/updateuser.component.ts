@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../services/user.service'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {FormControl, FormGroup} from '@angular/forms'
 import {Router} from '@angular/router'
 
 @Component({
@@ -13,11 +13,9 @@ export class UpdateuserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  roles = ['Студент', 'Администратор']
-
   form = new FormGroup({
     email: new FormControl<string>(this.userService.editUser.email),
-    role: new FormControl<string | undefined>(this.userService.editUser.role),
+    groupNumber: new FormControl<number>(this.userService.editUser.groupNumber),
   })
 
   UpdateUser() {
@@ -25,8 +23,7 @@ export class UpdateuserComponent implements OnInit {
       .UpdateUser({
         id: this.userService.editUser.id,
         email: this.form.value.email as string,
-        role: this.form.value.role as string,
-        groupNumber: this.userService.currentUser.groupNumber,
+        groupNumber: this.form.value.groupNumber as number,
       })
       .subscribe(() => {
         this.userService.getAll()
