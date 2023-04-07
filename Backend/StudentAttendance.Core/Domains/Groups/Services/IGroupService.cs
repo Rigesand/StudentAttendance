@@ -2,6 +2,6 @@
 
 public interface IGroupService
 {
-    Task CreateGroup(int groupNumber);
-    Task DeleteGroup(int groupNumber);
+    Task CreateGroup(string groupNumber);
+    Task DeleteGroup(string groupNumber);
 }

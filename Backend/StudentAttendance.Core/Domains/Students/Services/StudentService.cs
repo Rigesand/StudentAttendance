@@ -36,7 +36,7 @@ public class StudentService : IStudentService
         await _unitOfWork.SaveChanges();
     }
 
-    public async Task<IEnumerable<Student>> GetStudentsByGroup(int groupNumber)
+    public async Task<IEnumerable<Student>> GetStudentsByGroup(string groupNumber)
     {
         var group = await _groupRepository.GetByGroupNumber(groupNumber);
         return group.Students!.OrderBy(it => it.Name).ToList();

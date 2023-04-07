@@ -15,7 +15,7 @@ export class DeleteUserComponent implements OnInit {
 
   form = new FormGroup({
     email: new FormControl<string>(this.userService.deleteUser.email),
-    groupNumber: new FormControl<number>(
+    groupNumber: new FormControl<string>(
       this.userService.deleteUser.groupNumber
     ),
   })
@@ -25,7 +25,7 @@ export class DeleteUserComponent implements OnInit {
       .DeleteUser({
         id: this.userService.deleteUser.id,
         email: this.form.value.email as string,
-        groupNumber: this.form.value.groupNumber as number,
+        groupNumber: this.form.value.groupNumber as string,
       })
       .subscribe(() => {
         this.userService.getAll()

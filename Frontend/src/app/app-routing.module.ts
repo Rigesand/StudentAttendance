@@ -12,6 +12,7 @@ import {AttendancesPageComponent} from './pages/attendance/attendances-page/atte
 import {DeleteUserPageComponent} from './pages/admin/delete-user-page/delete-user-page.component'
 import {AuthGuardService} from './shared/authGuard.service'
 import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page/delete-student-page.component'
+import {CreateGroupPageComponent} from './pages/admin/create-group-page/create-group-page.component'
 
 const routes: Routes = [
   {path: '', component: AuthPageComponent},
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: 'admin/users',
     component: UsersPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'admin/createGroup',
+    component: CreateGroupPageComponent,
     canActivate: [AuthGuardService],
   },
   {path: 'attendance/students', component: StudentsPageComponent},

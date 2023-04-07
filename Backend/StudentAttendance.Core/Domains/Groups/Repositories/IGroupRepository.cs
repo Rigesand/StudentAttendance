@@ -2,8 +2,8 @@
 
 public interface IGroupRepository
 {
-    Task CreateGroup(int? groupNumber);
-    Task DeleteGroup(int groupNumber);
-    Task<Guid> GetIdByGroupNumber(int groupNumber);
-    Task<Group> GetByGroupNumber(int groupNumber);
+    Task CreateGroup(string groupNumber);
+    Task DeleteGroup(string groupNumber);
+    Task<Guid> GetIdByGroupNumber(string groupNumber);
+    Task<Group> GetByGroupNumber(string groupNumber);
 }

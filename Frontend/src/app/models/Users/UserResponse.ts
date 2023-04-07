@@ -5,5 +5,5 @@ export interface IUserResponse {
   name: string | null
   email: string
   role: string
-  groupNumber: number
+  groupNumber: string
 }

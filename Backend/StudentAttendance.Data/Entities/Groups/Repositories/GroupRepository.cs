@@ -16,26 +16,26 @@ public class GroupRepository : IGroupRepository
         _mapper = mapper;
     }
 
-    public async Task DeleteGroup(int groupNumber)
+    public async Task DeleteGroup(string groupNumber)
     {
         var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
         _context.Groups.Remove(dbGroup);
     }
 
-    public async Task<Guid> GetIdByGroupNumber(int groupNumber)
+    public async Task<Guid> GetIdByGroupNumber(string groupNumber)
     {
         var dbGroup = await _context.Groups.FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
         return dbGroup!.Id;
     }
 
-    public async Task<Group> GetByGroupNumber(int groupNumber)
+    public async Task<Group> GetByGroupNumber(string groupNumber)
     {
         var dbGroup = await _context.Groups.Include(it => it.Students)
             .FirstOrDefaultAsync(it => it.GroupNumber == groupNumber);
         return _mapper.Map<Group>(dbGroup);
     }
 
-    public async Task CreateGroup(int? groupNumber)
+    public async Task CreateGroup(string groupNumber)
     {
         var isExist = await _context.Groups.AnyAsync(it => it.GroupNumber == groupNumber);
         if (isExist)
@@ -45,7 +45,7 @@ public class GroupRepository : IGroupRepository
 
         await _context.Groups.AddAsync(new GroupDb()
         {
-            GroupNumber = groupNumber!.Value
+            GroupNumber = groupNumber
         });
     }
 }

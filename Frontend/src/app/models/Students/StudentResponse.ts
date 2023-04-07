@@ -4,5 +4,5 @@ export interface IStudentResponse {
   id: UUID | null
   name: string
   email: string
-  groupNumber: number | null
+  groupNumber: string
 }

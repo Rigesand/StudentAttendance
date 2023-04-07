@@ -29,7 +29,7 @@ public class StudentController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<StudentResponse>> GetStudentsByGroup([FromQuery] int groupNumber)
+    public async Task<IEnumerable<StudentResponse>> GetStudentsByGroup([FromQuery] string groupNumber)
     {
         var students = await _service.GetStudentsByGroup(groupNumber);
         return _mapper.Map<IEnumerable<StudentResponse>>(students);

@@ -20,7 +20,7 @@ export class StudentService {
   }
   UpdateStudent(updateStudent: IStudentRequest) {
     updateStudent.groupNumber = this.userService.currentUser
-      .groupNumber as number
+      .groupNumber as string
     return this.http.put('/api/Student/UpdateStudent', updateStudent)
   }
 

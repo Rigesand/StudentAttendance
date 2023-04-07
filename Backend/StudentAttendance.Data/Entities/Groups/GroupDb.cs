@@ -5,6 +5,6 @@ namespace StudentAttendance.Data.Entities.Groups;
 public class GroupDb
 {
     public Guid Id { get; set; }
-    public int GroupNumber { get; set; }
+    public string GroupNumber { get; set; }
     public ICollection<StudentDb>? Students { get; set; }
 }

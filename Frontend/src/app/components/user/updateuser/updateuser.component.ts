@@ -15,7 +15,7 @@ export class UpdateuserComponent implements OnInit {
 
   form = new FormGroup({
     email: new FormControl<string>(this.userService.editUser.email),
-    groupNumber: new FormControl<number>(this.userService.editUser.groupNumber),
+    groupNumber: new FormControl<string>(this.userService.editUser.groupNumber),
   })
 
   UpdateUser() {
@@ -23,7 +23,7 @@ export class UpdateuserComponent implements OnInit {
       .UpdateUser({
         id: this.userService.editUser.id,
         email: this.form.value.email as string,
-        groupNumber: this.form.value.groupNumber as number,
+        groupNumber: this.form.value.groupNumber as string,
       })
       .subscribe(() => {
         this.userService.getAll()

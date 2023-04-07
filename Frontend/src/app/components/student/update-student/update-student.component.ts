@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {StudentService} from '../../../services/student.service'
 import {Router} from '@angular/router'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {FormControl, FormGroup} from '@angular/forms'
 
 @Component({
   selector: 'app-update-student',
