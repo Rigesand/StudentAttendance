@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import {IUserResponse} from '../models/Users/UserResponse'
+import {IUserResponse} from '../admin/types/UserResponse'
 
 @Pipe({
   name: 'filterUsers',

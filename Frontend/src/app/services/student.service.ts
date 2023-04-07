@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import {Observable, retry, tap} from 'rxjs'
 import {IStudentRequest} from '../models/Students/StudentRequest'
 import {IStudentResponse} from '../models/Students/StudentResponse'
-import {UserService} from './user.service'
+import {UserService} from '../admin/services/user.service'
 
 @Injectable({
   providedIn: 'root',
