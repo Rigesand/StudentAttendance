@@ -38,7 +38,8 @@ import {StudentService} from './services/student.service'
 import {AuthGuardService} from './shared/authGuard.service'
 import {DeleteStudentComponent} from './components/delete-student/delete-student.component'
 import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page/delete-student-page.component'
-import {AngularSvgIconModule} from 'angular-svg-icon'
+import {AngularSvgIconModule} from 'angular-svg-icon';
+import { CreateGroupComponent } from './components/group/create-group/create-group.component'
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {AngularSvgIconModule} from 'angular-svg-icon'
     DeleteUserPageComponent,
     DeleteStudentComponent,
     DeleteStudentPageComponent,
+    CreateGroupComponent,
   ],
   imports: [
     BrowserModule,
