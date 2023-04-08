@@ -1,0 +1,48 @@
+<app-topbar></app-topbar>
+<div class="main-content">
+  <div class="table">
+    <form>
+      <section class="table_header">
+        <h1>Старосты</h1>
+        <button class="login-button" routerLink="/attendance/createStudent">
+          Создать
+        </button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Почта</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentService.students; let i = index">
+              <td>{{ student.name }}</td>
+              <td>{{ student.email }}</td>
+              <td>
+                <span class="actions">
+                  <a
+                    routerLink="/attendance/updateStudent"
+                    class="actions-item"
+                    (click)="ChangeStudent(student)"
+                  >
+                    <img src="../../../../assets/images/edit.png" />
+                  </a>
+                  <a
+                    routerLink="/attendance/deleteStudent"
+                    class="actions-item"
+                    (click)="DeleteStudent(student)"
+                  >
+                    <img src="../../../../assets/images/delete.png" />
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </form>
+  </div>
+</div>

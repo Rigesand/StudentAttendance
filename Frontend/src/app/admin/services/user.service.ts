@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import {IUserResponse} from '../types/UserResponse'
 import {Observable, retry, tap} from 'rxjs'
-import {ITokenResponse} from '../../models/Auth/TokenResponse'
+import {ITokenResponse} from '../../auth/types/TokenResponse'
 import {IUserRequest} from '../types/UserRequest'
-import {ILoginRequest} from '../../models/Auth/LoginRequest'
+import {ILoginRequest} from '../../auth/types/LoginRequest'
 import {IProfileRequest} from '../../models/Profiles/ProfileRequest'
 
 @Injectable({

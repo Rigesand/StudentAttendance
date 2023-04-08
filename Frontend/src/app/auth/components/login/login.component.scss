@@ -8,7 +8,7 @@
 .figure{
   background-color: #fff5;
   backdrop-filter: blur(7px);
-  height: 200px;
+  height: 300px;
   width: 450px;
   padding: 20px;
   border-radius: 10px;
@@ -44,7 +44,15 @@
   color: #04CC69;
   transition: .3s;
 }
-
+.recover-pass{
+  display: flex;
+  justify-content: flex-end;
+  color: #04CC69;
+  text-decoration: none;
+}
+.recover-pass:hover{
+  color: white;
+}
 .form-text{
   font-size: 20px;
   color: black;
