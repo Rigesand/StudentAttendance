@@ -54,11 +54,7 @@ export class UserService {
       )
   }
 
-  getCurrentUser() {
-    this.http
-      .get<IUserResponse>('/api/Auth/GetCurrentUser')
-      .subscribe((res) => {
-        this.currentUser = res
-      })
+  getCurrentUser(): Observable<IUserResponse> {
+    return this.http.get<IUserResponse>('/api/Auth/GetCurrentUser')
   }
 }

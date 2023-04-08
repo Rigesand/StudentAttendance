@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core'
 import {StudentService} from '../../services/student.service'
 import {IStudentResponse} from '../../types/StudentResponse'
+import {UserService} from '../../../admin/services/user.service'
+import {concatMap} from 'rxjs'
+import {IUserResponse} from '../../../admin/types/UserResponse'
 
 @Component({
   selector: 'mc-students',
@@ -8,10 +11,16 @@ import {IStudentResponse} from '../../types/StudentResponse'
   styleUrls: ['students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
-  constructor(public studentService: StudentService) {}
+  constructor(
+    public studentService: StudentService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.studentService.getAll().subscribe(() => {})
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.userService.currentUser = res
+      this.studentService.getAll().subscribe(() => {})
+    })
   }
 
   ChangeStudent(student: IStudentResponse) {

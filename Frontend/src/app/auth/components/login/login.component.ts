@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
       })
       .subscribe((res) => {
         this.tokenService.SetJwtInCookie(res)
-        this.userService.getCurrentUser()
         if (this.tokenService.ValidateToken(res.accessToken)) {
           this.router.navigate(['admin/users']).then(() => {})
         } else {

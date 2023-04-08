@@ -14,7 +14,10 @@ export class UsersComponent implements OnInit {
   term: string = ''
 
   ngOnInit(): void {
-    this.userService.getAll().subscribe(() => {})
+    this.userService.getCurrentUser().subscribe((res) => {
+      this.userService.currentUser = res
+      this.userService.getAll().subscribe(() => {})
+    })
   }
 
   form = new FormGroup({
