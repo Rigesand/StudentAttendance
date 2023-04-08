@@ -28,6 +28,7 @@ import {AuthGuardService} from './shared/authGuard.service'
 import {DeleteStudentComponent} from './components/student/delete-student/delete-student.component'
 import {DeleteStudentPageComponent} from './pages/attendance/delete-student-page/delete-student-page.component'
 import {AdminModule} from './admin/admin.module'
+import {ToggleMenuModule} from './shared/modules/toggleMenu/toggleMenu.module'
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {AdminModule} from './admin/admin.module'
   ],
   imports: [
     AdminModule,
+    ToggleMenuModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
