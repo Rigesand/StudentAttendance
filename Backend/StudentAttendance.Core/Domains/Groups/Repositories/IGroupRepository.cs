@@ -6,4 +6,5 @@ public interface IGroupRepository
     Task DeleteGroup(string groupNumber);
     Task<Guid> GetIdByGroupNumber(string groupNumber);
     Task<Group> GetByGroupNumber(string groupNumber);
+    Task<IEnumerable<Group>> GetAllGroup();
 }

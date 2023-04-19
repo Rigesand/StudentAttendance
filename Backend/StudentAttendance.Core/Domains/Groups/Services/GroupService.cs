@@ -24,4 +24,9 @@ public class GroupService : IGroupService
         await _repository.DeleteGroup(groupNumber);
         await _unitOfWork.SaveChanges();
     }
+
+    public async Task<IEnumerable<Group>> GetAllGroup()
+    {
+        return await _repository.GetAllGroup();
+    }
 }
