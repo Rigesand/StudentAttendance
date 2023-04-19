@@ -25,8 +25,8 @@ public class GroupService : IGroupService
         await _unitOfWork.SaveChanges();
     }
 
-    public async Task<IEnumerable<Group>> GetAllGroup()
+    public async Task<IEnumerable<Group>> GetAllGroups()
     {
-        return await _repository.GetAllGroup();
+        return await _repository.GetAllGroups();
     }
 }

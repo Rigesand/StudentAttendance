@@ -35,7 +35,7 @@ public class GroupController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<GroupResponse>> GetAllGroups()
     {
-        var groups = await _groupService.GetAllGroup();
+        var groups = await _groupService.GetAllGroups();
         return _mapper.Map<IEnumerable<GroupResponse>>(groups);
     }
 }

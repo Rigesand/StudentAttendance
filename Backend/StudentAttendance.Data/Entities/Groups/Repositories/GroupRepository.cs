@@ -35,7 +35,7 @@ public class GroupRepository : IGroupRepository
         return _mapper.Map<Group>(dbGroup);
     }
 
-    public async Task<IEnumerable<Group>> GetAllGroup()
+    public async Task<IEnumerable<Group>> GetAllGroups()
     {
         return await _mapper.ProjectTo<Group>(_context.Groups).ToListAsync();
     }

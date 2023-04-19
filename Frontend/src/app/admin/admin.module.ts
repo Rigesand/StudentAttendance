@@ -14,6 +14,7 @@ import {GroupService} from './services/group.service'
 import {AngularSvgIconModule} from 'angular-svg-icon'
 import {SidebarAdminComponent} from './components/sidebarAdmin/sidebarAdmin.component'
 import {ProfileAdminComponent} from './components/profileAdmin/profileAdmin.component'
+import {GroupsComponent} from './components/groups/groups.component'
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
     component: ProfileAdminComponent,
     canActivate: [AuthGuardService],
   },
+  {
+    path: 'admin/groups',
+    component: GroupsComponent,
+    canActivate: [AuthGuardService],
+  },
 ]
 
 @NgModule({
@@ -62,6 +68,7 @@ const routes: Routes = [
     DeleteUserComponent,
     UsersComponent,
     CreateGroupComponent,
+    GroupsComponent,
     ProfileAdminComponent,
     SidebarAdminComponent,
   ],
