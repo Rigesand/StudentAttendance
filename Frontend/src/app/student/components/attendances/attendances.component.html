@@ -1,0 +1,31 @@
+<mc-sidebarStudent></mc-sidebarStudent>
+<div class="main-content">
+  <div class="table">
+    <form>
+      <section class="table_header">
+        <h1>Список группы</h1>
+        <button class="login-button" routerLink="/attendance/createStudent">
+          Сохранить
+        </button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Присутствие</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of studentService.students; let i = index">
+              <td>{{ student.name }}</td>
+              <td>
+                <input type="checkbox" class="checkbox" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </form>
+  </div>
+</div>

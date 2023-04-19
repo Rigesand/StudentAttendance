@@ -1,0 +1,39 @@
+<mc-sidebarAdmin>></mc-sidebarAdmin>
+<div class="main-content">
+  <div class="table">
+    <form>
+      <section class="table_header">
+        <h1>Группы</h1>
+        <button class="login-button" routerLink="/admin/createGroup">
+          Создать
+        </button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>Группа</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let group of groupService.groups; let i = index">
+              <td>{{ group.groupNumber }}</td>
+              <td>
+                <span class="actions">
+                  <a
+                    routerLink="/admin/delete"
+                    class="actions-item"
+                    (click)="DeleteGroup(group)"
+                  >
+                    <img src="../../../../assets/images/delete.png" />
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </form>
+  </div>
+</div>

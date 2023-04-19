@@ -4,4 +4,5 @@ public interface IGroupService
 {
     Task CreateGroup(string groupNumber);
     Task DeleteGroup(string groupNumber);
+    Task<IEnumerable<Group>> GetAllGroups();
 }

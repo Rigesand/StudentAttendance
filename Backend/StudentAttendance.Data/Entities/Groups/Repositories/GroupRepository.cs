@@ -35,6 +35,11 @@ public class GroupRepository : IGroupRepository
         return _mapper.Map<Group>(dbGroup);
     }
 
+    public async Task<IEnumerable<Group>> GetAllGroups()
+    {
+        return await _mapper.ProjectTo<Group>(_context.Groups).ToListAsync();
+    }
+
     public async Task CreateGroup(string groupNumber)
     {
         var isExist = await _context.Groups.AnyAsync(it => it.GroupNumber == groupNumber);
@@ -48,4 +53,5 @@ public class GroupRepository : IGroupRepository
             GroupNumber = groupNumber
         });
     }
+    
 }

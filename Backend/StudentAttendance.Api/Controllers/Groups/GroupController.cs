@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudentAttendance.Api.Controllers.Groups.Dto;
 using StudentAttendance.Core.Domains.Groups.Services;
 
 namespace StudentAttendance.Api.Controllers.Groups;
@@ -10,10 +12,12 @@ namespace StudentAttendance.Api.Controllers.Groups;
 public class GroupController : ControllerBase
 {
     private readonly IGroupService _groupService;
+    private readonly IMapper _mapper;
 
-    public GroupController(IGroupService groupService)
+    public GroupController(IGroupService groupService, IMapper mapper)
     {
         _groupService = groupService;
+        _mapper = mapper;
     }
 
     [HttpPost]
@@ -26,5 +30,12 @@ public class GroupController : ControllerBase
     public async Task DeleteGroup(string groupNumber)
     {
         await _groupService.DeleteGroup(groupNumber);
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<GroupResponse>> GetAllGroups()
+    {
+        var groups = await _groupService.GetAllGroups();
+        return _mapper.Map<IEnumerable<GroupResponse>>(groups);
     }
 }

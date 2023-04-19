@@ -1,0 +1,19 @@
+<mc-sidebarAdmin>></mc-sidebarAdmin>
+<div class="main-content">
+  <div class="figure">
+    <form (ngSubmit)="Submit()" [formGroup]="form">
+      <h3 class="form-text">Создать группу</h3>
+      <div class="form-row">
+        <input
+          class="field"
+          placeholder="Номер группы"
+          formControlName="groupNumber"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <button class="form-button" type="Submit">Создать</button>
+      </div>
+    </form>
+  </div>
+</div>

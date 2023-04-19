@@ -1,0 +1,53 @@
+<mc-sidebarAdmin>></mc-sidebarAdmin>
+<div class="main-content">
+  <div class="table">
+    <form>
+      <section class="table_header">
+        <h1>Старосты</h1>
+        <button class="login-button" routerLink="/admin/create">Создать</button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>Группа</th>
+              <th>ФИО</th>
+              <th>Почта</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let user of userService.users | filterUsers : term;
+                let i = index
+              "
+            >
+              <td>{{ user.groupNumber }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="actions">
+                  <a
+                    routerLink="/admin/update"
+                    class="actions-item"
+                    (click)="ChangeUser(user)"
+                  >
+                    <img src="../../../../assets/images/edit.png" />
+                  </a>
+                  <a
+                    routerLink="/admin/delete"
+                    class="actions-item"
+                    (click)="DeleteUser(user)"
+                  >
+                    <img src="../../../../assets/images/delete.png" />
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.main-content{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../../../assets/images/ti.jpg")center / cover;
+}
+.figure{
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  height: 250px;
+  width: 450px;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.form-row:nth-child(n+2){
+  margin-top: 20px;
+}
+.form-button{
+  cursor: pointer;
+  width: 400px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  border: 1px solid #04CC69;
+  background-color: #04CC69;
+  border-radius: 10px;
+}
+.field{
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 400px;
+  padding: 10px 20px;
+}
+.field:focus,.field:hover{
+  outline: 2px solid #04CC69;
+}
+.form-button:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: #04CC69;
+  transition: .3s;
+}
+
+.form-text{
+  font-size: 20px;
+  color: black;
+}
+

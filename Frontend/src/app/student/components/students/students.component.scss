@@ -1,0 +1,100 @@
+.main-content{
+  min-height: 100vh;
+  background: url("../../../../assets/images/ti.jpg") center / cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+table, th, td{
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: left;
+}
+
+div.table{
+  width: 60vw;
+  height: 60vh;
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 .4rem .8rem #0005;
+  border-radius: .8rem;
+  overflow: hidden;
+}
+
+.table_header
+{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  background-color: #fff4;
+  padding: .8rem 1rem;
+}
+
+
+.table_body
+{
+  width: 95%;
+  max-height: calc(89%);
+  background-color: #fffb;
+  margin: .8rem auto;
+  border-radius: .6rem;
+  overflow: auto;
+}
+
+.table_body::-webkit-scrollbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.table_body::-webkit-scrollbar-thumb{
+  border-radius: .5rem;
+  background-color: #0004;
+  visibility: hidden;
+}
+
+.table_body:hover::-webkit-scrollbar-thumb{
+  visibility: visible;
+}
+
+table{
+  width: 100%;
+}
+
+.login-button{
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  border: 1px solid #04CC69;
+  background-color: #04CC69;
+  border-radius: 10px;
+  margin-left: auto;
+}
+.login-button:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: #04CC69;
+  transition: .3s;
+}
+
+thead th{
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #d5d1defe;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #0000000b;
+}
+
+tbody tr:hover
+{
+  background-color: #fff6;
+}

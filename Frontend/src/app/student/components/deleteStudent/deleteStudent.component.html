@@ -1,0 +1,27 @@
+<mc-sidebarStudent></mc-sidebarStudent>
+<div class="main-content">
+  <div class="figure">
+    <form>
+      <h3 class="form-text">Удалить студента</h3>
+      <div class="form-row">
+        <input
+          type="text"
+          class="field"
+          readonly
+          value="{{ this.studentService.deleteStudent.name }}"
+        />
+      </div>
+      <div class="form-row">
+        <input
+          type="email"
+          class="field"
+          readonly
+          value="{{ this.studentService.deleteStudent.email }}"
+        />
+      </div>
+      <div class="form-row">
+        <button class="form-button" type="Submit">Удалить</button>
+      </div>
+    </form>
+  </div>
+</div>

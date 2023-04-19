@@ -1,4 +1,5 @@
-﻿using StudentAttendance.Core.Domains.Mail.Services;
+﻿using StudentAttendance.Core.Domains.Groups.Repositories;
+using StudentAttendance.Core.Domains.Mail.Services;
 using StudentAttendance.Core.Domains.Users.Repositories;
 using StudentAttendance.Core.Exceptions;
 
@@ -9,6 +10,7 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IMailService _mailService;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IGroupRepository _groupRepository;
 
     private string RandomString(int length)
     {
@@ -21,11 +23,12 @@ public class UserService : IUserService
     public UserService(
         IUserRepository userRepository,
         IMailService mailService,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, IGroupRepository groupRepository)
     {
         _userRepository = userRepository;
         _mailService = mailService;
         _unitOfWork = unitOfWork;
+        _groupRepository = groupRepository;
     }
 
     public async Task<User> GetUserById(Guid id)
@@ -57,9 +60,16 @@ public class UserService : IUserService
         var password = RandomString(35);
         user.PasswordHash = HashService.GetHash(password);
 
+        var group = await _groupRepository.GetByGroupNumber(user.GroupNumber);
+
+        if (group == null)
+        {
+            throw new Exception("Такой группы не существует");
+        }
+
         var coreUser = await _userRepository.CreateAsync(user);
         await _unitOfWork.SaveChanges();
-        
+
         await _mailService.Send(coreUser, password);
         return coreUser;
     }
