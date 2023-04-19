@@ -55,8 +55,7 @@ public class UserRepository : IUserRepository
         {
             dbUser.PasswordHash = user.PasswordHash;
         }
-
-        dbUser.GroupNumber = user.GroupNumber;
+        
     }
 
     public async Task Delete(User user)

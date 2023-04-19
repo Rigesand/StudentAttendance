@@ -11,8 +11,8 @@ import {NgForOf} from '@angular/common'
 import {UserService} from './services/user.service'
 import {CreateGroupComponent} from './components/createGroup/createGroup.component'
 import {GroupService} from './services/group.service'
-import {SidebarComponent} from '../components/shared/sidebar/sidebar.component'
 import {AngularSvgIconModule} from 'angular-svg-icon'
+import {SidebarAdminComponent} from './components/sidebarAdmin/sidebarAdmin.component'
 
 const routes: Routes = [
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
     DeleteUserComponent,
     UsersComponent,
     CreateGroupComponent,
-    SidebarComponent,
+    SidebarAdminComponent,
   ],
   providers: [UserService, GroupService],
   exports: [FilterUsersPipe],

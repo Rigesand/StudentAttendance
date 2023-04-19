@@ -8,7 +8,9 @@ import {StudentsComponent} from './components/students/students.component'
 import {NgForOf} from '@angular/common'
 import {AttendancesComponent} from './components/attendances/attendances.component'
 import {StudentService} from './services/student.service'
-import {TopbarComponent} from '../components/shared/topbar/topbar.component'
+import {SidebarStudentComponent} from './components/sidebarStudent/sidebarStudent.component'
+import {AngularSvgIconModule} from 'angular-svg-icon'
+import {ProfileStudentComponent} from './components/profileStudent/profileStudent.component'
 
 const routes: Routes = [
   {
@@ -31,17 +33,27 @@ const routes: Routes = [
     path: 'attendances',
     component: AttendancesComponent,
   },
+  {
+    path: 'attendances/profile',
+    component: ProfileStudentComponent,
+  },
 ]
 
 @NgModule({
-  imports: [ReactiveFormsModule, RouterModule.forChild(routes), NgForOf],
+  imports: [
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    NgForOf,
+    AngularSvgIconModule,
+  ],
   declarations: [
     CreateStudentComponent,
     UpdateStudentComponent,
     DeleteStudentComponent,
     StudentsComponent,
     AttendancesComponent,
-    TopbarComponent,
+    ProfileStudentComponent,
+    SidebarStudentComponent,
   ],
   providers: [StudentService],
   exports: [],

@@ -3,11 +3,11 @@ import {UserService} from '../../../admin/services/user.service'
 import {FormControl, FormGroup} from '@angular/forms'
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'mc-student-profile',
+  templateUrl: 'profileStudent.component.html',
+  styleUrls: ['profileStudent.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileStudentComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {}
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     password: new FormControl<string>(''),
   })
 
-  UpdateProfile() {
+  Submit() {
     this.userService
       .UpdateProfile({
         id: this.userService.currentUser.id,

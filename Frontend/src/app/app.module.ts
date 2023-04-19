@@ -8,7 +8,6 @@ import {
   HttpClientModule,
 } from '@angular/common/http'
 import {CookieService} from 'ngx-cookie-service'
-import {ProfileComponent} from './components/shared/profile/profile.component'
 import {TokenService} from './shared/services/token.service'
 import {AuthInterseptor} from './shared/services/authInterseptor.service'
 import {AuthGuardService} from './shared/services/authGuard.service'
@@ -19,7 +18,7 @@ import {AuthModule} from './auth/auth.module'
 import {ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent],
+  declarations: [AppComponent],
   imports: [
     AdminModule,
     ToggleMenuModule,

@@ -1,27 +1,31 @@
-<mc-sidebarAdmin>></mc-sidebarAdmin>
+<mc-sidebarStudent></mc-sidebarStudent>
 <div class="main-content">
   <div class="figure">
     <form (ngSubmit)="Submit()" [formGroup]="form">
-      <h3 class="form-text">Данные старосты</h3>
+      <h3 class="form-text">Данные профиля</h3>
+      <div class="form-row">
+        <input type="text" class="field" formControlName="name" required />
+      </div>
       <div class="form-row">
         <input
           type="email"
           class="field"
-          placeholder="Email"
+          placeholder="email"
           formControlName="email"
           required
         />
       </div>
       <div class="form-row">
         <input
+          type="password"
           class="field"
-          placeholder="Номер группы"
-          formControlName="groupNumber"
+          placeholder="Password"
+          formControlName="password"
           required
         />
       </div>
       <div class="form-row">
-        <button class="form-button" type="Submit">Создать</button>
+        <button class="form-button" type="Submit">Сохранить изменения</button>
       </div>
     </form>
   </div>

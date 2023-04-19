@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core'
 import {StudentService} from '../../services/student.service'
 import {IStudentResponse} from '../../types/StudentResponse'
 import {UserService} from '../../../admin/services/user.service'
-import {concatMap} from 'rxjs'
-import {IUserResponse} from '../../../admin/types/UserResponse'
 
 @Component({
   selector: 'mc-students',

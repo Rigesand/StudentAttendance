@@ -5,7 +5,7 @@ import {Observable, retry, tap} from 'rxjs'
 import {ITokenResponse} from '../../auth/types/TokenResponse'
 import {IUserRequest} from '../types/UserRequest'
 import {ILoginRequest} from '../../auth/types/LoginRequest'
-import {IProfileRequest} from '../../models/Profiles/ProfileRequest'
+import {IProfileRequest} from '../../student/types/ProfileRequest'
 
 @Injectable({
   providedIn: 'root',
