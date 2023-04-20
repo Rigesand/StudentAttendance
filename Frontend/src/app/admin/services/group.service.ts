@@ -19,6 +19,10 @@ export class GroupService {
     )
   }
 
+  DeleteGroup(groupNumber: string) {
+    return this.http.delete(`/api/Group/DeleteGroup?groupNumber=${groupNumber}`)
+  }
+
   getAll(): Observable<IGroupResponse[]> {
     return this.http
       .get<IGroupResponse[]>('/api/Group/GetAllGroups', {
