@@ -3,9 +3,10 @@
   <div class="table">
     <form>
       <section class="table_header">
-        <h1>Список группы</h1>
-        <button class="login-button" routerLink="/attendance/createStudent">
-          Сохранить
+        <input class="field" placeholder="Название предмета" required />
+        <input type="date" class="field" required />
+        <button class="login-button" routerLink="/admin/createUser">
+          Создать
         </button>
       </section>
       <section class="table_body">
@@ -13,14 +14,14 @@
           <thead>
             <tr>
               <th>ФИО</th>
-              <th>Присутствие</th>
+              <th class="textcenter">Присутствие</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let student of studentService.students; let i = index">
               <td>{{ student.name }}</td>
-              <td>
-                <input type="checkbox" class="checkbox" />
+              <td class="textcenter">
+                <input type="checkbox" />
               </td>
             </tr>
           </tbody>
