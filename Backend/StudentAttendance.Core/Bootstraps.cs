@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using StudentAttendance.Core.Configuration;
 using StudentAttendance.Core.Domains.Groups.Services;
+using StudentAttendance.Core.Domains.Lessons.Services;
 using StudentAttendance.Core.Domains.Mail.Services;
 using StudentAttendance.Core.Domains.Students.Services;
 using StudentAttendance.Core.Domains.Tokens.Services;
@@ -18,6 +19,7 @@ public static class Bootstraps
         services.AddScoped<IMailService, MailService>();
         services.AddScoped<IStudentService, StudentService>();
         services.AddScoped<IGroupService, GroupService>();
+        services.AddScoped<ILessonService, LessonService>();
         services.Configure<AuthConfig>(configuration.GetSection(AuthConfig.Position));
         return services;
     }

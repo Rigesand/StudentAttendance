@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Data.Entities.Groups;
+using StudentAttendance.Data.Entities.Lessons;
 using StudentAttendance.Data.Entities.Roles;
 using StudentAttendance.Data.Entities.Students;
 using StudentAttendance.Data.Entities.Users;
@@ -22,4 +23,5 @@ public class StudentAttendanceDbContext : DbContext
     public DbSet<RoleDb> Roles => Set<RoleDb>();
     public DbSet<GroupDb> Groups => Set<GroupDb>();
     public DbSet<StudentDb> Students => Set<StudentDb>();
+    public DbSet<LessonDb> Lessons => Set<LessonDb>();
 }
