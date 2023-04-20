@@ -30,16 +30,28 @@ public class LessonRepository : ILessonRepository
 
     public async Task Update(Lesson lesson)
     {
-        throw new NotImplementedException();
+        var dbLesson = await _context.Lessons.FirstOrDefaultAsync(it => it.Id == lesson.Id);
+        if (dbLesson == null)
+        {
+            throw new Exception("Такого предмета не существует");
+        }
+
+        dbLesson.Name = lesson.Name;
     }
 
     public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var dbLesson = await _context.Lessons.FirstOrDefaultAsync(it => it.Id == id);
+        if (dbLesson == null)
+        {
+            throw new Exception("Такого предмета не существует");
+        }
+
+        _context.Lessons.Remove(dbLesson);
     }
 
     public async Task<IEnumerable<Lesson>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _mapper.ProjectTo<Lesson>(_context.Lessons).ToListAsync();
     }
 }

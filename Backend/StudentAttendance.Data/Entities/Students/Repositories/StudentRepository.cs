@@ -5,7 +5,7 @@ using StudentAttendance.Core.Domains.Students.Repositories;
 
 namespace StudentAttendance.Data.Entities.Students.Repositories;
 
-public class StudentRepository: IStudentRepository
+public class StudentRepository : IStudentRepository
 {
     private readonly StudentAttendanceDbContext _context;
     private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ public class StudentRepository: IStudentRepository
 
     public async Task UpdateStudent(Student updateStudent)
     {
-        var dbStudent =await _context.Students.FirstOrDefaultAsync(it => it.Id == updateStudent.Id);
+        var dbStudent = await _context.Students.FirstOrDefaultAsync(it => it.Id == updateStudent.Id);
         dbStudent!.Email = updateStudent.Email;
         dbStudent.Name = updateStudent.Name!;
     }
