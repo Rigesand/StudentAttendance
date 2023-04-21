@@ -85,7 +85,7 @@ thead th{
   position: sticky;
   top: 0;
   left: 0;
-  background-color: #d5d1defe;
+  background-color: #04CC69;
   cursor: pointer;
   text-transform: capitalize;
 }
@@ -97,4 +97,8 @@ tbody tr:nth-child(even) {
 tbody tr:hover
 {
   background-color: #fff6;
+}
+
+.actions-item{
+  margin-right: 10px;
 }

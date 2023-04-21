@@ -14,8 +14,8 @@ table, th, td{
 }
 
 div.table{
-  width: 60vw;
-  height: 60vh;
+  width: 40vw;
+  height: 40vh;
   background-color: #fff5;
   backdrop-filter: blur(7px);
   box-shadow: 0 .4rem .8rem #0005;
@@ -85,7 +85,7 @@ thead th{
   position: sticky;
   top: 0;
   left: 0;
-  background-color: #d5d1defe;
+  background-color: #04CC69;
   cursor: pointer;
   text-transform: capitalize;
 }

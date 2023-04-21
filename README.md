@@ -22,5 +22,6 @@ This project is designed to account for student attendance.
 
 ## Graphical interface
 
-![DesignApi](https://github.com/Rigesand/StudentAttendance/blob/main/Docs/AuthWindow.PNG)
-![DesignApi](https://github.com/Rigesand/StudentAttendance/blob/main/Docs/AdminPanelCreateUser.PNG)
+![DesignApi](https://github.com/Rigesand/StudentAttendance/blob/main/Docs/Entry.PNG)
+![DesignApi](https://github.com/Rigesand/StudentAttendance/blob/main/Docs/User.PNG)
+![DesignApi](https://github.com/Rigesand/StudentAttendance/blob/main/Docs/Admin.PNG)

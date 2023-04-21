@@ -16,7 +16,7 @@ import {ToggleMenuModule} from './shared/modules/toggleMenu/toggleMenu.module'
 import {StudentModule} from './student/student.module'
 import {AuthModule} from './auth/auth.module'
 import {ReactiveFormsModule} from '@angular/forms'
-import {LessonModule} from './Lesson/lesson.module'
+import {LessonModule} from './lesson/lesson.module'
 
 @NgModule({
   declarations: [AppComponent],
