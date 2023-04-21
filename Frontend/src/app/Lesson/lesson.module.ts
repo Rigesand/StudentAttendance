@@ -5,11 +5,11 @@ import {NgForOf} from '@angular/common'
 import {AngularSvgIconModule} from 'angular-svg-icon'
 import {AuthGuardService} from '../shared/services/authGuard.service'
 import {UpdateUserComponent} from '../admin/components/updateUser/updateUser.component'
-import {DeleteUserComponent} from '../admin/components/deleteUser/deleteUser.component'
-import {UsersComponent} from '../admin/components/users/users.component'
 import {LessonService} from './services/lesson.service'
 import {CreateLessonComponent} from './components/createLesson/createLesson.component'
 import {AdminModule} from '../admin/admin.module'
+import {DeleteLessonComponent} from './components/deleteLesson/deleteLesson.component'
+import {LessonsComponent} from './components/lessons/lessons.component'
 
 const routes: Routes = [
   {
@@ -18,18 +18,18 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: 'lesson/update',
+    path: 'admin/lesson/update',
     component: UpdateUserComponent,
     canActivate: [AuthGuardService],
   },
   {
-    path: 'lesson/delete',
-    component: DeleteUserComponent,
+    path: 'admin/lesson/delete',
+    component: DeleteLessonComponent,
     canActivate: [AuthGuardService],
   },
   {
-    path: 'lesson/users',
-    component: UsersComponent,
+    path: 'admin/lessons',
+    component: LessonsComponent,
     canActivate: [AuthGuardService],
   },
 ]
@@ -42,7 +42,11 @@ const routes: Routes = [
     AngularSvgIconModule.forRoot(),
     AdminModule,
   ],
-  declarations: [CreateLessonComponent],
+  declarations: [
+    CreateLessonComponent,
+    DeleteLessonComponent,
+    LessonsComponent,
+  ],
   providers: [LessonService],
   exports: [],
 })

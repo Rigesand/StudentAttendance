@@ -1,0 +1,39 @@
+<mc-sidebarAdmin>></mc-sidebarAdmin>
+<div class="main-content">
+  <div class="table">
+    <form>
+      <section class="table_header">
+        <h1>Дисциплины</h1>
+        <button class="login-button" routerLink="/admin/lesson/create">
+          Создать
+        </button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>Дисциплина</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lesson of lessonService.lessons; let i = index">
+              <td>{{ lesson.name }}</td>
+              <td>
+                <span class="actions">
+                  <a
+                    routerLink="/admin/lesson/delete"
+                    class="actions-item"
+                    (click)="DeleteLesson(lesson)"
+                  >
+                    <img src="../../../../assets/images/delete.png" />
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </form>
+  </div>
+</div>
