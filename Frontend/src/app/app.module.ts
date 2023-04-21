@@ -16,6 +16,7 @@ import {ToggleMenuModule} from './shared/modules/toggleMenu/toggleMenu.module'
 import {StudentModule} from './student/student.module'
 import {AuthModule} from './auth/auth.module'
 import {ReactiveFormsModule} from '@angular/forms'
+import {LessonModule} from './Lesson/lesson.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import {ReactiveFormsModule} from '@angular/forms'
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    LessonModule,
   ],
   providers: [
     AuthGuardService,

@@ -20,9 +20,9 @@ public class LessonController : ControllerBase
     }
 
     [HttpPost]
-    public async Task Create(LessonRequest lesson)
+    public async Task Create(string nameLesson)
     {
-        var coreLesson = _mapper.Map<Lesson>(lesson);
+        var coreLesson = new Lesson {Name = nameLesson};
         await _service.Create(coreLesson);
     }
 

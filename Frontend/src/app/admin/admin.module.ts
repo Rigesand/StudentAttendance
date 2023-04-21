@@ -16,6 +16,7 @@ import {SidebarAdminComponent} from './components/sidebarAdmin/sidebarAdmin.comp
 import {ProfileAdminComponent} from './components/profileAdmin/profileAdmin.component'
 import {GroupsComponent} from './components/groups/groups.component'
 import {DeleteGroupComponent} from './components/deleteGroup/deleteGroup.component'
+import {LessonModule} from '../Lesson/lesson.module'
 
 const routes: Routes = [
   {
@@ -80,6 +81,6 @@ const routes: Routes = [
     SidebarAdminComponent,
   ],
   providers: [UserService, GroupService],
-  exports: [FilterUsersPipe],
+  exports: [FilterUsersPipe, SidebarAdminComponent],
 })
 export class AdminModule {}

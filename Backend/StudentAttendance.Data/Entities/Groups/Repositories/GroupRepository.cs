@@ -48,7 +48,7 @@ public class GroupRepository : IGroupRepository
             throw new Exception("Группа с таким номером уже существует");
         }
 
-        await _context.Groups.AddAsync(new GroupDb()
+        await _context.Groups.AddAsync(new GroupDb
         {
             GroupNumber = groupNumber
         });
