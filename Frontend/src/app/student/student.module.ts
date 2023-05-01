@@ -16,6 +16,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {AttendanceService} from './services/attendance.service'
 
 const routes: Routes = [
   {
@@ -65,7 +66,7 @@ const routes: Routes = [
     SidebarStudentComponent,
     FilterLessonsPipe,
   ],
-  providers: [StudentService],
+  providers: [StudentService, AttendanceService],
   exports: [],
 })
 export class StudentModule {}

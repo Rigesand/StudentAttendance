@@ -1,17 +1,15 @@
 <mc-sidebarStudent></mc-sidebarStudent>
 <div class="main-content">
   <div class="table">
-    <form>
+    <form (ngSubmit)="Submit()" [formGroup]="form">
       <section class="table_header">
         <input
           class="field"
           placeholder="Название предмета"
           formControlName="lesson"
         />
-        <input type="date" class="field" required />
-        <button class="login-button" routerLink="/admin/createUser">
-          Создать
-        </button>
+        <input type="date" class="field" formControlName="date" required />
+        <button class="login-button">Создать</button>
       </section>
       <section class="table_body">
         <table>
@@ -22,10 +20,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let student of studentService.students">
+            <tr *ngFor="let student of options">
               <td>{{ student.name }}</td>
               <td class="textcenter">
-                <input type="checkbox" />
+                <input type="checkbox" (change)="onChange($event, student)" />
               </td>
             </tr>
           </tbody>
