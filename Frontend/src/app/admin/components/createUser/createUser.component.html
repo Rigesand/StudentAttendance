@@ -14,11 +14,20 @@
       </div>
       <div class="form-row">
         <input
+          matInput
+          type="text"
+          [matAutocomplete]="auto"
           class="field"
           placeholder="Номер группы"
           formControlName="groupNumber"
-          required
         />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let group of groupService.groups"
+            [value]="group.groupNumber"
+            >{{ group.groupNumber }}</mat-option
+          >
+        </mat-autocomplete>
       </div>
       <div class="form-row">
         <button class="form-button" type="Submit">Создать</button>

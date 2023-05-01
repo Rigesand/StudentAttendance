@@ -16,7 +16,9 @@ import {SidebarAdminComponent} from './components/sidebarAdmin/sidebarAdmin.comp
 import {ProfileAdminComponent} from './components/profileAdmin/profileAdmin.component'
 import {GroupsComponent} from './components/groups/groups.component'
 import {DeleteGroupComponent} from './components/deleteGroup/deleteGroup.component'
-import {LessonModule} from '../lesson/lesson.module'
+import {MatAutocompleteModule} from '@angular/material/autocomplete'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {MatInputModule} from '@angular/material/input'
 
 const routes: Routes = [
   {
@@ -67,6 +69,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgForOf,
     AngularSvgIconModule.forRoot(),
+    MatAutocompleteModule,
+    BrowserAnimationsModule,
+    MatInputModule,
   ],
   declarations: [
     FilterUsersPipe,

@@ -13,10 +13,9 @@ import {AngularSvgIconModule} from 'angular-svg-icon'
 import {ProfileStudentComponent} from './components/profileStudent/profileStudent.component'
 import {FilterLessonsPipe} from './pipes/filter-lessons.pipe'
 import {MatAutocompleteModule} from '@angular/material/autocomplete'
-import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {AttendanceService} from './services/attendance.service'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 const routes: Routes = [
   {
@@ -53,6 +52,7 @@ const routes: Routes = [
     AngularSvgIconModule,
     FormsModule,
     MatAutocompleteModule,
+    BrowserAnimationsModule,
     MatInputModule,
     AsyncPipe,
   ],

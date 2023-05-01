@@ -15,7 +15,8 @@ table, th, td{
 
 div.table{
   width: 40vw;
-  height: 40vh;
+  height: 50vh;
+  max-height: 500px;
   background-color: #fff5;
   backdrop-filter: blur(7px);
   box-shadow: 0 .4rem .8rem #0005;
@@ -37,11 +38,11 @@ div.table{
 .table_body
 {
   width: 95%;
-  max-height: calc(89%);
+  max-height: 300px;
   background-color: #fffb;
   margin: .8rem auto;
   border-radius: .6rem;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .table_body::-webkit-scrollbar{

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../services/user.service'
 import {FormControl, FormGroup} from '@angular/forms'
+import {GroupService} from '../../services/group.service'
 
 @Component({
   selector: 'mc-createUser',
@@ -8,9 +9,14 @@ import {FormControl, FormGroup} from '@angular/forms'
   styleUrls: ['createUser.component.scss'],
 })
 export class CreateUserComponent implements OnInit {
-  constructor(public userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    public groupService: GroupService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.groupService.getAll().subscribe()
+  }
 
   form = new FormGroup({
     email: new FormControl<string>(''),

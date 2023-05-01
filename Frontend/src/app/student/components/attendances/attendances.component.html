@@ -4,10 +4,20 @@
     <form (ngSubmit)="Submit()" [formGroup]="form">
       <section class="table_header">
         <input
-          class="field"
+          matInput
+          type="text"
+          [matAutocomplete]="auto"
           placeholder="Название предмета"
           formControlName="lesson"
+          class="field"
         />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let lesson of lessonService.lessons"
+            [value]="lesson.name"
+            >{{ lesson.name }}</mat-option
+          >
+        </mat-autocomplete>
         <input type="date" class="field" formControlName="date" required />
         <button class="login-button">Создать</button>
       </section>
