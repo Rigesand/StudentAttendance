@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StudentAttendance.Core;
+using StudentAttendance.Core.Domains.Attendances.Repostories;
 using StudentAttendance.Core.Domains.Groups.Repositories;
 using StudentAttendance.Core.Domains.Lessons.Repositories;
 using StudentAttendance.Core.Domains.Roles.Repositories;
 using StudentAttendance.Core.Domains.Students.Repositories;
 using StudentAttendance.Core.Domains.Users.Repositories;
+using StudentAttendance.Data.Entities.Attendances.Repositories;
 using StudentAttendance.Data.Entities.Groups.Repositories;
 using StudentAttendance.Data.Entities.Lessons.Repositories;
 using StudentAttendance.Data.Entities.Roles.Repositories;
@@ -22,6 +24,7 @@ public static class Bootstraps
         services.AddScoped<IStudentRepository, StudentRepository>();
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<ILessonRepository, LessonRepository>();
+        services.AddScoped<IAttendanceRepository, AttendanceRepository>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         return services;
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StudentAttendance.Api.Controllers.Attendances.Dto;
 using StudentAttendance.Api.Controllers.Authorizations.Dto;
 using StudentAttendance.Api.Controllers.Groups.Dto;
 using StudentAttendance.Api.Controllers.Lessons.Dto;
@@ -6,6 +7,7 @@ using StudentAttendance.Api.Controllers.Profiles.Dto;
 using StudentAttendance.Api.Controllers.Students.Dto;
 using StudentAttendance.Api.Controllers.Users.Dto;
 using StudentAttendance.Core;
+using StudentAttendance.Core.Domains.Attendances;
 using StudentAttendance.Core.Domains.Groups;
 using StudentAttendance.Core.Domains.Lessons;
 using StudentAttendance.Core.Domains.Students;
@@ -35,5 +37,8 @@ public class ApiMappingProfile : Profile
 
         CreateMap<LessonRequest, Lesson>().ReverseMap();
         CreateMap<LessonResponse, Lesson>().ReverseMap();
+        
+        CreateMap<Attendance, AttendanceDto>().ReverseMap();
+        CreateMap<AttendingLesson, AttendingLessonDto>().ReverseMap();
     }
 }

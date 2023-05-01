@@ -3,7 +3,11 @@
   <div class="table">
     <form>
       <section class="table_header">
-        <input class="field" placeholder="Название предмета" required />
+        <input
+          class="field"
+          placeholder="Название предмета"
+          formControlName="lesson"
+        />
         <input type="date" class="field" required />
         <button class="login-button" routerLink="/admin/createUser">
           Создать
@@ -18,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let student of studentService.students; let i = index">
+            <tr *ngFor="let student of studentService.students">
               <td>{{ student.name }}</td>
               <td class="textcenter">
                 <input type="checkbox" />

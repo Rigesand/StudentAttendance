@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using StudentAttendance.Core.Domains.Attendances;
 using StudentAttendance.Core.Domains.Groups;
 using StudentAttendance.Core.Domains.Lessons;
 using StudentAttendance.Core.Domains.Roles;
 using StudentAttendance.Core.Domains.Students;
 using StudentAttendance.Core.Domains.Users;
+using StudentAttendance.Data.Entities.Attendances;
 using StudentAttendance.Data.Entities.Groups;
 using StudentAttendance.Data.Entities.Lessons;
 using StudentAttendance.Data.Entities.Roles;
@@ -23,5 +25,8 @@ public class DataMappingProfile : Profile
         CreateMap<Group, GroupDb>().ReverseMap();
 
         CreateMap<Lesson, LessonDb>().ReverseMap();
+
+        CreateMap<Attendance, AttendanceDb>().ReverseMap();
+        CreateMap<AttendingLesson, AttendingLessonDb>().ReverseMap();
     }
 }

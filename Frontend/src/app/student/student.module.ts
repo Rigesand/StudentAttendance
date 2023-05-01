@@ -1,16 +1,21 @@
 import {NgModule} from '@angular/core'
 import {CreateStudentComponent} from './components/createStudent/createStudent.component'
-import {ReactiveFormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {RouterModule, Routes} from '@angular/router'
 import {UpdateStudentComponent} from './components/updateStudent/updateStudent.component'
 import {DeleteStudentComponent} from './components/deleteStudent/deleteStudent.component'
 import {StudentsComponent} from './components/students/students.component'
-import {NgForOf} from '@angular/common'
+import {AsyncPipe, NgForOf} from '@angular/common'
 import {AttendancesComponent} from './components/attendances/attendances.component'
 import {StudentService} from './services/student.service'
 import {SidebarStudentComponent} from './components/sidebarStudent/sidebarStudent.component'
 import {AngularSvgIconModule} from 'angular-svg-icon'
 import {ProfileStudentComponent} from './components/profileStudent/profileStudent.component'
+import {FilterLessonsPipe} from './pipes/filter-lessons.pipe'
+import {MatAutocompleteModule} from '@angular/material/autocomplete'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 const routes: Routes = [
   {
@@ -45,6 +50,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgForOf,
     AngularSvgIconModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    AsyncPipe,
   ],
   declarations: [
     CreateStudentComponent,
@@ -54,6 +63,7 @@ const routes: Routes = [
     AttendancesComponent,
     ProfileStudentComponent,
     SidebarStudentComponent,
+    FilterLessonsPipe,
   ],
   providers: [StudentService],
   exports: [],
