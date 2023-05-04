@@ -34,11 +34,15 @@ public class AttendanceService : IAttendanceService
         DateTimeOffset begin, DateTimeOffset end)
     {
         var attendanceInfo = new List<LessonAttendanceInfo>();
-        while (begin.Date != end.Date)
+        while (begin.Date <= end.Date)
         {
             var info = await _attendanceRepository.GetInfoAttendanceByDate(lessonId, groupNumber, begin);
-            attendanceInfo.Add(info);
-            begin.Date.AddDays(1);
+            if (info.Absence != 0 && info.Visited != 0)
+            {
+                attendanceInfo.Add(info);
+            }
+
+            begin = begin.Date.AddDays(1);
         }
 
         return attendanceInfo;
