@@ -1,4 +1,4 @@
-﻿using StudentAttendance.Core.Domains.Attendances.Repostories;
+﻿using StudentAttendance.Core.Domains.Attendances.Repositories;
 
 namespace StudentAttendance.Core.Domains.Attendances.Services;
 
@@ -24,19 +24,19 @@ public class AttendanceService : IAttendanceService
         return await _attendanceRepository.GetAttendanceFromData(attendance);
     }
 
-    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, Guid groupId)
+    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, string groupNumber)
     {
-        return await _attendanceRepository.GetAttendance(lessonId, groupId);
+        return await _attendanceRepository.GetAttendance(lessonId, groupNumber);
     }
 
 
-    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, Guid groupId,
+    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, string groupNumber,
         DateTimeOffset begin, DateTimeOffset end)
     {
         var attendanceInfo = new List<LessonAttendanceInfo>();
         while (begin.Date != end.Date)
         {
-            var info = await _attendanceRepository.GetInfoAttendanceByDate(lessonId, groupId, begin);
+            var info = await _attendanceRepository.GetInfoAttendanceByDate(lessonId, groupNumber, begin);
             attendanceInfo.Add(info);
             begin.Date.AddDays(1);
         }

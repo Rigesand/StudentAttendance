@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StudentAttendance.Core;
-using StudentAttendance.Core.Domains.Attendances.Repostories;
+using StudentAttendance.Core.Domains.Attendances.Repositories;
 using StudentAttendance.Core.Domains.Groups.Repositories;
 using StudentAttendance.Core.Domains.Lessons.Repositories;
 using StudentAttendance.Core.Domains.Roles.Repositories;

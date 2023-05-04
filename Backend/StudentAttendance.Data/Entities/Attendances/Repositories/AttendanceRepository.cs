@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentAttendance.Core.Domains.Attendances;
-using StudentAttendance.Core.Domains.Attendances.Repostories;
+using StudentAttendance.Core.Domains.Attendances.Repositories;
 using StudentAttendance.Core.Domains.Groups.Repositories;
 
 namespace StudentAttendance.Data.Entities.Attendances.Repositories;
@@ -41,11 +41,11 @@ public class AttendanceRepository : IAttendanceRepository
         return _mapper.Map<Attendance>(attendanceDb);
     }
 
-    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, Guid groupId)
+    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, string groupNumber)
     {
         var info = new LessonAttendanceInfo();
 
-        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupId);
+        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupNumber);
         var all = attendances
             .SelectMany(it => it.StudentAttendances).Count();
         info.Visited = attendances
@@ -54,18 +54,20 @@ public class AttendanceRepository : IAttendanceRepository
         return info;
     }
 
-    private async Task<IEnumerable<AttendanceDb>> GetAttenanceByLessondAndGroup(Guid lessonId, Guid groupId)
+    private async Task<IEnumerable<AttendanceDb>> GetAttenanceByLessondAndGroup(Guid lessonId, string groupNumber)
     {
+        var group = await _groupRepository.GetIdByGroupNumber(groupNumber);
         return await _context.Attendances
-            .Where(it => it.GroupId == groupId && it.LessonId == lessonId)
+            .Where(it => it.GroupId == group && it.LessonId == lessonId)
             .Include(it => it.StudentAttendances).ToListAsync();
     }
 
-    public async Task<LessonAttendanceInfo> GetInfoAttendanceByDate(Guid lessonId, Guid groupId, DateTimeOffset date)
+    public async Task<LessonAttendanceInfo> GetInfoAttendanceByDate(Guid lessonId, string groupNumber,
+        DateTimeOffset date)
     {
         var info = new LessonAttendanceInfo();
 
-        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupId);
+        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupNumber);
         var all = attendances.Where(it => it.Data.Date == date.Date)
             .SelectMany(it => it.StudentAttendances).Count();
         info.Visited = attendances.Where(it => it.Data.Date == date.Date)

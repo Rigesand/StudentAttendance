@@ -39,7 +39,7 @@ public class ApiMappingProfile : Profile
         CreateMap<LessonResponse, Lesson>().ReverseMap();
         
         CreateMap<Attendance, AttendanceDto>().ReverseMap();
-        CreateMap<Attendance, AttendanceRequest>().ReverseMap();
+        CreateMap<Attendance, FilterDate>().ReverseMap();
         CreateMap<AttendingLesson, AttendingLessonDto>().ReverseMap();
         
     }

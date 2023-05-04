@@ -27,7 +27,7 @@ public class AttendanceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<AttendanceDto> GetAttendanceFromData(AttendanceRequest request)
+    public async Task<AttendanceDto> GetAttendanceFromData(FilterDate request)
     {
         var attendanceDb = _mapper.Map<Attendance>(request);
         var attendance = await _service.GetAttendanceFromData(attendanceDb);
@@ -35,8 +35,14 @@ public class AttendanceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, Guid groupId)
+    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, string groupNumber)
     {
-        return await _service.GetAttendance(lessonId, groupId);
+        return await _service.GetAttendance(lessonId, groupNumber);
+    }
+
+    [HttpPost]
+    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(FilterTimeSpan filter)
+    {
+        return await _service.GetLessonsInfo(filter.LessonId, filter.GroupNumber, filter.BeginDate, filter.EndDate);
     }
 }
