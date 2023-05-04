@@ -2,7 +2,7 @@
 
 namespace StudentAttendance.Core.Domains.Attendances.Services;
 
-public class AttendanceService: IAttendanceService
+public class AttendanceService : IAttendanceService
 {
     private readonly IAttendanceRepository _attendanceRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -17,5 +17,10 @@ public class AttendanceService: IAttendanceService
     {
         await _attendanceRepository.Add(attendance);
         await _unitOfWork.SaveChanges();
+    }
+
+    public async Task<Attendance> GetAttendanceFromData(Attendance attendance)
+    {
+        return await _attendanceRepository.GetAttendanceFromData(attendance);
     }
 }

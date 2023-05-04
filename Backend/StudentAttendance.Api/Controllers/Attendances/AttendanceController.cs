@@ -25,4 +25,12 @@ public class AttendanceController : ControllerBase
         var attendance = _mapper.Map<Attendance>(attendanceDto);
         await _service.Add(attendance);
     }
+
+    [HttpPost]
+    public async Task<AttendanceDto> GetAttendanceFromData(AttendanceRequest request)
+    {
+        var attendanceDb = _mapper.Map<Attendance>(request);
+        var attendance = await _service.GetAttendanceFromData(attendanceDb);
+        return _mapper.Map<AttendanceDto>(attendance);
+    }
 }

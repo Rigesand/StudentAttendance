@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendance.Data;
 
@@ -11,9 +12,10 @@ using StudentAttendance.Data;
 namespace StudentAttendance.Data.Migrations
 {
     [DbContext(typeof(StudentAttendanceDbContext))]
-    partial class StudentAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230504085232_change attendance table")]
+    partial class changeattendancetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +175,7 @@ namespace StudentAttendance.Data.Migrations
             modelBuilder.Entity("StudentAttendance.Data.Entities.Attendances.AttendanceDb", b =>
                 {
                     b.HasOne("StudentAttendance.Data.Entities.Groups.GroupDb", "Group")
-                        .WithMany("Attendances")
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -226,8 +228,6 @@ namespace StudentAttendance.Data.Migrations
 
             modelBuilder.Entity("StudentAttendance.Data.Entities.Groups.GroupDb", b =>
                 {
-                    b.Navigation("Attendances");
-
                     b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
