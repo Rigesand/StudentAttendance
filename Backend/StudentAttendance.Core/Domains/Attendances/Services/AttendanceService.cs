@@ -28,4 +28,19 @@ public class AttendanceService : IAttendanceService
     {
         return await _attendanceRepository.GetAttendance(lessonId, groupId);
     }
+
+
+    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, Guid groupId,
+        DateTimeOffset begin, DateTimeOffset end)
+    {
+        var attendanceInfo = new List<LessonAttendanceInfo>();
+        while (begin.Date != end.Date)
+        {
+            var info = await _attendanceRepository.GetInfoAttendanceByDate(lessonId, groupId, begin);
+            attendanceInfo.Add(info);
+            begin.Date.AddDays(1);
+        }
+
+        return attendanceInfo;
+    }
 }

@@ -45,12 +45,30 @@ public class AttendanceRepository : IAttendanceRepository
     {
         var info = new LessonAttendanceInfo();
 
-        var attendances = await _context.Attendances
-            .Where(it => it.GroupId == groupId && it.LessonId == lessonId)
-            .Include(it => it.StudentAttendances).ToListAsync();
+        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupId);
         var all = attendances
             .SelectMany(it => it.StudentAttendances).Count();
         info.Visited = attendances
+            .SelectMany(it => it.StudentAttendances.Where(s => s.Status)).Count();
+        info.Absence = all - info.Visited;
+        return info;
+    }
+
+    private async Task<IEnumerable<AttendanceDb>> GetAttenanceByLessondAndGroup(Guid lessonId, Guid groupId)
+    {
+        return await _context.Attendances
+            .Where(it => it.GroupId == groupId && it.LessonId == lessonId)
+            .Include(it => it.StudentAttendances).ToListAsync();
+    }
+
+    public async Task<LessonAttendanceInfo> GetInfoAttendanceByDate(Guid lessonId, Guid groupId, DateTimeOffset date)
+    {
+        var info = new LessonAttendanceInfo();
+
+        var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupId);
+        var all = attendances.Where(it => it.Data.Date == date.Date)
+            .SelectMany(it => it.StudentAttendances).Count();
+        info.Visited = attendances.Where(it => it.Data.Date == date.Date)
             .SelectMany(it => it.StudentAttendances.Where(s => s.Status)).Count();
         info.Absence = all - info.Visited;
         return info;
