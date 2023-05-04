@@ -23,4 +23,9 @@ public class AttendanceService : IAttendanceService
     {
         return await _attendanceRepository.GetAttendanceFromData(attendance);
     }
+
+    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, Guid groupId)
+    {
+        return await _attendanceRepository.GetAttendance(lessonId, groupId);
+    }
 }

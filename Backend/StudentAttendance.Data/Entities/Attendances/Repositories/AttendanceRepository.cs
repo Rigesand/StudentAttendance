@@ -40,4 +40,19 @@ public class AttendanceRepository : IAttendanceRepository
                                        && it.GroupId == attendance.GroupId);
         return _mapper.Map<Attendance>(attendanceDb);
     }
+
+    public async Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, Guid groupId)
+    {
+        var info = new LessonAttendanceInfo();
+
+        var attendances = await _context.Attendances
+            .Where(it => it.GroupId == groupId && it.LessonId == lessonId)
+            .Include(it => it.StudentAttendances).ToListAsync();
+        var all = attendances
+            .SelectMany(it => it.StudentAttendances).Count();
+        info.Visited = attendances
+            .SelectMany(it => it.StudentAttendances.Where(s => s.Status)).Count();
+        info.Absence = all - info.Visited;
+        return info;
+    }
 }
