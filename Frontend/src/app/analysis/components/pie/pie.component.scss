@@ -1,0 +1,16 @@
+.main-content{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../../../assets/images/ti.jpg")center / cover;
+}
+.figure{
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  height: 400px;
+  width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+}

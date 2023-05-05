@@ -17,6 +17,7 @@ import {StudentModule} from './student/student.module'
 import {AuthModule} from './auth/auth.module'
 import {ReactiveFormsModule} from '@angular/forms'
 import {LessonModule} from './lesson/lesson.module'
+import {AnalysisModule} from './analysis/analysis.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import {LessonModule} from './lesson/lesson.module'
     HttpClientModule,
     ReactiveFormsModule,
     LessonModule,
+    AnalysisModule,
   ],
   providers: [
     AuthGuardService,

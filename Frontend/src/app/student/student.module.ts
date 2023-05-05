@@ -67,6 +67,6 @@ const routes: Routes = [
     FilterLessonsPipe,
   ],
   providers: [StudentService, AttendanceService],
-  exports: [],
+  exports: [SidebarStudentComponent],
 })
 export class StudentModule {}
