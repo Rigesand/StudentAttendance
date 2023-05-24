@@ -9,8 +9,41 @@
   background-color: #fff5;
   backdrop-filter: blur(7px);
   height: 400px;
-  width: 800px;
+  width: 700px;
   padding: 20px;
   border-radius: 10px;
-  align-items: center;
+  display: flex;
+}
+
+.field{
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 250px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  background: #FFFFFF;
+  height: 40px;
+}
+.field:focus,.field:hover{
+  outline: 2px solid #04CC69;
+}
+
+.login-button{
+  cursor: pointer;
+  width: 250px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  border: 1px solid #04CC69;
+  background-color: #04CC69;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+}
+.login-button:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: #04CC69;
+  transition: .3s;
 }

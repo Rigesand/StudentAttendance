@@ -5,6 +5,8 @@ import {NgForOf} from '@angular/common'
 import {AngularSvgIconModule} from 'angular-svg-icon'
 import {PieComponent} from './components/pie/pie.component'
 import {StudentModule} from '../student/student.module'
+import {MatInputModule} from '@angular/material/input'
+import {MatAutocompleteModule} from '@angular/material/autocomplete'
 
 const routes: Routes = [
   {
@@ -20,6 +22,8 @@ const routes: Routes = [
     NgForOf,
     AngularSvgIconModule.forRoot(),
     StudentModule,
+    MatInputModule,
+    MatAutocompleteModule,
   ],
   declarations: [PieComponent],
   providers: [],

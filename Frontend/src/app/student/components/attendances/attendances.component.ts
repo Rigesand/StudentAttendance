@@ -52,6 +52,7 @@ export class AttendancesComponent implements OnInit {
         data: this.form.controls.date.value as Date,
         lessonId: id,
         studentAttendances: this.options,
+        groupNumber: this.userService.currentUser.groupNumber,
       })
       .subscribe()
   }

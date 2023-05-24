@@ -5,4 +5,5 @@ export interface Attendance {
   data: Date
   lessonId: UUID
   studentAttendances: AttendingLesson[]
+  groupNumber: string
 }
