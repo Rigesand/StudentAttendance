@@ -10,4 +10,5 @@ public interface IAttendanceService
         DateTimeOffset begin, DateTimeOffset end);
 
     Task<LessonAttendanceInfo> GetAttendanceByStudent(Guid studentId, Guid lessonId, string groupNumber);
+    Task<IEnumerable<DateTimeOffset>> GetAbsenceList(Guid lessonId, Guid studentId, string groupNumber);
 }

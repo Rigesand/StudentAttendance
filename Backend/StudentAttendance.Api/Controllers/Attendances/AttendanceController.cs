@@ -51,4 +51,10 @@ public class AttendanceController : ControllerBase
     {
         return await _service.GetAttendanceByStudent(attendance.StudentId, attendance.LessonId, attendance.GroupNumber);
     }
+
+    [HttpPost]
+    public async Task<IEnumerable<DateTimeOffset>> GetAbsenceList(Guid lessonId, Guid studentId, string groupNumber)
+    {
+        return await _service.GetAbsenceList(lessonId, studentId, groupNumber);
+    }
 }

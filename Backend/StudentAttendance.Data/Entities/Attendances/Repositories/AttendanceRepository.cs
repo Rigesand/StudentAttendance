@@ -92,4 +92,15 @@ public class AttendanceRepository : IAttendanceRepository
 
         return info;
     }
+
+    public async Task<IEnumerable<DateTimeOffset>> GetAbsenceList(Guid lessonId, Guid studentId, string groupNumber)
+    {
+        var group = await _groupRepository.GetIdByGroupNumber(groupNumber);
+        return await _context.Attendances
+            .Where(it => it.GroupId == group &&
+                         it.StudentAttendances.Any(c => c.Status == false && c.StudentId == studentId))
+            .Select(d => d.Data)
+            .OrderBy(d=>d)
+            .ToListAsync();
+    }
 }

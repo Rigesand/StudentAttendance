@@ -1,26 +1,56 @@
 <mc-sidebarStudent></mc-sidebarStudent>
 <div class="main-content">
-  <div class="figure">
+  <div class="table">
     <form (ngSubmit)="Submit()" [formGroup]="form">
-      <input
-        matInput
-        type="text"
-        [matAutocomplete]="auto"
-        placeholder="Название предмета"
-        formControlName="lesson"
-        class="field"
-      />
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option
-          *ngFor="let lesson of lessonService.lessons"
-          [value]="lesson.name"
-          >{{ lesson.name }}</mat-option
-        >
-      </mat-autocomplete>
-      <input type="date" class="field" formControlName="BeginDate" required />
-      <input type="date" class="field" formControlName="EndDate" required />
-      <button class="login-button">Построить график</button>
+      <section class="table_header">
+        <input
+          matInput
+          type="text"
+          [matAutocomplete]="auto"
+          placeholder="Название предмета"
+          formControlName="lesson"
+          class="field"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let lesson of lessonService.lessons"
+            [value]="lesson.name"
+            >{{ lesson.name }}</mat-option
+          >
+        </mat-autocomplete>
+        <input
+          matInput
+          type="text"
+          [matAutocomplete]="st"
+          placeholder="Студент"
+          formControlName="student"
+          class="field"
+        />
+        <mat-autocomplete #st="matAutocomplete">
+          <mat-option
+            *ngFor="let student of studentService.students"
+            [value]="student.name"
+            >{{ student.name }}</mat-option
+          >
+        </mat-autocomplete>
+        <button class="login-button">Запросить данные</button>
+      </section>
+      <section class="table_body">
+        <table>
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Дата пропуска</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let date of dates">
+              <td>{{ this.name }}</td>
+              <td>{{ date | date : 'dd.MM.yyyy' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </form>
-    <canvas id="bar">{{ chart }}</canvas>
   </div>
 </div>

@@ -37,10 +37,14 @@ export class AttendanceService {
     )
   }
 
-  GetLessonsInfo(filter: FilterTimeSpan): Observable<LessonInfoWithDate[]> {
-    return this.http.post<LessonInfoWithDate[]>(
-      `/api/Attendance/GetLessonsInfo`,
-      filter
+  GetAbsenceList(
+    lessonId: UUID,
+    studentId: UUID,
+    groupNumber: string
+  ): Observable<Date[]> {
+    return this.http.post<Date[]>(
+      `/api/Attendance/GetAbsenceList?lessonId=${lessonId}&groupNumber=${groupNumber}&studentId=${studentId}`,
+      {}
     )
   }
 }

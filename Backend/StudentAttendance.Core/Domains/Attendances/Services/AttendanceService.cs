@@ -52,4 +52,9 @@ public class AttendanceService : IAttendanceService
     {
         return await _attendanceRepository.GetAttendanceByStudent(studentId, lessonId, groupNumber);
     }
+
+    public async Task<IEnumerable<DateTimeOffset>> GetAbsenceList(Guid lessonId, Guid studentId, string groupNumber)
+    {
+        return await _attendanceRepository.GetAbsenceList(lessonId, studentId, groupNumber);
+    }
 }
