@@ -47,4 +47,9 @@ public class AttendanceService : IAttendanceService
 
         return attendanceInfo;
     }
+
+    public async Task<LessonAttendanceInfo> GetAttendanceByStudent(Guid studentId, Guid lessonId, string groupNumber)
+    {
+        return await _attendanceRepository.GetAttendanceByStudent(studentId, lessonId, groupNumber);
+    }
 }

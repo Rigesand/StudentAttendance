@@ -1,0 +1,39 @@
+<mc-sidebarStudent></mc-sidebarStudent>
+<div class="main-content">
+  <div class="figure">
+    <form (ngSubmit)="Submit()" [formGroup]="form">
+      <input
+        matInput
+        type="text"
+        [matAutocomplete]="auto"
+        placeholder="Название предмета"
+        formControlName="lesson"
+        class="field"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let lesson of lessonService.lessons"
+          [value]="lesson.name"
+          >{{ lesson.name }}</mat-option
+        >
+      </mat-autocomplete>
+      <input
+        matInput
+        type="text"
+        [matAutocomplete]="st"
+        placeholder="Студент"
+        formControlName="student"
+        class="field"
+      />
+      <mat-autocomplete #st="matAutocomplete">
+        <mat-option
+          *ngFor="let student of studentService.students"
+          [value]="student.name"
+          >{{ student.name }}</mat-option
+        >
+      </mat-autocomplete>
+      <button class="login-button">Построить график</button>
+    </form>
+    <canvas id="pieStudent">{{ chart }}</canvas>
+  </div>
+</div>

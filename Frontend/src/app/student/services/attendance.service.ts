@@ -4,6 +4,7 @@ import {Observable} from 'rxjs'
 import {Attendance} from '../types/Attendance'
 import {LessonAttendanceInfo} from '../../analysis/types/lessonAttendanceInfo'
 import {UUID} from 'angular2-uuid'
+import {AttendanceStudent} from '../../analysis/types/attendanceStudent'
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,15 @@ export class AttendanceService {
     return this.http.post<LessonAttendanceInfo>(
       `/api/Attendance/GetAttendance?lessonId=${lessonId}&groupNumber=${groupNumber}`,
       {}
+    )
+  }
+
+  GetAttendanceByStudent(
+    attendanceStudent: AttendanceStudent
+  ): Observable<LessonAttendanceInfo> {
+    return this.http.post<LessonAttendanceInfo>(
+      `/api/Attendance/GetAttendanceByStudent`,
+      attendanceStudent
     )
   }
 }

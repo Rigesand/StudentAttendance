@@ -8,4 +8,6 @@ public interface IAttendanceService
 
     Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, string groupNumber,
         DateTimeOffset begin, DateTimeOffset end);
+
+    Task<LessonAttendanceInfo> GetAttendanceByStudent(Guid studentId, Guid lessonId, string groupNumber);
 }

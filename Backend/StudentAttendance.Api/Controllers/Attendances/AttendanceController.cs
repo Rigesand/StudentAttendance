@@ -45,4 +45,10 @@ public class AttendanceController : ControllerBase
     {
         return await _service.GetLessonsInfo(filter.LessonId, filter.GroupNumber, filter.BeginDate, filter.EndDate);
     }
+
+    [HttpPost]
+    public async Task<LessonAttendanceInfo> GetAttendanceByStudent(AttendanceStudent attendance)
+    {
+        return await _service.GetAttendanceByStudent(attendance.StudentId, attendance.LessonId, attendance.GroupNumber);
+    }
 }
