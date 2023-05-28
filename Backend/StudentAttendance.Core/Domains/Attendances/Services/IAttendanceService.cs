@@ -6,7 +6,7 @@ public interface IAttendanceService
     Task<Attendance> GetAttendanceFromData(Attendance attendance);
     Task<LessonAttendanceInfo> GetAttendance(Guid lessonId, string groupNumber);
 
-    Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, string groupNumber,
+    Task<IEnumerable<LessonInfoWithDate>> GetLessonsInfo(Guid lessonId, string groupNumber,
         DateTimeOffset begin, DateTimeOffset end);
 
     Task<LessonAttendanceInfo> GetAttendanceByStudent(Guid studentId, Guid lessonId, string groupNumber);

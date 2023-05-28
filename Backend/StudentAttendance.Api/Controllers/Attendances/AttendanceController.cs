@@ -41,7 +41,7 @@ public class AttendanceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(FilterTimeSpan filter)
+    public async Task<IEnumerable<LessonInfoWithDate>> GetLessonsInfo(FilterTimeSpan filter)
     {
         return await _service.GetLessonsInfo(filter.LessonId, filter.GroupNumber, filter.BeginDate, filter.EndDate);
     }

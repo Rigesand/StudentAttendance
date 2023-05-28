@@ -62,10 +62,10 @@ public class AttendanceRepository : IAttendanceRepository
             .Include(it => it.StudentAttendances);
     }
 
-    public async Task<LessonAttendanceInfo> GetInfoAttendanceByDate(Guid lessonId, string groupNumber,
+    public async Task<LessonInfoWithDate> GetInfoAttendanceByDate(Guid lessonId, string groupNumber,
         DateTimeOffset date)
     {
-        var info = new LessonAttendanceInfo();
+        var info = new LessonInfoWithDate();
 
         var attendances = await GetAttenanceByLessondAndGroup(lessonId, groupNumber);
         var all = attendances.Where(it => it.Data.Date == date.Date)
@@ -73,6 +73,8 @@ public class AttendanceRepository : IAttendanceRepository
         info.Visited = attendances.Where(it => it.Data.Date == date.Date)
             .SelectMany(it => it.StudentAttendances.Where(s => s.Status)).Count();
         info.Absence = all - info.Visited;
+
+        info.Date = date;
         return info;
     }
 

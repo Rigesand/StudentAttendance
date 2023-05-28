@@ -8,6 +8,7 @@ import {StudentModule} from '../student/student.module'
 import {MatInputModule} from '@angular/material/input'
 import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import {PieStudentComponent} from './components/pieStudent/pieStudent.component'
+import {BarComponent} from './components/bar/bar.component'
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'analysis/pieStudent',
     component: PieStudentComponent,
+  },
+  {
+    path: 'analysis/bar',
+    component: BarComponent,
   },
 ]
 
@@ -30,7 +35,7 @@ const routes: Routes = [
     MatInputModule,
     MatAutocompleteModule,
   ],
-  declarations: [PieComponent, PieStudentComponent],
+  declarations: [PieComponent, PieStudentComponent, BarComponent],
   providers: [],
   exports: [],
 })

@@ -5,6 +5,8 @@ import {Attendance} from '../types/Attendance'
 import {LessonAttendanceInfo} from '../../analysis/types/lessonAttendanceInfo'
 import {UUID} from 'angular2-uuid'
 import {AttendanceStudent} from '../../analysis/types/attendanceStudent'
+import {FilterTimeSpan} from '../../analysis/types/FilterTimeSpan'
+import {LessonInfoWithDate} from '../../analysis/types/lessonInfoWithDate'
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +34,13 @@ export class AttendanceService {
     return this.http.post<LessonAttendanceInfo>(
       `/api/Attendance/GetAttendanceByStudent`,
       attendanceStudent
+    )
+  }
+
+  GetLessonsInfo(filter: FilterTimeSpan): Observable<LessonInfoWithDate[]> {
+    return this.http.post<LessonInfoWithDate[]>(
+      `/api/Attendance/GetLessonsInfo`,
+      filter
     )
   }
 }

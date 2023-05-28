@@ -30,10 +30,10 @@ public class AttendanceService : IAttendanceService
     }
 
 
-    public async Task<IEnumerable<LessonAttendanceInfo>> GetLessonsInfo(Guid lessonId, string groupNumber,
+    public async Task<IEnumerable<LessonInfoWithDate>> GetLessonsInfo(Guid lessonId, string groupNumber,
         DateTimeOffset begin, DateTimeOffset end)
     {
-        var attendanceInfo = new List<LessonAttendanceInfo>();
+        var attendanceInfo = new List<LessonInfoWithDate>();
         while (begin.Date <= end.Date)
         {
             var info = await _attendanceRepository.GetInfoAttendanceByDate(lessonId, groupNumber, begin);
